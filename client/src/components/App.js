@@ -1,7 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { Router } from "@reach/router";
 import NotFound from "./pages/NotFound.js";
-import Skeleton from "./pages/Skeleton.js";
+import NavBar from "./modules/NavBar.js";
+import Home from "./pages/Home.js";
+import Account from "./pages/Account.js";
+import Requests from "./pages/Requests.js";
+import Explore from "./pages/Explore.js";
+import Fulfill from "./pages/Fulfill.js";
 
 import "../utilities.css";
 
@@ -18,7 +23,7 @@ const App = () => {
   useEffect(() => {
     get("/api/whoami").then((user) => {
       if (user._id) {
-        // they are registed in the database, and currently logged in.
+        // they are registered in the database, and currently logged in.
         setUserId(user._id);
       }
     });
@@ -39,9 +44,20 @@ const App = () => {
   };
 
   return (
+    // eventually remove navbar from home page (home page has 4 buttons + login)
+    // home page also probably shouldn't be on navbar
     <>
+      <NavBar
+        handleLogin={handleLogin}
+        handleLogout={handleLogout}
+        userId={userId}
+      />
       <Router>
-        <Skeleton path="/" handleLogin={handleLogin} handleLogout={handleLogout} userId={userId} />
+        <Home path="/" handleLogin={handleLogin} handleLogout={handleLogout} userId={userId} />
+        <Account path="/account/:userId"/>
+        <Requests path="/requests/" />
+        <Explore path="/explore/" />
+        <Fulfill path="/fulfill/" />
         <NotFound default />
       </Router>
     </>

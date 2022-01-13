@@ -1,0 +1,13 @@
+.requests-container {
+  margin-left: var(--l);
+  text-align: center;
+  justify-content: center;
+  line-height: 600px;
+}
+
+.requests-item {
+  margin-left: var(--l);
+  margin-right: var(--l);
+  font-size: 30px;
+  font-style: italic;
+}
