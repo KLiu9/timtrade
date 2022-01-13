@@ -25,6 +25,13 @@
   --grey: #f7f7f7;
   --white: #fff;
 
+  /* we defined these */
+  --bg: #f8f8f8;
+  --purple: #d6e1ff;
+  --blue: #d6f0ff;
+  --yellow: #fff3d6;
+  --green: #bddbab;
+
   --xs: 4px;
   --s: 8px;
   --m: 16px;

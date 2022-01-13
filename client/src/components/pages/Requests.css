@@ -5,9 +5,12 @@
   line-height: 600px;
 }
 
-.requests-item {
+.requests-item,
+.requests-item:visited {
   margin-left: var(--l);
   margin-right: var(--l);
   font-size: 30px;
   font-style: italic;
+  text-decoration: none;
+  color: var(--black);
 }
