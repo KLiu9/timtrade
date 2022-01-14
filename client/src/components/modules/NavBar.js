@@ -9,7 +9,6 @@ const GOOGLE_CLIENT_ID = "113744910005-h4er20jijgm7isr3pf92sa2t062rk8l6.apps.goo
 const NavBar = (props) => {
     return (
       <nav className="NavBar-container">
-        {/* <div className="NavBar-title u-inlineBlock">Catbook</div> */}
         <div className="NavBar-linkContainer NavBar-align">
           <Link to="/" className="NavBar-link">
             home
@@ -31,7 +30,7 @@ const NavBar = (props) => {
           {props.userId ? (
             <GoogleLogout
               clientId={GOOGLE_CLIENT_ID}
-              buttonText="Logout"
+              buttonText="logout"
               onLogoutSuccess={props.handleLogout}
               onFailure={(err) => console.log(err)}
               className="NavBar-link NavBar-login"
@@ -39,7 +38,7 @@ const NavBar = (props) => {
           ) : (
             <GoogleLogin
               clientId={GOOGLE_CLIENT_ID}
-              buttonText="Login"
+              buttonText="login"
               onSuccess={props.handleLogin}
               onFailure={(err) => console.log(err)}
               className="NavBar-link NavBar-login"
