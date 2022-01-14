@@ -1,8 +1,15 @@
 .requests-container {
   margin-left: var(--l);
+  display: flex;
   text-align: center;
   justify-content: center;
-  line-height: 600px;
+  align-items: center;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: -1;
 }
 
 .requests-item,
