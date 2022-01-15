@@ -4,11 +4,44 @@ import { Router } from "@reach/router";
 
 import "../../utilities.css";
 import "./Home.css";
+import "./CreateRequest.css";
 
-const Home = () => {
+const GOOGLE_CLIENT_ID = "113744910005-h4er20jijgm7isr3pf92sa2t062rk8l6.apps.googleusercontent.com";
+
+const Home = (props) => {
   return (
-    <div className="flex-container">
-      <div className="flex-item">timtrade</div>
+    <div>
+      <div className="flex-container flex-item">timtrade</div>
+      <div className="flex-container">
+        {props.userId ? (
+          <GoogleLogout
+            clientId={GOOGLE_CLIENT_ID}
+            buttonText="logout"
+            onLogoutSuccess={props.handleLogout}
+            onFailure={(err) => console.log(err)}
+            className="home-nav"
+          />
+        ) : (
+          <GoogleLogin
+            clientId={GOOGLE_CLIENT_ID}
+            buttonText="login"
+            onSuccess={props.handleLogin}
+            onFailure={(err) => console.log(err)}
+            className="home-nav"
+          />
+        )}
+      </div>
+      {/* <div className="flex-container">
+        <button
+          // type="submit"
+          className="home-about"
+          // value="Submit"
+          style={{backgroundColor: "var(--purple)",}}
+          // onClick={handleSubmit}
+        >
+          about
+        </button>
+      </div> */}
     </div>
   )
 }
