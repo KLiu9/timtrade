@@ -18,7 +18,7 @@
 const validator = require("./validator");
 validator.checkSetup();
 
-require('dotenv').config();
+require("dotenv").config();
 
 //import libraries needed for the webserver to work!
 const http = require("http");
@@ -102,3 +102,15 @@ socketManager.init(server);
 server.listen(port, () => {
   console.log(`Server running on port: ${port}`);
 });
+
+// mongoose schemas
+const userSchema = new mongoose.Schema({
+  name: String,
+  kerb: String,
+  preferred_contact: String,
+  alternative_contat: String,
+  contact_details: String,
+  location: String,
+});
+
+module.exports = mongoose.model("user", userSchema);
