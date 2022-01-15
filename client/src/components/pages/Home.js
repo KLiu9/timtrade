@@ -35,9 +35,7 @@ const Home = (props) => {
         <button
           // type="submit"
           className="home-about"
-          // value="Submit"
           style={{backgroundColor: "var(--purple)",}}
-          // onClick={handleSubmit}
         >
           about
         </button>
