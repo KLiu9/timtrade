@@ -57,7 +57,7 @@ const Fulfill = () => {
         <Box item="black heels" username="username5" type="borrow" time="week" />
         <Box item="lamp" username="username4" type="buy" time="weeks" />
         <Box item="drying rack" username="username6" type="buy" time="month" />
-        <Box item="drying rack" username="username6" type="buy" time="month" />
+        <Box item="drying rack" username="username7" type="buy" time="month" />
       </div>
     </div>
   );
