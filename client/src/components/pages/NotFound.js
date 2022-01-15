@@ -2,7 +2,7 @@ import React from "react";
 
 const NotFound = () => {
   return (
-    <div>
+    <div className="u-margin">
       <h1>404 Not Found</h1>
       <p>The page you requested couldn't be found.</p>
     </div>

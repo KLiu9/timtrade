@@ -95,3 +95,7 @@ form {
 .u-link:hover {
   color: var(--primary--dim);
 }
+
+.u-margin {
+  margin-left: var(--l);
+}
