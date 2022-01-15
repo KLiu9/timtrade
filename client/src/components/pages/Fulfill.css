@@ -1,0 +1,59 @@
+.fulfill-container {
+  padding: var(--s) var(--m);
+  background-color: var(--bg);
+  height: 450px;
+  width: 100%;
+  margin-right: 0px;
+  margin-top: 20px;
+  margin-bottom: 50px;
+  border-radius: 30px;
+  border-width: 0.5px;
+  float: left;
+  position: relative;
+  column-gap: 20px;
+  overflow-x: scroll;
+  columns: 250px 3;
+  text-align: center;
+  display: grid;
+}
+
+.fulfill-item-box {
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 29px;
+  letter-spacing: 0em;
+  text-align: center;
+  height: 90%;
+  border-radius: 43px;
+  width: 230px;
+  padding: 20px;
+}
+
+.tradeInfo {
+  height: 47px;
+  width: 168px;
+  left: 1052px;
+  top: 745px;
+  border-radius: 24px;
+  font-size: 14px;
+  line-height: 17px;
+  background-color: white;
+}
+
+.search-container {
+  margin-top: 50px;
+  float: right;
+}
+
+.search-box {
+  height: 40px;
+  width: 200px;
+  left: 953px;
+  top: 290px;
+  border-radius: 30px;
+  padding-left: 20px;
+  font-weight: 400;
+  border-width: 1px;
+  -webkit-appearance: none;
+}
