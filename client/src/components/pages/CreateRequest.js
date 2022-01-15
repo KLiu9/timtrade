@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Link } from "@reach/router";
 
 import "../../utilities.css";
 import "./CreateRequest.css";
@@ -97,6 +98,9 @@ const CreateRequest = (props) => {
             // onClick={handleSubmit}
           >
             submit
+            {/* <Link to="/requests/">
+              submit
+            </Link> */}
           </button>
         </form>
       </div>
