@@ -14,7 +14,6 @@
   overflow-x: scroll;
   columns: 250px 3;
   text-align: center;
-  display: grid;
 }
 
 .fulfill-item-box {
