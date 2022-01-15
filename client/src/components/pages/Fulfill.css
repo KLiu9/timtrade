@@ -1,5 +1,6 @@
 .fulfill-container {
   padding: var(--s) var(--m);
+  padding-bottom: 20px;
   background-color: var(--bg);
   height: 450px;
   width: 100%;
@@ -11,9 +12,34 @@
   float: left;
   position: relative;
   column-gap: 20px;
-  overflow-x: scroll;
-  columns: 250px 3;
+  overflow-y: scroll;
   text-align: center;
+
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 30px;
+  grid-auto-rows: 350px 300px;
+}
+
+.fulfill-container::-webkit-scrollbar {
+  -webkit-appearance: none;
+}
+
+.fulfill-container::-webkit-scrollbar:vertical {
+  width: 11px;
+}
+
+.fulfill-container::-webkit-scrollbar:horizontal {
+  height: 11px;
+}
+
+.fulfill-container::-webkit-scrollbar-thumb {
+  border-radius: 8px;
+  background-color: #c4c4c4;
+}
+.fulfill-container::-webkit-scrollbar-thumb {
+  border-radius: 8px;
+  background-color: #c4c4c4;
 }
 
 .fulfill-item-box {
@@ -45,14 +71,23 @@
   float: right;
 }
 
-.search-box {
+.search-box,
+.search-button {
   height: 40px;
-  width: 200px;
   left: 953px;
   top: 290px;
-  border-radius: 30px;
-  padding-left: 20px;
   font-weight: 400;
   border-width: 1px;
   -webkit-appearance: none;
+}
+
+.search-button {
+  border-radius: 0px 30px 30px 0px;
+  padding-right: 10px;
+}
+
+.search-box {
+  width: 200px;
+  border-radius: 30px 0px 0px 30px;
+  padding-left: 20px;
 }

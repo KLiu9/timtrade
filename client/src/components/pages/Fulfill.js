@@ -45,7 +45,9 @@ const Fulfill = () => {
       <div className="search-container">
         <form>
           <input className="search-box" type="text" placeholder="search..." name="search" />
-          <button type="search">go</button>
+          <button className="search-button" type="search">
+            go
+          </button>
         </form>
       </div>
       <div className="fulfill-container">
@@ -55,9 +57,10 @@ const Fulfill = () => {
         <Box item="black heels" username="username5" type="borrow" time="week" />
         <Box item="lamp" username="username4" type="buy" time="weeks" />
         <Box item="drying rack" username="username6" type="buy" time="month" />
+        <Box item="drying rack" username="username6" type="buy" time="month" />
       </div>
     </div>
   );
-};
+}; /*eventually order boxes by time*/
 
 export default Fulfill;
