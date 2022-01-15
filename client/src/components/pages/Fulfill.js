@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 
 const Fulfill = () => {
     return (
-        <div>
+        <div className="u-margin">
             fulfill page
         </div>
     );
