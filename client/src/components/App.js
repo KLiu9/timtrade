@@ -4,6 +4,7 @@ import NotFound from "./pages/NotFound.js";
 import NavBar from "./modules/NavBar.js";
 import Home from "./pages/Home.js";
 import Account from "./pages/Account.js";
+import EditAccount from "./pages/EditAccount.js";
 import Requests from "./pages/Requests.js";
 import Explore from "./pages/Explore.js";
 import Fulfill from "./pages/Fulfill.js";
@@ -53,6 +54,7 @@ const App = () => {
       <Router>
         <Home path="/" handleLogin={handleLogin} handleLogout={handleLogout} userId={userId} />
         <Account path="/account/:userId" />
+        <EditAccount path = "/account/edit/:userId" />
         <Requests path="/requests/" />
         <Explore path="/explore/" />
         <Fulfill path="/fulfill/" />

@@ -2,15 +2,13 @@ import React, { useState, useEffect } from "react";
 import { Link } from "@reach/router";
 
 import "../../utilities.css";
-import "./CreateRequest.css";
 import "./Account.css";
+import "./EditAccount.css";
 
-const Account = (props) => {
+const EditAccount = () => {
     return (
-        // MOVE LOGOUT BUTTON TO THIS PAGE (instead of navbar)
-        <div style={{padding:"0px 50px"}}>
+        <div className="editaccount-container" style={{padding:"0px 50px"}}>
             <div>
-                {/* <a className="user-title">{props.username}</a> */}
                 <div className="user-box">
                     <div className="user-title">@bobaconnoisseur</div>
                     <div className="email-title">katieliu@mit.edu</div>
@@ -18,11 +16,11 @@ const Account = (props) => {
                         type="submit"
                         className="edit-profile"
                         value="Submit"
-                        style={{backgroundColor: "var(--purple)"}}
+                        style={{backgroundColor: "var(--green)"}}
                         // onClick={handleSubmit}
                     >
-                        <Link to="/account/edit/:userId" className="edit-link">
-                            edit profile
+                        <Link to="/account/:userId" className="edit-link">
+                            done
                         </Link>
                     </button>
                 </div>
@@ -34,8 +32,7 @@ const Account = (props) => {
                 <input
                     placeholder="batie biu"
                     // placeholder={props.name}
-                    className="accountinfo-box"
-                    readOnly
+                    className="editprofile-box"
                 >
                 </input>
             </div>
@@ -44,8 +41,7 @@ const Account = (props) => {
                 <input
                     placeholder="katieliu"
                     // placeholder={props.kerb}
-                    className="accountinfo-box"
-                    readOnly
+                    className="editprofile-box"
                 />
             </div>
             <div className="spacing">
@@ -53,8 +49,7 @@ const Account = (props) => {
                 <input
                     placeholder="text message"
                     // placeholder={props.contact1}
-                    className="accountinfo-box"
-                    readOnly
+                    className="editprofile-box"
                 />
             </div>
             <div className="spacing">
@@ -62,8 +57,7 @@ const Account = (props) => {
                 <input
                     placeholder="messenger"
                     // placeholder={props.contact2}
-                    className="accountinfo-box"
-                    readOnly
+                    className="editprofile-box"
                 >
                 </input>
             </div>
@@ -72,8 +66,7 @@ const Account = (props) => {
                 <input
                     placeholder="phone #: 555-555-5555, messenger: @bobaconnoisseur"
                     // placeholder={props.contactDetails}
-                    className="accountinfo-box"
-                    readOnly
+                    className="editprofile-box"
                 >
                 </input>
             </div>
@@ -82,8 +75,7 @@ const Account = (props) => {
                 <input
                     placeholder="new vassar"
                     // placeholder={props.location}
-                    className="accountinfo-box"
-                    readOnly
+                    className="editprofile-box"
                 >
                 </input>
             </div>
@@ -92,4 +84,4 @@ const Account = (props) => {
     );
 };
 
-export default Account;
+export default EditAccount;
