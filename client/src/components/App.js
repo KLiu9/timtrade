@@ -34,6 +34,7 @@ const App = () => {
 
   const handleLogin = (res) => {
     console.log(`Logged in as ${res.profileObj.name}`);
+    console.log(`Your email is ${res.profileObj.email}`);
     const userToken = res.tokenObj.id_token;
     post("/api/login", { token: userToken }).then((user) => {
       setUserId(user._id);
@@ -54,7 +55,7 @@ const App = () => {
       <Router>
         <Home path="/" handleLogin={handleLogin} handleLogout={handleLogout} userId={userId} />
         <Account path="/account/:userId" />
-        <EditAccount path = "/account/edit/:userId" />
+        <EditAccount path="/account/edit/:userId" />
         <Requests path="/requests/" />
         <Explore path="/explore/" />
         <Fulfill path="/fulfill/" />
