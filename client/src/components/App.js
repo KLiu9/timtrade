@@ -22,12 +22,17 @@ import { get, post } from "../utilities";
  */
 const App = () => {
   const [userId, setUserId] = useState(undefined);
+  const [user, setUser] = useState(null);
 
   useEffect(() => {
     get("/api/whoami").then((user) => {
       if (user._id) {
         // they are registered in the database, and currently logged in.
-        setUserId(user._id);
+        /*setUserId(user._id);*/
+        get(`/api/user`, { userid: user._id }).then((userObj) => {
+          setUser(userObj);
+          setUserId(user._id);
+        });
       }
     });
   }, []);
@@ -37,12 +42,16 @@ const App = () => {
     console.log(`Your email is ${res.profileObj.email}`);
     const userToken = res.tokenObj.id_token;
     post("/api/login", { token: userToken }).then((user) => {
-      setUserId(user._id);
       post("/api/initsocket", { socketid: socket.id });
+      get(`/api/user`, { userid: user._id }).then((userObj) => {
+        setUser(userObj);
+        setUserId(user._id);
+      });
     });
   };
 
   const handleLogout = () => {
+    console.log(`Logged out`);
     setUserId(undefined);
     post("/api/logout");
   };

@@ -15,6 +15,8 @@ const Account = (props) => {
     return <div>loading...</div>;
   }
   let id = user._id;
+  console.log(user);
+  user.name = user.name.toLowerCase();
   return (
     // MOVE LOGOUT BUTTON TO THIS PAGE (instead of navbar)
     <div style={{ padding: "0px 50px" }}>
@@ -22,10 +24,7 @@ const Account = (props) => {
         {/* <a className="user-title">{props.username}</a> */}
         <div className="user-box">
           <div className="user-title">{user.name}</div> {/* eventually replace w/ username */}
-          <div className="email-title">
-            katieliu@mit.edu {user.email}
-            {/* not working */}
-          </div>
+          <div className="email-title">{user.email}</div>
           <button
             type="submit"
             className="edit-profile"
@@ -44,7 +43,7 @@ const Account = (props) => {
         <div className="spacing">
           <div className="accountinfo-label">name:</div>
           <input
-            placeholder="batie biu"
+            placeholder={user.name}
             // placeholder={props.name}
             className="accountinfo-box"
             readOnly

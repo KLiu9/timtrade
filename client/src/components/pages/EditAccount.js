@@ -7,7 +7,6 @@ import "./EditAccount.css";
 
 const EditAccount = (props) => {
   let id = props.userId;
-
   return (
     <div className="editaccount-container" style={{ padding: "0px 50px" }}>
       <div>
