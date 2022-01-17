@@ -3,7 +3,6 @@ const User = require("./models/user");
 const socketManager = require("./server-socket");
 
 // create a new OAuth client used to verify google sign-in
-//    TODO: replace with your own CLIENT_ID
 const CLIENT_ID = "113744910005-h4er20jijgm7isr3pf92sa2t062rk8l6.apps.googleusercontent.com";
 const client = new OAuth2Client(CLIENT_ID);
 
@@ -50,6 +49,17 @@ function logout(req, res) {
   req.session.user = null;
   res.send({});
 }
+
+// function logout(req, res) {
+//   const userSocket = socketManager.getSocketFromUserID(req.user._id);
+//   if (userSocket) {
+//     // delete user's socket if they logged out
+//     socketManager.removeUser(req.user, userSocket);
+//   }
+
+//   req.session.user = null;
+//   res.send({});
+// }
 
 function populateCurrentUser(req, res, next) {
   // simply populate "req.user" for convenience

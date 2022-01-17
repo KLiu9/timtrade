@@ -65,9 +65,9 @@ const App = () => {
         <Home path="/" handleLogin={handleLogin} handleLogout={handleLogout} userId={userId} />
         <Account path="/account/:userId" />
         <EditAccount path="/account/edit/:userId" />
-        <Requests path="/requests/" />
-        <Explore path="/explore/" />
-        <Fulfill path="/fulfill/" />
+        <Requests path="/requests/" userId={userId}/>
+        <Explore path="/explore/" userId={userId}/>
+        <Fulfill path="/fulfill/" userId={userId}/>
         <CreateRequest path="/requests/createrequest/" />
         <RequestMatch path="/requests/requestmatch/" />
         <NotFound default />

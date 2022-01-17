@@ -39,7 +39,11 @@ function Box(props) {
   );
 }
 
-const Fulfill = () => {
+const Fulfill = (props) => {
+  if (!props.userId) {
+    return <div className="requests-container requests-item">log in before using the fulfill page!</div>;
+  }
+
   return (
     <div style={{ padding: "0px 50px" }}>
       <div className="search-container">
