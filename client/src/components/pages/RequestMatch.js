@@ -3,11 +3,64 @@ import React, { useState, useEffect } from "react";
 import "../../utilities.css";
 import "./RequestMatch.css";
 import { get } from "../../utilities";
+import { post } from "../../utilities";
+import { Link } from "@reach/router";
 
 let colors = ["var(--purple)", "var(--blue)", "var(--yellow)", "var(--green)"];
 let i = 0;
 
 function Box(props) {
+  const [requests, setRequests] = useState([]);
+
+  useEffect(() => {
+    document.title = "request matches";
+    get("/api/requests", { creator: props.userId }).then((requestObjs) => {
+      // console.log("bye", props.userId);
+      // console.log("61e4d99700fa5b28b75a9f9b");
+      setRequests(requestObjs);
+    });
+  }, []);
+
+  const handleResolve = (event) => {
+    event.preventDefault();
+    //console.log("requests before pressing resolve", requests);
+    //console.log("request being resolved", props);
+
+    let done = false;
+    let i = 0;
+    while (!done && i < requests.length) {
+      /*console.log(i, requests[i]);
+      console.log(requests[i].name);
+      console.log(props.item);*/
+      if (
+        requests[i].name === props.item &&
+        requests[i].description === props.description &&
+        requests[i].type === props.type
+      ) {
+        //console.log("found match");
+        done = true;
+      } else {
+        i++;
+      }
+    }
+
+    if (i < requests.length) {
+      //console.log("index of match: ", i);
+      requests.splice(i, 1);
+      const body = {
+        creator: props.creator,
+        name: props.item,
+        description: props.description,
+        time: props.time,
+        type: props.type,
+      };
+      post("/api/deleterequest", body).then((request) => {
+        console.log("request", request);
+      });
+    }
+    //console.log("requests after pressing resolve", requests);
+  };
+
   let status;
   if (props.username === undefined) {
     status = "waiting to be fulfilled...";
@@ -33,16 +86,17 @@ function Box(props) {
         style={{
           backgroundColor: "#E5E5E5",
         }}
-        // onClick={handleSubmit}
+        onClick={handleResolve}
       >
-        resolve
+        <Link to="/requests/" className="edit-link" userId={props.userId}>
+          resolve
+        </Link>
       </button>
     </div>
   );
 }
 
 const RequestMatch = (props) => {
-
   const [requests, setRequests] = useState([]);
 
   useEffect(() => {
@@ -54,9 +108,13 @@ const RequestMatch = (props) => {
       setRequests(requestObjs);
     });
   }, []);
+  /*const handleResolve = (event) => {
+    event.preventDefault();
+    // const body = { creator: props.userId, name: values.item, description: values.description, type: values.type, time: values.time };
+    console.log("initial requests", requests);
+  };*/
 
   let requestsList = null;
-  console.log("ALL REQUESTS:", requests);
   const hasRequests = requests.length !== 0;
   if (hasRequests) {
     requestsList = requests.map((requestObj) => (
@@ -77,16 +135,13 @@ const RequestMatch = (props) => {
     <>
       <div style={{ padding: "0px 50px" }}>
         <p className="page-title">request matches</p>
-        <div className="requestmatch-container">
-          {requestsList}
-        </div>
+        <div className="requestmatch-container">{requestsList}</div>
       </div>
     </>
   );
 };
 
-  export default RequestMatch;
-
+export default RequestMatch;
 
 //   return (
 //     <div style={{ padding: "0px 50px" }}>
@@ -103,4 +158,4 @@ const RequestMatch = (props) => {
 //   );
 // };
 
-  // export default RequestMatch;
+// export default RequestMatch;

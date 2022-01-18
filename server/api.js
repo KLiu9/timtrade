@@ -67,6 +67,23 @@ router.post("/request", (req, res) => {
   newRequest.save().then((request) => res.send(request));
 });
 
+router.post("/deleterequest", (req, res) => {
+  /*Request.findOne({ name: req.body.name }).then((result) => {
+    console.log(result);
+    result.name = "NOT AN ITEM";
+    result.save().then((request) => res.send(request));
+  });*/
+  Request.deleteOne({
+    creator: req.body.creator,
+    name: req.body.name,
+    description: req.body.description,
+    time: req.body.time,
+    type: req.body.type,
+  }).then((result) => {
+    console.log("deleted request");
+  });
+});
+
 // anything else falls to this "not found" case
 router.all("*", (req, res) => {
   console.log(`API route not found: ${req.method} ${req.url}`);
