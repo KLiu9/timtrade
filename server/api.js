@@ -42,6 +42,12 @@ router.get("/requests", (req, res) => {
   });
 });
 
+router.get("/allrequests", (req, res) => {
+  Request.find({}).then((requests) => {
+    res.send(requests);
+  });
+});
+
 router.get("/user", (req, res) => {
   User.findById(req.query.userid).then((user) => {
     res.send(user);

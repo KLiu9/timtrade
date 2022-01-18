@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { get } from "../../utilities";
 
 import "../../utilities.css";
 import "./Fulfill.css";
@@ -18,7 +19,7 @@ function Box(props) {
       <b>item:</b> {props.item} <br />
       <br />
       <br />
-      <b>@{props.username}</b>
+      <b>{props.creator}</b>
       <br />
       <br />
       <br />
@@ -41,30 +42,70 @@ function Box(props) {
 
 const Fulfill = (props) => {
   if (!props.userId) {
-    return <div className="requests-container requests-item">log in before using the fulfill page!</div>;
+    return (
+      <div className="requests-container requests-item">log in before using the fulfill page!</div>
+    );
   }
 
+  const [requests, setRequests] = useState([]);
+
+  useEffect(() => {
+    get("/api/allrequests", {}).then((requestObjs) => {
+      //console.log("hi", requestObjs);
+      setRequests(requestObjs);
+    });
+  }, []);
+
+  let requestsList = null;
+  let timeIndices = null;
+  const hasRequests = requests.length !== 0;
+  if (hasRequests) {
+    //console.log("requests", requests);
+    const timeOrder = ["hour", "day", "week", "weeks", "month"];
+    requests.sort(function (a, b) {
+      //console.log("sorting");
+      let time1 = timeOrder.findIndex((time) => time === a.time);
+      let time2 = timeOrder.findIndex((time) => time === b.time);
+      if (time1 < time2) {
+        return -1;
+      }
+      if (time1 > time2) {
+        return 1;
+      }
+      return 0;
+    });
+    //console.log("after sort", requests);
+    requestsList = requests.map((requestObj) => (
+      <Box
+        key={`Box_${requestObj._id}`}
+        creator={requestObj.creator}
+        item={requestObj.name}
+        //description={requestObj.description}
+        type={requestObj.type}
+        time={requestObj.time}
+        //userId={props.userId}
+      />
+    ));
+  } else {
+    requestsList = <div>no requests!</div>;
+  }
+  //console.log(requestsList);
+
   return (
-    <div style={{ padding: "0px 50px" }}>
-      <div className="search-container">
-        <form>
-          <input className="search-box" type="text" placeholder="search..." name="search" />
-          <button className="search-button" type="search">
-            go
-          </button>
-        </form>
+    <>
+      <div style={{ padding: "0px 50px" }}>
+        <div className="search-container">
+          <form>
+            <input className="search-box" type="text" placeholder="search..." name="search" />
+            <button className="search-button" type="search">
+              go
+            </button>
+          </form>
+        </div>
+        <div className="fulfill-container">{requestsList}</div>
       </div>
-      <div className="fulfill-container">
-        <Box item="safety pins" username="username1" type="buy" time="hour" />
-        <Box item="hair dryer" username="username2" type="borrow" time="hour" />
-        <Box item="duct tape" username="username3" type="trade" time="day" />
-        <Box item="black heels" username="username5" type="borrow" time="week" />
-        <Box item="lamp" username="username4" type="buy" time="weeks" />
-        <Box item="drying rack" username="username6" type="buy" time="month" />
-        <Box item="drying rack" username="username7" type="buy" time="month" />
-      </div>
-    </div>
+    </>
   );
-}; /*eventually order boxes by time*/
+};
 
 export default Fulfill;
