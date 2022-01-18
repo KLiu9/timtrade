@@ -32,7 +32,7 @@ const Account = (props) => {
             style={{ backgroundColor: "var(--purple)" }}
             // onClick={handleSubmit}
           >
-            <Link to={"/account/edit/" + id} className="edit-link">
+            <Link to={"/account/edit/" + id} className="edit-link" userId={props.userId}>
               edit profile
             </Link>
           </button>
@@ -42,45 +42,44 @@ const Account = (props) => {
       <div className="accountinfo-container">
         <div className="spacing">
           <div className="accountinfo-label">name:</div>
-          <input
-            placeholder={user.name}
-            // placeholder={props.name}
-            className="accountinfo-box"
-            readOnly
-          ></input>
+          <input placeholder={user.name} className="accountinfo-box" readOnly></input>
         </div>
         <div className="spacing">
           <div className="accountinfo-label">kerb:</div>
           <input
-            placeholder="katieliu"
-            // placeholder={props.kerb}
+            placeholder={user.kerb !== "" ? user.kerb : "beavertim"}
             className="accountinfo-box"
             readOnly
           />
         </div>
         <div className="spacing">
-          <div className="accountinfo-label">preferred contact:</div>
+          <div className="accountinfo-label">preferred contact method:</div>
           <input
-            placeholder="text message"
-            // placeholder={props.contact1}
+            placeholder={user.contactMethod1 !== "" ? user.contactMethod1 : "phone"}
             className="accountinfo-box"
             readOnly
           />
         </div>
         <div className="spacing">
-          <div className="accountinfo-label">alternative contact:</div>
+          <div className="accountinfo-label">details:</div>
           <input
-            placeholder="messenger"
-            // placeholder={props.contact2}
+            placeholder={user.contactDetails1 !== "" ? user.contactDetails1 : "555-555-5555"}
             className="accountinfo-box"
             readOnly
           ></input>
         </div>
         <div className="spacing">
-          <div className="accountinfo-label">contact details:</div>
+          <div className="accountinfo-label">alternative contact:</div>
           <input
-            placeholder="phone #: 555-555-5555, messenger: @bobaconnoisseur"
-            // placeholder={props.contactDetails}
+            placeholder={user.contactMethod2 !== "" ? user.contactMethod2 : "instagram"}
+            className="accountinfo-box"
+            readOnly
+          ></input>
+        </div>
+        <div className="spacing">
+          <div className="accountinfo-label">details:</div>
+          <input
+            placeholder={user.contactDetails2 !== "" ? user.contactDetails2 : "@timbeaver"}
             className="accountinfo-box"
             readOnly
           ></input>
@@ -88,8 +87,7 @@ const Account = (props) => {
         <div className="spacing">
           <div className="accountinfo-label">location:</div>
           <input
-            placeholder="new vassar"
-            // placeholder={props.location}
+            placeholder={user.location !== "" ? user.location : "new vassar"}
             className="accountinfo-box"
             readOnly
           ></input>

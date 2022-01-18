@@ -25,6 +25,12 @@ function getOrCreateUser(user) {
       name: user.name,
       googleid: user.sub,
       email: user.email,
+      kerb: "",
+      contactMethod1: "",
+      contactDetails1: "",
+      contactMethod2: "",
+      contactDetails2: "",
+      location: "",
     });
 
     return newUser.save();

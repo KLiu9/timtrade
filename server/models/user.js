@@ -6,10 +6,11 @@ const UserSchema = new mongoose.Schema({
   username: String,
   email: String,
   kerb: String,
-  contact1: String,
-  contact2: String,
-  contactDetails: String,
-  location: String
+  contactMethod1: String,
+  contactDetails1: String,
+  contactMethod2: String,
+  contactDetails2: String,
+  location: String,
 });
 
 // compile model from schema

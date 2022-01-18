@@ -90,6 +90,20 @@ router.post("/deleterequest", (req, res) => {
   });
 });
 
+router.post("/updateUserInfo", (req, res) => {
+  User.findById(req.body.content._id).then((result) => {
+    //console.log(result);
+    result.name = req.body.content.name;
+    result.kerb = req.body.content.kerb;
+    result.contactMethod1 = req.body.content.contactMethod1;
+    result.contactDetails1 = req.body.content.contactDetails1;
+    result.contactMethod2 = req.body.content.contactMethod2;
+    result.contactDetails2 = req.body.content.contactDetails2;
+    result.location = req.body.content.location;
+    result.save().then((newUserInfo) => res.send(newUserInfo));
+  });
+});
+
 // anything else falls to this "not found" case
 router.all("*", (req, res) => {
   console.log(`API route not found: ${req.method} ${req.url}`);
