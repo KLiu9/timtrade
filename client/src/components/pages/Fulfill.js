@@ -8,7 +8,6 @@ let colors = ["var(--purple)", "var(--blue)", "var(--yellow)", "var(--green)"];
 let i = 0;
 
 function Box(props) {
-
   i = (i + 1) % colors.length;
   let number = "1";
   if (props.time === "weeks") {
@@ -29,7 +28,7 @@ function Box(props) {
           <br />
           {tradeInfo}
           <br />
-          <button
+          {/*<button
             type="resolve"
             className="requestmatch-resolve"
             value="Resolve"
@@ -39,7 +38,7 @@ function Box(props) {
             // onClick={handleLearn}
           >
             learn more
-          </button>
+          </button>*/}
         </div>
         <div class="fulfill-item-box-back">
           {/* back side */}
