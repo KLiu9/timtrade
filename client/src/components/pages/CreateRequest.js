@@ -3,6 +3,8 @@ import { Link } from "@reach/router";
 
 import "../../utilities.css";
 import "./CreateRequest.css";
+import { post } from "../../utilities";
+import "./EditAccount.css";
 
 const initialValues = {
   item: "",
@@ -15,15 +17,42 @@ const CreateRequest = (props) => {
   
   const [values, setValues] = useState(initialValues);
 
-  const handleChange = (event) => {
-    const { name, prompt } = event.target;
-    setValues({...values, [name]: prompt});
+  // const handleChange = (event) => {
+  //   const { name, prompt } = event.target.value;
+  //   console.log("name", name, "prompt", prompt);
+  //   setValues({...values, [name]: prompt});
+  // };
+
+  const handleItemChange = (event) => {
+    const prompt = event.target.value;
+    setValues({...values, "item": prompt});
   };
+
+  const handleDescriptionChange = (event) => {
+    const prompt = event.target.value;
+    setValues({...values, "description": prompt});
+  };
+
+  const handleTypeChange = (event) => {
+    const prompt = event.target.value;
+    setValues({...values, "type": prompt});
+  };
+
+  const handleTimeChange = (event) => {
+    const prompt = event.target.value;
+    setValues({...values, "time": prompt});
+  };
+
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    props.history.push('/requests')
-    // props.onSubmit && props.onSubmit(value);
+    // const body = { creator: props.userId, name: values.item, description: values.description, type: values.type, time: values.time };
+    console.log("initial values", values);
+    const body = { creator: props.userId, content: values };
+    // post("/api/request", body);
+    post("/api/request", body).then((request) => {
+      console.log("request", request);
+    });
     setValues(initialValues)
   };
 
@@ -37,7 +66,7 @@ const CreateRequest = (props) => {
         <form>
             <select
               prompt={values.item}
-              onChange={handleChange}
+              onChange={handleItemChange}
               name="item"
               className="createrequest-box"
               style={{backgroundColor: "var(--purple)"}}
@@ -49,7 +78,7 @@ const CreateRequest = (props) => {
           <p className="request-label">or enter your own item:</p>
             <input
               prompt={values.item}
-              onChange={handleChange}
+              onChange={handleItemChange}
               type="text"
               placeholder="a succulent"
               className="createrequest-box"
@@ -57,7 +86,7 @@ const CreateRequest = (props) => {
           <p className="request-label">add a brief description:</p>
             <input
               prompt={values.description}
-              onChange={handleChange}
+              onChange={handleDescriptionChange}
               type="text"
               placeholder="include specifications such as number, size, and more"
               className="createrequest-box"
@@ -65,7 +94,7 @@ const CreateRequest = (props) => {
           <p className="request-label">type of request:</p>
             <select
               prompt={values.type}
-              onChange={handleChange}
+              onChange={handleTypeChange}
               name="type"
               className="createrequest-box"
               style={{backgroundColor: "var(--blue)"}}
@@ -81,7 +110,7 @@ const CreateRequest = (props) => {
               name="time"
               className="createrequest-box"
               style={{backgroundColor: "var(--yellow)"}}
-              onChange={handleChange}
+              onChange={handleTimeChange}
             >
               <option value="select"></option>
               <option value="hour">within 1 hour</option>
@@ -95,12 +124,11 @@ const CreateRequest = (props) => {
             className="createrequest-submit"
             value="Submit"
             style={{backgroundColor: "var(--green)",}}
-            // onClick={handleSubmit}
+            onClick={handleSubmit}
           >
-            submit
-            {/* <Link to="/requests/">
+            <Link to="/requests/" className="edit-link" userId={props.userId}>
               submit
-            </Link> */}
+            </Link> 
           </button>
         </form>
       </div>
@@ -108,4 +136,4 @@ const CreateRequest = (props) => {
   );
 };
 
-export default CreateRequest;
+export { CreateRequest };

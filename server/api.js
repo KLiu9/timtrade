@@ -35,6 +35,12 @@ router.get("/whoami", (req, res) => {
   res.send(req.user);
 });
 
+router.get("/requests", (req, res) => {
+  Request.find({ creator: req.query.creator }).then((requests) => {
+    res.send(requests);
+  });
+});
+
 router.get("/user", (req, res) => {
   User.findById(req.query.userid).then((user) => {
     res.send(user);
@@ -48,23 +54,16 @@ router.post("/initsocket", (req, res) => {
   res.send({});
 });
 
-// |------------------------------|
-// | write your API methods below!|
-// |------------------------------|
-// // example GET route
-// router.get("/test", (req, res) => {
-//   res.send({ message: "it works " });
-// });
-
-router.post("/createrequest", (req, res) => {
+router.post("/request", (req, res) => {
   const newRequest = new Request({
-    name: req.body.name,
-    description: req.body.description,
-    type_of_request: req.body.type_of_request,
-    time_needed_by: req.body.time_needed_by,
+    creator: req.body.creator,
+    name: req.body.content.item,
+    description: req.body.content.description,
+    type: req.body.content.type,
+    time: req.body.content.time,
   });
 
-  newRequest.save().then((createrequest) => res.send(createrequest));
+  newRequest.save().then((request) => res.send(request));
 });
 
 // anything else falls to this "not found" case

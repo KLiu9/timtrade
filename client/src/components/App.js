@@ -8,7 +8,7 @@ import EditAccount from "./pages/EditAccount.js";
 import Requests from "./pages/Requests.js";
 import Explore from "./pages/Explore.js";
 import Fulfill from "./pages/Fulfill.js";
-import CreateRequest from "./pages/CreateRequest.js";
+import { CreateRequest } from "./pages/CreateRequest.js";
 import RequestMatch from "./pages/RequestMatch.js";
 
 import "../utilities.css";
@@ -68,8 +68,8 @@ const App = () => {
         <Requests path="/requests/" userId={userId}/>
         <Explore path="/explore/" userId={userId}/>
         <Fulfill path="/fulfill/" userId={userId}/>
-        <CreateRequest path="/requests/createrequest/" />
-        <RequestMatch path="/requests/requestmatch/" />
+        <CreateRequest path="/requests/createrequest/" userId={userId}/>
+        <RequestMatch path="/requests/requestmatch/" userId={userId}/>
         <NotFound default />
       </Router>
     </>
