@@ -46,7 +46,7 @@ const RequestMatch = (props) => {
   const [requests, setRequests] = useState([]);
 
   useEffect(() => {
-    document.title = "request matches";
+    // document.title = "request matches";
     get("/api/requests", { creator: props.userId }).then((requestObjs) => {
       // console.log("bye", props.userId);
       // console.log("61e4d99700fa5b28b75a9f9b");

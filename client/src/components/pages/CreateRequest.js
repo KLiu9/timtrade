@@ -53,7 +53,8 @@ const CreateRequest = (props) => {
     post("/api/request", body).then((request) => {
       console.log("request", request);
     });
-    setValues(initialValues)
+    setValues(initialValues);
+    useNavigate('/requests')
   };
 
   const itemOptions = ["", "batteries", "tape", "mug", "chair", "other"]
@@ -75,14 +76,18 @@ const CreateRequest = (props) => {
                 <option key={option} value={option}>{option}</option>
               ))}
             </select>
-          <p className="request-label">or enter your own item:</p>
-            <input
-              prompt={values.item}
-              onChange={handleItemChange}
-              type="text"
-              placeholder="a succulent"
-              className="createrequest-box"
-            />
+            {values.item==="other" && 
+              <>
+              <p className="request-label">or enter your own item:</p>
+                <input
+                  prompt={values.item}
+                  onChange={handleItemChange}
+                  type="text"
+                  placeholder="a succulent"
+                  className="createrequest-box"
+                /> 
+              </>
+              }
           <p className="request-label">add a brief description:</p>
             <input
               prompt={values.description}
@@ -119,17 +124,28 @@ const CreateRequest = (props) => {
               <option value="weeks">within 2 weeks</option>
               <option value="month">within 1 month</option>
             </select>
-          <button
-            type="submit"
-            className="createrequest-submit"
-            value="Submit"
-            style={{backgroundColor: "var(--green)",}}
-            onClick={handleSubmit}
-          >
-            <Link to="/requests/" className="edit-link" userId={props.userId}>
+          {values.item !== "" && values.description !== "" && values.type !== "" && values.time !== "" ? (
+            <button
+              type="submit"
+              className="createrequest-submit"
+              value="Submit"
+              style={{backgroundColor: "var(--green)",}}
+              onClick={handleSubmit}
+            >
+              <Link to="/requests/" className="edit-link" userId={props.userId}>
+                submit
+              </Link> 
+            </button>
+          ) : (
+            <button
+              type="submit"
+              className="createrequest-submit"
+              value="Submit"
+              style={{backgroundColor: "var(--green)",}}
+            >
               submit
-            </Link> 
-          </button>
+            </button>
+          )}
         </form>
       </div>
     </div>
