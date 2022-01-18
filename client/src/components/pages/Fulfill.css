@@ -2,9 +2,9 @@
   padding: var(--s) var(--m);
   padding-bottom: 20px;
   background-color: var(--bg);
-  height: 450px;
+  height: auto;
   width: 100%;
-  margin-right: 0px;
+  margin-left: 0px;
   margin-top: 20px;
   margin-bottom: 50px;
   border-radius: 30px;
@@ -16,7 +16,7 @@
   text-align: center;
 
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   gap: 30px;
   grid-auto-rows: 350px 300px;
 }
@@ -49,11 +49,35 @@
   line-height: 29px;
   letter-spacing: 0em;
   text-align: center;
-  height: 90%;
+  height: auto;
   border-radius: 43px;
-  width: 230px;
+  width: 80%;
   padding: 20px;
   overflow-y: auto;
+  perspective: 2000px;
+}
+
+.fulfill-item-box-inner {
+  position: relative;
+  transition: transform 0.8s;
+  transform-style: preserve-3d;
+  text-align: center;
+}
+
+.fulfill-item-box:hover .fulfill-item-box-inner {
+  transform: rotateY(180deg);
+}
+
+.fulfill-item-box-front,
+.fulfill-item-box-back {
+  position: absolute;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+
+.fulfill-item-box-back {
+  font-style: italic;
+  transform: rotateY(180deg);
 }
 
 .tradeInfo {

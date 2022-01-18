@@ -8,6 +8,7 @@ let colors = ["var(--purple)", "var(--blue)", "var(--yellow)", "var(--green)"];
 let i = 0;
 
 function Box(props) {
+
   i = (i + 1) % colors.length;
   let number = "1";
   if (props.time === "weeks") {
@@ -16,26 +17,52 @@ function Box(props) {
   let tradeInfo = props.type + " within " + number + " " + props.time;
   return (
     <div className="fulfill-item-box" style={{ backgroundColor: colors[i] }}>
-      <b>item:</b> {props.item} <br />
-      <br />
-      <br />
-      <b>{props.creator}</b>
-      <br />
-      <br />
-      <br />
-      {tradeInfo}
-      <br />
-      <button
-        type="resolve"
-        className="requestmatch-resolve"
-        value="Resolve"
-        style={{
-          backgroundColor: "#E5E5E5",
-        }}
-        // onClick={handleSubmit}
-      >
-        learn more
-      </button>
+      <div class="fulfill-item-box-inner">
+        <div class="fulfill-item-box-front">
+          {/* front side */}
+          <b>item:</b> {props.item} <br />
+          <br />
+          <br />
+          <b>{props.creator}</b>
+          <br />
+          <br />
+          <br />
+          {tradeInfo}
+          <br />
+          <button
+            type="resolve"
+            className="requestmatch-resolve"
+            value="Resolve"
+            style={{
+              backgroundColor: "#E5E5E5",
+            }}
+            // onClick={handleLearn}
+          >
+            learn more
+          </button>
+        </div>
+        <div class="fulfill-item-box-back">
+          {/* back side */}
+          <b>item:</b> {props.item} <br />
+          <b>description:</b> {props.description} <br />
+          <br />
+          <b>{props.creator}</b>
+          <br />
+          <br />
+          <br />
+          <br />
+          <button
+            type="resolve"
+            className="requestmatch-resolve"
+            value="Resolve"
+            style={{
+              backgroundColor: "var(--pink)",
+            }}
+          >
+            fulfill
+          </button>
+        </div>
+      </div>
     </div>
   );
 }
@@ -80,7 +107,7 @@ const Fulfill = (props) => {
         key={`Box_${requestObj._id}`}
         creator={requestObj.creator}
         item={requestObj.name}
-        //description={requestObj.description}
+        description={requestObj.description}
         type={requestObj.type}
         time={requestObj.time}
         //userId={props.userId}
@@ -89,7 +116,6 @@ const Fulfill = (props) => {
   } else {
     requestsList = <div>no requests!</div>;
   }
-  //console.log(requestsList);
 
   return (
     <>

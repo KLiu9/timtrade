@@ -145,7 +145,7 @@ const CreateRequest = (props) => {
               style={{ backgroundColor: "var(--green)" }}
               onClick={handleSubmit}
             >
-              <Link to="/requests/" className="edit-link" userId={props.userId}>
+              <Link to="/requests/requestmatch" className="edit-link" userId={props.userId}>
                 submit
               </Link>
             </button>
