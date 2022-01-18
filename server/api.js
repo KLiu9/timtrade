@@ -13,6 +13,7 @@ const express = require("express");
 const User = require("./models/user");
 const Item = require("./models/items");
 const Request = require("./models/request");
+// const Requests = require("./models/requests");
 
 // import authentication library
 const auth = require("./auth");
@@ -35,12 +36,6 @@ router.get("/whoami", (req, res) => {
   res.send(req.user);
 });
 
-router.get("/user", (req, res) => {
-  User.findById(req.query.userid).then((user) => {
-    res.send(user);
-  });
-});
-
 router.post("/initsocket", (req, res) => {
   // do nothing if user not logged in
   if (req.user)
@@ -54,9 +49,13 @@ router.post("/initsocket", (req, res) => {
 // // example GET route
 // router.get("/test", (req, res) => {
 //   res.send({ message: "it works " });
-// });
+//
 
-router.post("/createrequest", (req, res) => {
+router.get("/requests", (req, res) => {
+  Request.find({}).then((requests) => res.send(requests));
+});
+
+router.post("/request", (req, res) => {
   const newRequest = new Request({
     name: req.body.name,
     description: req.body.description,
@@ -64,7 +63,13 @@ router.post("/createrequest", (req, res) => {
     time_needed_by: req.body.time_needed_by,
   });
 
-  newRequest.save().then((createrequest) => res.send(createrequest));
+  newRequest.save().then((request) => res.send(request));
+});
+
+router.get("/user", (req, res) => {
+  User.findById(req.query.userid).then((user) => {
+    res.send(user);
+  });
 });
 
 // anything else falls to this "not found" case
