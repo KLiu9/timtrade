@@ -53,7 +53,7 @@ const Account = (props) => {
           />
         </div>
         <div className="spacing">
-          <div className="accountinfo-label">preferred contact method:</div>
+          <div className="accountinfo-label">preferred contact:</div>
           <input
             placeholder={user.contactMethod1 !== "" ? user.contactMethod1 : "phone"}
             className="accountinfo-box"

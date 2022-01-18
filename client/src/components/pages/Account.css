@@ -1,5 +1,7 @@
 .accountinfo-container {
-  padding: var(--s) var(--m);
+  /* padding: var(--s) var(--m) var(--s) var(--m); */
+  padding-bottom: var(--l);
+  padding-left: var(--m);
   background-color: var(--bg);
   line-height: 22px;
   text-align: left;

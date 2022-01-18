@@ -74,7 +74,6 @@ const EditAccount = (props) => {
   user.name = user.name.toLowerCase();
   const body = { _id: props.userId, content: user };
   post("/api/updateUserInfo", body);
-  /*let id = props.userId;*/
   return (
     <div className="editaccount-container" style={{ padding: "0px 50px" }}>
       <div>
@@ -107,7 +106,7 @@ const EditAccount = (props) => {
             </div>
 
             <div className="spacing">
-              <div className="accountinfo-label">preferred contact method:</div>
+              <div className="accountinfo-label">preferred contact:</div>
               <select
                 prompt={user.contactMethod1}
                 onChange={handleContactMethod1Change}
@@ -207,7 +206,7 @@ const EditAccount = (props) => {
             )}
 
             <div className="spacing">
-              <div className="accountinfo-label">alternate contact method:</div>
+              <div className="accountinfo-label">alternate contact:</div>
               <select
                 prompt={user.contactMethod2}
                 onChange={handleContactMethod2Change}
