@@ -8,6 +8,7 @@ import "./EditAccount.css";
 
 const initialValues = {
   item: "",
+  enterItem: "", // for user to enter own item
   description: "",
   type: "",
   time: "",
@@ -16,15 +17,14 @@ const initialValues = {
 const CreateRequest = (props) => {
   const [values, setValues] = useState(initialValues);
 
-  // const handleChange = (event) => {
-  //   const { name, prompt } = event.target.value;
-  //   console.log("name", name, "prompt", prompt);
-  //   setValues({...values, [name]: prompt});
-  // };
-
   const handleItemChange = (event) => {
     const prompt = event.target.value;
     setValues({ ...values, item: prompt });
+  };
+
+  const handleEnterItemChange = (event) => {
+    const prompt = event.target.value;
+    setValues({ ...values, enterItem: prompt });
   };
 
   const handleDescriptionChange = (event) => {
@@ -44,15 +44,21 @@ const CreateRequest = (props) => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
+    // if user chose to enter own item, set values.item to be that item
+    if (values.item === "other") {
+      values.item = values.enterItem;
+    }
     // const body = { creator: props.userId, name: values.item, description: values.description, type: values.type, time: values.time };
-    console.log("initial values", values);
     const body = { creator: props.userId, content: values };
-    // post("/api/request", body);
-    post("/api/request", body).then((request) => {
-      console.log("request", request);
-    });
+    post("/api/request", body);
+    // post("/api/request", body).then((request) => {
+    //   console.log("request", request);
+    // });
     setValues(initialValues);
-    useNavigate("/requests");
+  };
+
+  const handleBadSubmit = (event) => {
+    event.preventDefault();
   };
 
   const itemOptions = ["", "batteries", "tape", "mug", "chair", "other"];
@@ -79,12 +85,13 @@ const CreateRequest = (props) => {
               </option>
             ))}
           </select>
+          {/* only shows this box if other is selected */}
           {values.item === "other" && (
             <>
               <p className="request-label">or enter your own item:</p>
               <input
-                prompt={values.item}
-                onChange={handleItemChange}
+                prompt={values.enterItem}
+                onChange={handleEnterItemChange}
                 type="text"
                 placeholder="a succulent"
                 className="createrequest-box"
@@ -143,14 +150,17 @@ const CreateRequest = (props) => {
               </Link>
             </button>
           ) : (
-            <button
-              type="submit"
-              className="createrequest-submit"
-              value="Submit"
-              style={{ backgroundColor: "var(--green)" }}
-            >
-              submit
-            </button>
+            <>
+              <button
+                type="submit"
+                className="createrequest-submit"
+                value="Submit"
+                style={{ backgroundColor: "var(--green)" }}
+                // onClick={handleBadSubmit}
+              >
+                submit
+              </button>
+            </>
           )}
         </form>
       </div>
@@ -158,4 +168,4 @@ const CreateRequest = (props) => {
   );
 };
 
-export { CreateRequest };
+export default CreateRequest;

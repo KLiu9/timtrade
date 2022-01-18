@@ -12,7 +12,7 @@ const EditAccount = (props) => {
     get(`/api/user`, { userid: props.userId }).then((userObj) => setUser(userObj));
   }, []);
   if (!user) {
-    return <div>loading...</div>;
+    return <div className="u-margin">loading...</div>;
   }
   let id = user._id;
   console.log(user);

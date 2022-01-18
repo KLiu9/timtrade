@@ -1,14 +1,13 @@
 .createrequest-container {
   padding: var(--s) var(--m);
-  background-color: var(--bg);
-  line-height: 22px;
-  text-align: left;
-  /* height: 675px; */
-  width: 70%;
   margin-right: 0px;
   margin-top: 50px;
+  background-color: var(--bg);
+  line-height: 22px;
+  width: 70%;
   border-radius: 30px;
   border-width: 0.5px;
+  text-align: left;
   float: right;
   position: relative;
 }
@@ -21,26 +20,26 @@
 }
 
 .createrequest-box {
+  padding-left: 20px;
+  margin-left: 5%;
   height: 40px;
   width: 90%;
-  margin-left: 5%;
   border-radius: 20px;
-  padding-left: 20px;
-  font-weight: 400;
   border-width: 1px;
+  font-weight: 400;
   -webkit-appearance: none;
 }
 
 .createrequest-submit {
-  height: 45px;
-  width: 140px;
-  border-radius: 24px;
-  text-align: center;
-  font-weight: 700;
-  border-width: 2px;
   margin-top: 10%;
   margin-left: 5%;
   margin-bottom: 2%;
+  height: 45px;
+  width: 140px;
+  border-radius: 24px;
+  border-width: 2px;
+  text-align: center;
+  font-weight: 700;
 }
 
 input,
@@ -53,19 +52,15 @@ select {
 .page-title {
   margin-top: 75px;
   margin-left: 5%;
-  font-size: 3em;
+  text-align: center;
   float: left;
+  font-size: 3em;
   font-weight: bold;
   text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-  text-align: center;
 }
 
 .request-label {
-  font-size: 1em;
   padding-left: 3%;
+  font-size: 1em;
   font-weight: 450;
 }
-
-/* @media{
-
-} */
