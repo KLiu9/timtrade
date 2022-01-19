@@ -4,6 +4,8 @@ import { get } from "../../utilities";
 import "../../utilities.css";
 import "./Fulfill.css";
 
+import SearchBar from "./SearchBar.js";
+
 let colors = ["var(--purple)", "var(--blue)", "var(--yellow)", "var(--green)"];
 let i = 0;
 
@@ -16,8 +18,8 @@ function Box(props) {
   let tradeInfo = props.type + " within " + number + " " + props.time;
   return (
     <div className="fulfill-item-box" style={{ backgroundColor: colors[i] }}>
-      <div class="fulfill-item-box-inner">
-        <div class="fulfill-item-box-front">
+      <div className="fulfill-item-box-inner">
+        <div className="fulfill-item-box-front">
           {/* front side */}
           <b>item:</b> {props.item} <br />
           <br />
@@ -40,7 +42,7 @@ function Box(props) {
             learn more
           </button>*/}
         </div>
-        <div class="fulfill-item-box-back">
+        <div className="fulfill-item-box-back">
           {/* back side */}
           <b>item:</b> {props.item} <br />
           <b>description:</b> {props.description} <br />
@@ -69,7 +71,9 @@ function Box(props) {
 const Fulfill = (props) => {
   if (!props.userId) {
     return (
-      <div className="requests-container requests-item">log in to help out and fulfill requests!</div>
+      <div className="requests-container requests-item">
+        log in to help out and fulfill requests!
+      </div>
     );
   }
 
@@ -81,6 +85,22 @@ const Fulfill = (props) => {
       setRequests(requestObjs);
     });
   }, []);
+
+  const { search } = window.location;
+  const query = new URLSearchParams(search).get("s");
+
+  const filterReqs = (reqs, query) => {
+    if (!query) {
+      return reqs;
+    }
+    return reqs.filter((req) => {
+      //console.log(req);
+      //const reqLower = req.name.toLowerCase();
+      return (
+        req.name.toLowerCase().includes(query) || req.description.toLowerCase().includes(query)
+      );
+    });
+  };
 
   let requestsList = null;
   let timeIndices = null;
@@ -101,17 +121,22 @@ const Fulfill = (props) => {
       return 0;
     });
     //console.log("after sort", requests);
-    requestsList = requests.map((requestObj) => (
-      <Box
-        key={`Box_${requestObj._id}`}
-        creator={requestObj.creator}
-        item={requestObj.name}
-        description={requestObj.description}
-        type={requestObj.type}
-        time={requestObj.time}
-        //userId={props.userId}
-      />
-    ));
+    const filteredReqs = filterReqs(requests, query);
+    if (filteredReqs.length !== 0) {
+      //console.log("after filter", filteredReqs);
+      requestsList = filteredReqs.map((requestObj) => (
+        <Box
+          key={`Box_${requestObj._id}`}
+          creator={requestObj.creator}
+          item={requestObj.name}
+          description={requestObj.description}
+          type={requestObj.type}
+          time={requestObj.time}
+        />
+      ));
+    } else {
+      requestsList = <div>no requests!</div>;
+    }
   } else {
     requestsList = <div>no requests!</div>;
   }
@@ -119,14 +144,7 @@ const Fulfill = (props) => {
   return (
     <>
       <div style={{ padding: "0px 50px" }}>
-        <div className="search-container">
-          <form>
-            <input className="search-box" type="text" placeholder="search..." name="search" />
-            <button className="search-button" type="search">
-              go
-            </button>
-          </form>
-        </div>
+        <SearchBar />
         <div className="fulfill-container">{requestsList}</div>
       </div>
     </>
