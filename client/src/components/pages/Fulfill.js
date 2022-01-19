@@ -56,9 +56,6 @@ function Box(props) {
             type="resolve"
             className="requestmatch-resolve"
             value="Resolve"
-            style={{
-              backgroundColor: "var(--pink)",
-            }}
           >
             fulfill
           </button>

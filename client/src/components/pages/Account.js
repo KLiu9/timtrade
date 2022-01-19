@@ -33,7 +33,6 @@ const Account = (props) => {
             type="submit"
             className="edit-profile"
             value="Submit"
-            style={{ backgroundColor: "var(--purple)" }}
             // onClick={handleSubmit}
           >
             {/* <Link to={"/account/edit/" + id} className="edit-link" userId={props.userId}> */}

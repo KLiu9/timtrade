@@ -16,20 +16,99 @@
 
 .home-nav {
   margin-top: 16vh;
+  padding-top: 8vh;
   border-radius: 24px;
 }
 
-.home-about {
+.about-button {
   height: 44px;
   width: 95px;
   text-align: center;
   font-weight: 600;
   border-width: 1px;
+  border-radius: 24px;
   margin-left: 1vw;
-  border-color: var(--grey);
+  background-color: var(--blue);
+  border: none;
+  box-shadow: 1px 1px var(--darkblue);
+}
+
+.login-button {
+  height: 44px;
+  width: 95px;
+  text-align: center;
+  font-weight: 600;
+  border-width: 1px;
+  border-radius: 24px;
+  background-color: var(--purple);
+  border: none;
+  box-shadow: 1px 1px var(--darkpurple);
+}
+
+.about-button:hover {
+  background-color: var(--pink) !important;
+}
+
+.login-button:hover {
+  background-color: var(--pink);
 }
 
 .home-img-size {
   height: 20vh;
   width: 28vw;
+}
+
+.modal {
+  position: absolute;
+  top: 30%;
+  /* margin: auto; */
+  left: 35%;
+  width: 30vw;
+  border-radius: 24px;
+  outline: none;
+  background-color: var(--blue);
+}
+
+.modal-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: auto;
+  text-align: center;
+}
+
+.modal-close {
+  border: none;
+  outline: none;
+  background-color: transparent;
+  font-size: 1em;
+}
+
+.modal-close:hover {
+  color: var(--primary--dim);
+}
+
+.modal-title {
+  font-size: 2em;
+  text-align: center;
+  font-weight: 500;
+  margin-bottom: 1em;
+  margin-top: 1em;
+}
+
+.modal-names {
+  text-align: center;
+  text-decoration: italic;
+  padding-top: 1em;
+}
+
+ul {
+  list-style-position: outside;
+  padding-bottom: 4%;
+  width: 20vw;
+}
+
+li {
+  padding-bottom: 1%;
+  text-align: center;
 }
