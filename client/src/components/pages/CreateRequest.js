@@ -51,9 +51,6 @@ const CreateRequest = (props) => {
     // const body = { creator: props.userId, name: values.item, description: values.description, type: values.type, time: values.time };
     const body = { creator: props.userId, content: values };
     post("/api/request", body);
-    // post("/api/request", body).then((request) => {
-    //   console.log("request", request);
-    // });
     setValues(initialValues);
   };
 

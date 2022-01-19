@@ -142,20 +142,3 @@ const RequestMatch = (props) => {
 };
 
 export default RequestMatch;
-
-//   return (
-//     <div style={{ padding: "0px 50px" }}>
-//       <p className="page-title">request matches</p>
-//       <div className="requestmatch-container">
-//         <Box item="batteries" username="bobaconnoisseur" />
-//         <Box item="mug" username="baobasaur" />
-//         <Box item="plant" />
-//         <Box item="plant" />
-//         <Box item="plant" />
-//         <Box item="plant" />
-//       </div>
-//     </div>
-//   );
-// };
-
-// export default RequestMatch;

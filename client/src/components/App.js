@@ -68,8 +68,8 @@ const App = () => {
         <Requests path="/requests/" userId={userId}/>
         <Explore path="/explore/" userId={userId}/>
         <Fulfill path="/fulfill/" userId={userId}/>
-        <CreateRequest path="/requests/createrequest/" userId={userId}/>
-        <RequestMatch path="/requests/requestmatch/" userId={userId}/>
+        <CreateRequest path="/requests/create/" userId={userId}/>
+        <RequestMatch path="/requests/match/" userId={userId}/>
         <NotFound default />
       </Router>
     </>

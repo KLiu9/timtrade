@@ -1,6 +1,4 @@
 import React, { useState, useEffect } from "react";
-import CreateRequest from "./CreateRequest.js";
-import RequestMatch from "./RequestMatch.js";
 import { Link } from "@reach/router";
 
 import "../../utilities.css";
@@ -13,10 +11,10 @@ const Requests = (props) => {
 
   return (
     <div className="requests-container">
-      <Link to="/requests/createrequest/" className="requests-item">
+      <Link to="/requests/create/" className="requests-item">
         create a request
       </Link>
-      <Link to="/requests/requestmatch/" className="requests-item">
+      <Link to="/requests/match/" className="requests-item">
         request matches
       </Link>
     </div>
