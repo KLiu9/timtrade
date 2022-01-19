@@ -14,10 +14,34 @@
 
 .requests-item,
 .requests-item:visited {
-  margin-left: var(--l);
-  margin-right: var(--l);
-  font-size: 30px;
+  font-size: calc(2vw + 1vh);
   font-style: italic;
   text-decoration: none;
   color: var(--black);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.create-request {
+  position: relative;
+  float: left;
+  text-align: center;
+}
+
+.request-match {
+  position: relative;
+  float: right;
+  text-align: center;
+  padding-right: 7%;
+}
+
+.req-img-size {
+  height: 70%;
+  width: 70%;
+}
+
+.req-img-size2 {
+  height: 53%;
+  width: 53%;
 }

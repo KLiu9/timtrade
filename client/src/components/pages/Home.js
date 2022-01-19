@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import GoogleLogin, { GoogleLogout } from "react-google-login";
-import { Router } from "@reach/router";
+import timtrade from "../../../dist/images/timtrade.png";
 
 import "../../utilities.css";
 import "./Home.css";
@@ -10,9 +10,11 @@ const GOOGLE_CLIENT_ID = "113744910005-h4er20jijgm7isr3pf92sa2t062rk8l6.apps.goo
 
 const Home = (props) => {
   return (
-    <div>
-      <div className="flex-container flex-item">timtrade</div>
+    <div className="flex-container">
       <div className="flex-container">
+        <img className="home-img-size flex-item" src={timtrade} />
+      </div>
+      <span className="home-nav flex-item">
         {props.userId ? (
           <GoogleLogout
             clientId={GOOGLE_CLIENT_ID}
@@ -30,16 +32,14 @@ const Home = (props) => {
             className="home-nav"
           />
         )}
-      </div>
-      {/* <div className="flex-container">
-        <button
-          // type="submit"
-          className="home-about"
-          style={{backgroundColor: "var(--purple)",}}
-        >
-          about
-        </button>
-      </div> */}
+          <button
+            // type="submit"
+            className="home-about"
+            style={{backgroundColor: "#DBF3FA",}}
+          >
+            about
+          </button>
+      </span>
     </div>
   )
 }
