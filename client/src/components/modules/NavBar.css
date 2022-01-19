@@ -40,7 +40,12 @@
   height: 40px;
 }
 
-.img-sizefav {
+.img-heart {
+  width: 35px;
+  height: 35px;
+}
+
+.img-size2 {
   width: 35px;
   height: 35px;
   padding-bottom: 0.2%;
