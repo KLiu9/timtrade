@@ -45,7 +45,7 @@ function Box(props) {
           <b>item:</b> {props.item} <br />
           <b>description:</b> {props.description} <br />
           <br />
-          <b>{props.creator}</b>
+          {/* <b>{props.creator}</b> */}
           <br />
           <br />
           <br />

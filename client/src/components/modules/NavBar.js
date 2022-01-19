@@ -15,9 +15,9 @@ const NavBar = () => {
       <div className="NavBar-linkContainer NavBar-align">
         <div>
           <a href="/">
-            <img className="img-size2" src={favimg} />
+            <img className="img-size" src={favimg} />
           </a>
-          &ensp;&ensp;&ensp;&thinsp;
+          &ensp;&ensp;&ensp;
           <a href="/account/">
             <img className="img-size" src={accimg} />
           </a>
@@ -31,7 +31,7 @@ const NavBar = () => {
           </a>
           &ensp;&thinsp;&thinsp;&thinsp;
           <a href="/fulfill/">
-            <img className="img-size2" src={fulimg} />
+            <img className="img-heart" src={fulimg} />
           </a>
         </div>
         
