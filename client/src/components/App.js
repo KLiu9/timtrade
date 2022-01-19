@@ -60,11 +60,11 @@ const App = () => {
     // eventually remove navbar from home page (home page has 4 buttons + login)
     // home page also probably shouldn't be on navbar
     <>
-      <NavBar handleLogin={handleLogin} handleLogout={handleLogout} userId={userId} />
+      <NavBar/>
       <Router>
-        <Home path="/" handleLogin={handleLogin} handleLogout={handleLogout} userId={userId} />
-        <Account path="/account/:userId" />
-        <EditAccount path="/account/edit/:userId" />
+        <Home path="/" handleLogin={handleLogin} handleLogout={handleLogout} userId={userId}/>
+        <Account path="/account/" userId={userId}/>
+        <EditAccount path="/account/edit/" userId={userId}/>
         <Requests path="/requests/" userId={userId}/>
         <Explore path="/explore/" userId={userId}/>
         <Fulfill path="/fulfill/" userId={userId}/>

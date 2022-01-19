@@ -323,7 +323,8 @@ const EditAccount = (props) => {
                 style={{ backgroundColor: "var(--green)" }}
                 onClick={handleAccountSubmit}
               >
-                <Link to={"/account/" + id} className="edit-link" userId={props.userId}>
+                {/* <Link to={"/account/" + id} className="edit-link" userId={props.userId}> */}
+                <Link to={"/account/"} className="edit-link" userId={props.userId}>
                   done
                 </Link>
               </button>

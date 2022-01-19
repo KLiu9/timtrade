@@ -69,7 +69,7 @@ function Box(props) {
 const Fulfill = (props) => {
   if (!props.userId) {
     return (
-      <div className="requests-container requests-item">log in before using the fulfill page!</div>
+      <div className="requests-container requests-item">log in to help out and fulfill requests!</div>
     );
   }
 

@@ -1,39 +1,47 @@
 import React from "react";
 import { Link } from "@reach/router";
-import GoogleLogin, { GoogleLogout } from "react-google-login";
+
+import accimg from "../../../dist/images/account.png";
+import reqimg from "../../../dist/images/request.png";
+import expimg from "../../../dist/images/explore.png";
+import fulimg from "../../../dist/images/fulfill.png";
+import favimg from "../../../dist/images/favicon.png";
 
 import "./NavBar.css";
 
-const NavBar = (props) => {
+const NavBar = () => {
   return (
     <nav className="NavBar-container">
       <div className="NavBar-linkContainer NavBar-align">
         <div>
           <a href="/">
-            <img src="../images/favicon.png" />
+            <img className="img-sizefav" src={favimg} />
           </a>
-          &emsp;&emsp;&emsp;&ensp;
+          &ensp;&ensp;&ensp;&thinsp;
+          <a href="/account/">
+            <img className="img-size" src={accimg} />
+          </a>
+          &ensp;&ensp;&ensp;&ensp;&thinsp;
           <a href="/requests/">
-            <img src="../images/request.png" />
+            <img className="img-size" src={reqimg} />
           </a>
-          &emsp;&emsp;&emsp;&ensp;
+          &ensp;&ensp;&ensp;&thinsp;
           <a href="/explore/">
-            <img src="../images/explore.png" />
+            <img className="img-size" src={expimg} />
           </a>
-          &emsp;&emsp;&ensp;
+          &ensp;&ensp;
           <a href="/fulfill/">
-            <img src="../images/fulfill.png" />
+            <img className="img-size" src={fulimg} />
           </a>
-          &ensp;
         </div>
+        
         <Link to="/" className="NavBar-link">
           home
         </Link>
-        {props.userId && (
-          <Link to={`/account/${props.userId}`} className="NavBar-link">
-            account
-          </Link>
-        )}
+
+        <Link to="/account/" className="NavBar-link">
+          account
+        </Link>
 
         <Link to="/requests/" className="NavBar-link">
           requests

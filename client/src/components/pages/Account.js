@@ -7,6 +7,10 @@ import "./CreateRequest.css";
 import "./Account.css";
 
 const Account = (props) => {
+  if (!props.userId) {
+    return <div className="requests-container requests-item">log in to access your account!</div>;
+  }
+
   const [user, setUser] = useState();
   useEffect(() => {
     get(`/api/user`, { userid: props.userId }).then((userObj) => setUser(userObj));
@@ -32,7 +36,8 @@ const Account = (props) => {
             style={{ backgroundColor: "var(--purple)" }}
             // onClick={handleSubmit}
           >
-            <Link to={"/account/edit/" + id} className="edit-link" userId={props.userId}>
+            {/* <Link to={"/account/edit/" + id} className="edit-link" userId={props.userId}> */}
+            <Link to={"/account/edit/"} className="edit-link" userId={props.userId}>
               edit profile
             </Link>
           </button>

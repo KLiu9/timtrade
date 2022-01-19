@@ -8,7 +8,7 @@ import "./Requests.css";
 
 const Requests = (props) => {
   if (!props.userId) {
-    return <div className="requests-container requests-item">log in before using the requests page!</div>;
+    return <div className="requests-container requests-item">log in to request items or view matches!</div>;
   }
 
   return (

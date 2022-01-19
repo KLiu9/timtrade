@@ -28,8 +28,20 @@
 
 .NavBar-link + .NavBar-link {
   margin-left: var(--m);
+  /* padding-right: var(--xs); */
 }
 
 .NavBar-align {
   text-align: right;
+}
+
+.img-size {
+  width: 40px;
+  height: 40px;
+}
+
+.img-sizefav {
+  width: 35px;
+  height: 35px;
+  padding-bottom: 0.2%;
 }
