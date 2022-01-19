@@ -1,5 +1,5 @@
 .accountinfo-container {
-  /* padding: var(--s) var(--m) var(--s) var(--m); */
+  padding-top: var(--m);
   padding-bottom: var(--l);
   padding-left: var(--m);
   background-color: var(--bg);
@@ -8,7 +8,6 @@
   height: 70%;
   width: 70%;
   margin-right: 0px;
-  margin-top: 25px;
   border-radius: 30px;
   border-width: 0.5px;
   float: right;
@@ -68,7 +67,7 @@
 .spacing {
   display: flex;
   justify-content: space-around;
-  margin-top: 2%;
+  margin-top: 1%;
 }
 
 .accountinfo-label {

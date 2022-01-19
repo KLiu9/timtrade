@@ -37,7 +37,7 @@ const Account = (props) => {
             // onClick={handleSubmit}
           >
             {/* <Link to={"/account/edit/" + id} className="edit-link" userId={props.userId}> */}
-            <Link to={"/account/edit/"} className="edit-link" userId={props.userId}>
+            <Link to={"/account/edit/"} className="edit-link">
               edit profile
             </Link>
           </button>
