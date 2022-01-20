@@ -5,10 +5,16 @@ import reqmatchimg from "../../../dist/images/requestmatch2.png";
 
 import "../../utilities.css";
 import "./Requests.css";
+import reqmatchwords from "../../../dist/images/requestmatchwords.png";
+import createreqwords from "../../../dist/images/createrequestwords.png";
 
 const Requests = (props) => {
   if (!props.userId) {
-    return <div className="requests-container requests-item">log in to request items or view matches!</div>;
+    return (
+      <div className="requests-container requests-item">
+        log in to request items or view matches!
+      </div>
+    );
   }
 
   return (
@@ -17,18 +23,16 @@ const Requests = (props) => {
         <Link to="/requests/create/" className="requests-item">
           <img className="req-img-size" src={createreqimg} />
         </Link>
-        <br />
         <Link to="/requests/create/" className="requests-item">
-          create a request
+          <img className="req-words-size flex-item" src={createreqwords} />
         </Link>
       </div>
       <div className="request-match">
         <Link to="/requests/match/" className="requests-item">
           <img className="req-img-size2" src={reqmatchimg} />
         </Link>
-        <br />
         <Link to="/requests/match/" className="requests-item">
-          request matches
+          <img className="req-words-size2 flex-item" src={reqmatchwords} />
         </Link>
       </div>
     </div>

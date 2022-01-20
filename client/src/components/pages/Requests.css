@@ -21,12 +21,14 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  padding-bottom: 0px;
 }
 
 .create-request {
   position: relative;
   float: left;
   text-align: center;
+  padding-top: 10%;
 }
 
 .request-match {
@@ -34,15 +36,24 @@
   float: right;
   text-align: center;
   padding-right: 7%;
+  padding-top: 10%;
 }
 
 .req-img-size {
+  width: 76%;
   height: 70%;
-  width: 70%;
 }
 
 .req-img-size2 {
+  width: 47%;
   height: 46.5%;
-  width: 46.5%;
   opacity: 0.9;
+}
+
+.req-words-size {
+  width: 73%;
+}
+
+.req-words-size2 {
+  width: 80%;
 }

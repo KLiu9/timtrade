@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "@reach/router";
 
-import accimg from "../../../dist/images/account.png";
+import accimg from "../../../dist/images/account2.png";
 import reqimg from "../../../dist/images/request.png";
 import expimg from "../../../dist/images/explore.png";
 import fulimg from "../../../dist/images/fulfill.png";
