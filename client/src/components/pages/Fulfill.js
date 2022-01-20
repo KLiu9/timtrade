@@ -80,7 +80,7 @@ const Fulfill = (props) => {
   }, []);
 
   const { search } = window.location;
-  const query = new URLSearchParams(search).get("s").toLowerCase();
+  const query = new URLSearchParams(search).get("s");
 
   const filterReqs = (reqs, query) => {
     if (!query) {
@@ -90,7 +90,8 @@ const Fulfill = (props) => {
       //console.log(req);
       //const reqLower = req.name.toLowerCase();
       return (
-        req.name.toLowerCase().includes(query) || req.description.toLowerCase().includes(query)
+        req.name.toLowerCase().includes(query.toLowerCase()) ||
+        req.description.toLowerCase().includes(query.toLowerCase())
       );
     });
   };
