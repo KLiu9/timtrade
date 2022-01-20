@@ -80,7 +80,7 @@ const Fulfill = (props) => {
   }, []);
 
   const { search } = window.location;
-  const query = new URLSearchParams(search).get("s");
+  const query = new URLSearchParams(search).get("s").toLowerCase();
 
   const filterReqs = (reqs, query) => {
     if (!query) {
