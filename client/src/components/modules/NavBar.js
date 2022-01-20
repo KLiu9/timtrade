@@ -5,7 +5,7 @@ import accimg from "../../../dist/images/account2.png";
 import reqimg from "../../../dist/images/request.png";
 import expimg from "../../../dist/images/explore.png";
 import fulimg from "../../../dist/images/fulfill.png";
-import favimg from "../../../dist/images/favicon.png";
+import homimg from "../../../dist/images/account.png";
 
 import "./NavBar.css";
 
@@ -14,7 +14,7 @@ const NavBar = () => {
     <nav className="NavBar-container">
       <div className="NavBar-linkContainer NavBar-align">
         <Link to="/" className="NavBar-link">
-          <img className="img-size" src={favimg} />
+          <img className="img-size" src={homimg} />
           <div>home</div>
         </Link>
 

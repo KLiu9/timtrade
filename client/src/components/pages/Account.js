@@ -46,8 +46,12 @@ const Account = (props) => {
       <br />
       <div className="accountinfo-container">
         <div className="spacing">
-          <div className="accountinfo-label">name:</div>
-          <input placeholder={user.name} className="accountinfo-box" readOnly></input>
+          <div className="accountinfo-label">username:</div>
+          <input placeholder={user.username != "" ? user.username : "bobaconnoisseur"} 
+          className="accountinfo-box" 
+          readOnly>
+
+          </input>
         </div>
         <div className="spacing">
           <div className="accountinfo-label">kerb:</div>

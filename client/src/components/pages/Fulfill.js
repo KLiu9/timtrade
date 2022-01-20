@@ -30,7 +30,7 @@ function Box(props) {
   }
   let tradeInfo = props.type + " within " + number + " " + props.time;
   return (
-    <div className="fulfill-item-box" style={{ backgroundColor: colors[i] }}>
+    <div className="fulfill-item-box" style={{ backgroundColor: colors[props.index % colors.length] }}>
       <div className="fulfill-item-box-inner">
         <div className="fulfill-item-box-front">
           {/* front side */}
@@ -64,8 +64,8 @@ function Box(props) {
           <br />
           <br />
           <button
-            className="about-button"
-            style={{ backgroundColor: "var(--white)" }}
+            className="requestmatch-resolve"
+            style={{ backgroundColor: "var(--white)", fontWeight: "bold", width: "auto" }}
             onClick={handleOpen}
           >
             {!reqCreator ? "" : "@" + reqCreator.username}
@@ -76,15 +76,13 @@ function Box(props) {
             </button>
             <div className="modal-content">
               {reqCreator && (
-                <>
-                  <p>
-                    <p className="modal-title">{"@" + reqCreator.username}</p>
-                    <p> name: {reqCreator.name}</p>
-                    <p>{reqCreator.contactMethod1 + ": " + reqCreator.contactDetails1}</p>
-                    <p> {reqCreator.contactMethod2 + ": " + reqCreator.contactDetails2} </p>
-                    <p> location: {reqCreator.location}</p>
-                  </p>
-                </>
+                <div>
+                  <p className="modal-title">{"@" + reqCreator.username}</p>
+                  <p> name: {reqCreator.name}</p>
+                  <p>{reqCreator.contactMethod1 + ": " + reqCreator.contactDetails1}</p>
+                  <p> {reqCreator.contactMethod2 + ": " + reqCreator.contactDetails2} </p>
+                  <p> location: {reqCreator.location}</p>
+                </div>
               )}
             </div>
           </Modal>
@@ -106,7 +104,7 @@ const Fulfill = (props) => {
         log in to help out and fulfill requests!
       </div>
     );
-  }
+  } 
 
   const [requests, setRequests] = useState([]);
 
@@ -155,7 +153,7 @@ const Fulfill = (props) => {
     const filteredReqs = filterReqs(requests, query);
     if (filteredReqs.length !== 0) {
       //console.log("after filter", filteredReqs);
-      requestsList = filteredReqs.map((requestObj) => (
+      requestsList = filteredReqs.map((requestObj, i) => (
         <Box
           key={`Box_${requestObj._id}`}
           creator={requestObj.creator}
@@ -163,6 +161,7 @@ const Fulfill = (props) => {
           description={requestObj.description}
           type={requestObj.type}
           time={requestObj.time}
+          index={i}
         />
       ));
     } else {

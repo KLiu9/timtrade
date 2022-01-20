@@ -95,6 +95,7 @@ router.post("/updateUserInfo", (req, res) => {
     //console.log(result);
     result.name = req.body.content.name;
     result.kerb = req.body.content.kerb;
+    result.username = req.body.content.username;
     result.contactMethod1 = req.body.content.contactMethod1;
     result.contactDetails1 = req.body.content.contactDetails1;
     result.contactMethod2 = req.body.content.contactMethod2;

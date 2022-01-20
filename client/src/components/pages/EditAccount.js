@@ -18,14 +18,14 @@ const EditAccount = (props) => {
     return <div className="u-margin">loading...</div>;
   }
 
+  const handleUsernameChange = (event) => {
+    const prompt = event.target.value;
+    setUser({ ...user, username: prompt });
+  }
+
   const handleKerbChange = (event) => {
     const prompt = event.target.value;
     setUser({ ...user, kerb: prompt });
-  };
-
-  const handleNameChange = (event) => {
-    const prompt = event.target.value;
-    setUser({ ...user, name: prompt });
   };
 
   const handleLocChange = (event) => {
@@ -80,11 +80,11 @@ const EditAccount = (props) => {
         <form>
           <div className="accountinfo-container">
             <div className="spacing">
-              <div className="accountinfo-label">name:</div>
+              <div className="accountinfo-label">username:</div>
               <input
-                placeholder={user.name}
-                onChange={handleNameChange}
-                prompt={user.name}
+                prompt={user.username}
+                onChange={handleUsernameChange}
+                placeholder={user.username !== "" ? user.username : "bobaconnoisseur"}
                 type="text"
                 className="editprofile-box"
               ></input>
@@ -149,7 +149,7 @@ const EditAccount = (props) => {
                     prompt={user.contactDetails1}
                     onChange={handleContactDetails1Change}
                     type="text"
-                    placeholder="555-555-5555"
+                    placeholder={user.contactDetails1 !== "" ? user.contactDetails1 : "555-555-5555"}
                     className="editprofile-box"
                   />
                 </div>
@@ -164,7 +164,7 @@ const EditAccount = (props) => {
                     prompt={user.contactDetails1}
                     onChange={handleContactDetails1Change}
                     type="text"
-                    placeholder="@timbeaver"
+                    placeholder={user.contactDetails1 !== "" ? user.contactDetails1 : "timbeaver"}
                     className="editprofile-box"
                   />
                 </div>
@@ -179,7 +179,7 @@ const EditAccount = (props) => {
                     prompt={user.contactDetails1}
                     onChange={handleContactDetails1Change}
                     type="text"
-                    placeholder="timbeaver@mit.edu"
+                    placeholder={user.contactDetails1 !== "" ? user.contactDetails1 : "timbeaver@mit.edu"}
                     className="editprofile-box"
                   />
                 </div>
@@ -194,7 +194,7 @@ const EditAccount = (props) => {
                     prompt={user.contactDetails1}
                     onChange={handleContactDetails1Change}
                     type="text"
-                    placeholder="tim beaver"
+                    placeholder={user.contactDetails1 !== "" ? user.contactDetails1 : "tim beaver"}
                     className="editprofile-box"
                   />
                 </div>
@@ -249,7 +249,7 @@ const EditAccount = (props) => {
                     prompt={user.contactDetails2}
                     onChange={handleContactDetails2Change}
                     type="text"
-                    placeholder="555-555-5555"
+                    placeholder={user.contactDetails2 !== "" ? user.contactDetails2 : "555-555-5555"}
                     className="editprofile-box"
                   />
                 </div>
@@ -264,7 +264,7 @@ const EditAccount = (props) => {
                     prompt={user.contactDetails2}
                     onChange={handleContactDetails2Change}
                     type="text"
-                    placeholder="@timbeaver"
+                    placeholder={user.contactDetails2 !== "" ? user.contactDetails2 : "@timbeaver"}
                     className="editprofile-box"
                   />
                 </div>
@@ -279,7 +279,7 @@ const EditAccount = (props) => {
                     prompt={user.contactDetails2}
                     onChange={handleContactDetails2Change}
                     type="text"
-                    placeholder="timbeaver@mit.edu"
+                    placeholder={user.contactDetails2 !== "" ? user.contactDetails2 : "timbeaver@mit.edu"}
                     className="editprofile-box"
                   />
                 </div>
@@ -294,7 +294,7 @@ const EditAccount = (props) => {
                     prompt={user.contactDetails2}
                     onChange={handleContactDetails2Change}
                     type="text"
-                    placeholder="tim beaver"
+                    placeholder={user.contactDetails2 !== "" ? user.contactDetails2 : "@timbeaver"}
                     className="editprofile-box"
                   />
                 </div>
