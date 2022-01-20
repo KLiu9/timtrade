@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "@reach/router";
+import { navigate } from "@reach/router";
 
 import "../../utilities.css";
 import "./CreateRequest.css";
@@ -43,15 +43,18 @@ const CreateRequest = (props) => {
   };
 
   const handleSubmit = (event) => {
-    event.preventDefault();
-    // if user chose to enter own item, set values.item to be that item
-    if (values.item === "other") {
-      values.item = values.enterItem;
+    if (values.item !== "" && values.description !== "" && values.type !== "" && values.time !== "") {
+      event.preventDefault();
+      // if user chose to enter own item, set values.item to be that item
+      if (values.item === "other") {
+        values.item = values.enterItem;
+      }
+      // const body = { creator: props.userId, name: values.item, description: values.description, type: values.type, time: values.time };
+      const body = { creator: props.userId, content: values };
+      post("/api/request", body);
+      setValues(initialValues);
+      navigate('/requests/match')
     }
-    // const body = { creator: props.userId, name: values.item, description: values.description, type: values.type, time: values.time };
-    const body = { creator: props.userId, content: values };
-    post("/api/request", body);
-    setValues(initialValues);
   };
 
   const handleBadSubmit = (event) => {
@@ -131,34 +134,15 @@ const CreateRequest = (props) => {
             <option value="weeks">within 2 weeks</option>
             <option value="month">within 1 month</option>
           </select>
-          {values.item !== "" &&
-          values.description !== "" &&
-          values.type !== "" &&
-          values.time !== "" ? (
-            <button
-              type="submit"
-              className="createrequest-submit"
-              value="Submit"
-              style={{ backgroundColor: "var(--green)" }}
-              onClick={handleSubmit}
-            >
-              <Link to="/requests/" className="edit-link" userId={props.userId}>
-                submit
-              </Link>
-            </button>
-          ) : (
-            <>
-              <button
-                type="submit"
-                className="createrequest-submit"
-                value="Submit"
-                style={{ backgroundColor: "var(--green)" }}
-                // onClick={handleBadSubmit}
-              >
-                submit
-              </button>
-            </>
-          )}
+          <button
+            type="submit"
+            className="createrequest-submit"
+            value="Submit"
+            style={{ backgroundColor: "var(--green)" }}
+            onClick={handleSubmit}
+          >
+              submit
+          </button>
         </form>
       </div>
     </div>

@@ -10,7 +10,7 @@ const SearchBar = () => {
       <form method="get" action="/fulfill/">
         <input className="search-box" type="text" placeholder="search..." name="s" />
         <button className="search-button" type="submit">
-          go
+           go
         </button>
       </form>
     </div>

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "@reach/router";
+import { navigate } from "@reach/router";
 import { get } from "../../utilities";
 
 import "../../utilities.css";
@@ -33,12 +33,9 @@ const Account = (props) => {
             type="submit"
             className="edit-profile"
             value="Submit"
-            // onClick={handleSubmit}
+            onClick={() => navigate("/account/edit/")}
           >
-            {/* <Link to={"/account/edit/" + id} className="edit-link" userId={props.userId}> */}
-            <Link to={"/account/edit/"} className="edit-link">
-              edit profile
-            </Link>
+            edit profile
           </button>
         </div>
       </div>

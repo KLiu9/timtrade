@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "@reach/router";
+import { navigate } from "@reach/router";
 import { get } from "../../utilities";
 import { post } from "../../utilities";
 
@@ -10,8 +10,10 @@ import "./EditAccount.css";
 const EditAccount = (props) => {
   const [user, setUser] = useState();
   useEffect(() => {
-    get(`/api/user`, { userid: props.userId }).then((userObj) => setUser(userObj));
-  }, []);
+    if (props.userId !== undefined) {
+      get(`/api/user`, { userid: props.userId }).then((userObj) => setUser(userObj));
+    }
+  }, [props.userId])
   if (!user) {
     return <div className="u-margin">loading...</div>;
   }
@@ -19,43 +21,36 @@ const EditAccount = (props) => {
   const handleKerbChange = (event) => {
     const prompt = event.target.value;
     setUser({ ...user, kerb: prompt });
-    //console.log("user", user);
   };
 
   const handleNameChange = (event) => {
     const prompt = event.target.value;
     setUser({ ...user, name: prompt });
-    //console.log("user", user);
   };
 
   const handleLocChange = (event) => {
     const prompt = event.target.value;
     setUser({ ...user, location: prompt });
-    //console.log("user", user);
   };
 
   const handleContactMethod1Change = (event) => {
     const prompt = event.target.value;
     setUser({ ...user, contactMethod1: prompt });
-    //console.log("user", user);
   };
 
   const handleContactDetails1Change = (event) => {
     const prompt = event.target.value;
     setUser({ ...user, contactDetails1: prompt });
-    //console.log("user", user);
   };
 
   const handleContactMethod2Change = (event) => {
     const prompt = event.target.value;
     setUser({ ...user, contactMethod2: prompt });
-    //console.log("user", user);
   };
 
   const handleContactDetails2Change = (event) => {
     const prompt = event.target.value;
     setUser({ ...user, contactDetails2: prompt });
-    //console.log("user", user);
   };
 
   const handleAccountSubmit = (event) => {
@@ -67,6 +62,7 @@ const EditAccount = (props) => {
       console.log("result", result);
     });
     setUser(user);
+    navigate("/account/");
   };
 
   let id = user._id;
@@ -322,10 +318,7 @@ const EditAccount = (props) => {
                 value="Submit"
                 onClick={handleAccountSubmit}
               >
-                {/* <Link to={"/account/" + id} className="edit-link" userId={props.userId}> */}
-                <Link to={"/account/"} className="edit-link" userId={props.userId}>
-                  done
-                </Link>
+                done
               </button>
             </div>
           </div>

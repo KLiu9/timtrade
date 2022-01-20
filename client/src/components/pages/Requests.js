@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { Link } from "@reach/router";
 import createreqimg from "../../../dist/images/createrequest.png";
-import reqmatchimg from "../../../dist/images/requestmatch.png";
+import reqmatchimg from "../../../dist/images/requestmatch2.png";
 
 import "../../utilities.css";
 import "./Requests.css";

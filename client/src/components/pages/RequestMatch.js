@@ -4,7 +4,7 @@ import "../../utilities.css";
 import "./RequestMatch.css";
 import { get } from "../../utilities";
 import { post } from "../../utilities";
-import { Link } from "@reach/router";
+import { navigate } from "@reach/router";
 
 let colors = ["var(--purple)", "var(--blue)", "var(--yellow)", "var(--green)"];
 let i = 0;
@@ -14,6 +14,7 @@ function Box(props) {
 
   useEffect(() => {
     // document.title = "request matches";
+    // if (props.userId !== undefined) {
     get("/api/requests", { creator: props.userId }).then((requestObjs) => {
       // console.log("bye", props.userId);
       // console.log("61e4d99700fa5b28b75a9f9b");
@@ -58,6 +59,7 @@ function Box(props) {
         console.log("request", request);
       });
     }
+    // navigate("/requests/");
     //console.log("requests after pressing resolve", requests);
   };
 
@@ -71,7 +73,7 @@ function Box(props) {
   i = (i + 1) % colors.length;
 
   return (
-    <div className="item-box" style={{ backgroundColor: colors[i] }}>
+    <div className="item-box" style={{ backgroundColor: colors[props.index % colors.length] }}>
       <b>item:</b> {props.item} <br />
       <br />
       <br />
@@ -88,9 +90,7 @@ function Box(props) {
         }}
         onClick={handleResolve}
       >
-        <Link to="/requests/" className="edit-link" userId={props.userId}>
-          resolve
-        </Link>
+        resolve
       </button>
     </div>
   );
@@ -101,13 +101,15 @@ const RequestMatch = (props) => {
 
   useEffect(() => {
     // document.title = "request matches";
-    get("/api/requests", { creator: props.userId }).then((requestObjs) => {
-      // console.log("bye", props.userId);
-      // console.log("61e4d99700fa5b28b75a9f9b");
-      // console.log("hi", requestObjs);
-      setRequests(requestObjs);
-    });
-  }, []);
+    if (props.userId !== undefined) {
+      get("/api/requests", { creator: props.userId }).then((requestObjs) => {
+        // console.log("bye", props.userId);
+        // console.log("61e4d99700fa5b28b75a9f9b");
+        // console.log("hi", requestObjs);
+        setRequests(requestObjs);
+      });
+    }
+  }, [props.userId, requests]);
   /*const handleResolve = (event) => {
     event.preventDefault();
     // const body = { creator: props.userId, name: values.item, description: values.description, type: values.type, time: values.time };
@@ -117,7 +119,7 @@ const RequestMatch = (props) => {
   let requestsList = null;
   const hasRequests = requests.length !== 0;
   if (hasRequests) {
-    requestsList = requests.map((requestObj) => (
+    requestsList = requests.map((requestObj, i) => (
       <Box
         key={`Box_${requestObj._id}`}
         creator={requestObj.creator}
@@ -126,6 +128,7 @@ const RequestMatch = (props) => {
         type={requestObj.type}
         time={requestObj.time}
         userId={props.userId}
+        index={i}
       />
     ));
   } else {
