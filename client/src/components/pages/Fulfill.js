@@ -3,6 +3,7 @@ import { get } from "../../utilities";
 
 import "../../utilities.css";
 import "./Fulfill.css";
+import Modal from "react-modal";
 
 import SearchBar from "../modules/SearchBar.js";
 
@@ -10,6 +11,18 @@ let colors = ["var(--purple)", "var(--blue)", "var(--yellow)", "var(--green)"];
 let i = 0;
 
 function Box(props) {
+  const [reqCreator, setReqCreator] = useState();
+  const [PopUp, setPopUp] = useState(false);
+
+  const handleClose = () => setPopUp(false);
+  const handleOpen = () => setPopUp(true);
+  useEffect(() => {
+    get(`/api/user`, { userid: props.creator }).then((userObj) => {
+      setReqCreator(userObj);
+    });
+  }, []);
+
+  //console.log("hihi", reqCreator);
   i = (i + 1) % colors.length;
   let number = "1";
   if (props.time === "weeks") {
@@ -24,7 +37,7 @@ function Box(props) {
           <b>item:</b> {props.item} <br />
           <br />
           <br />
-          <b>{props.creator.substr(0, 9)}</b>
+          <b>{!reqCreator ? "" : "@" + reqCreator.username}</b>
           <br />
           <br />
           <br />
@@ -50,6 +63,31 @@ function Box(props) {
           {/* <b>{props.creator}</b> */}
           <br />
           <br />
+          <button
+            className="about-button"
+            style={{ backgroundColor: "var(--white)" }}
+            onClick={handleOpen}
+          >
+            {!reqCreator ? "" : "@" + reqCreator.username}
+          </button>
+          <Modal className="modal" isOpen={PopUp}>
+            <button className="modal-close" onClick={handleClose}>
+              ✘
+            </button>
+            <div className="modal-content">
+              {reqCreator && (
+                <>
+                  <p>
+                    <p className="modal-title">{"@" + reqCreator.username}</p>
+                    <p> name: {reqCreator.name}</p>
+                    <p>{reqCreator.contactMethod1 + ": " + reqCreator.contactDetails1}</p>
+                    <p> {reqCreator.contactMethod2 + ": " + reqCreator.contactDetails2} </p>
+                    <p> location: {reqCreator.location}</p>
+                  </p>
+                </>
+              )}
+            </div>
+          </Modal>
           <br />
           <br />
           <button type="resolve" className="requestmatch-resolve" value="Resolve">
@@ -97,7 +135,6 @@ const Fulfill = (props) => {
   };
 
   let requestsList = null;
-  let timeIndices = null;
   const hasRequests = requests.length !== 0;
   if (hasRequests) {
     //console.log("requests", requests);

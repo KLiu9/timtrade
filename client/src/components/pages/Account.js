@@ -27,7 +27,11 @@ const Account = (props) => {
       <div>
         {/* <a className="user-title">{props.username}</a> */}
         <div className="user-box">
-          <div className="user-title">{user.name}</div> {/* eventually replace w/ username */}
+          <div className="user-title">
+            {!user.username || user.username === ""
+              ? "set your username!" /** change this lol */
+              : "@" + user.username}
+          </div>
           <div className="email-title">{user.email}</div>
           <button
             type="submit"
