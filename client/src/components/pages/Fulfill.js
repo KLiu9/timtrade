@@ -4,7 +4,7 @@ import { get } from "../../utilities";
 import "../../utilities.css";
 import "./Fulfill.css";
 
-import SearchBar from "./SearchBar.js";
+import SearchBar from "../modules/SearchBar.js";
 
 let colors = ["var(--purple)", "var(--blue)", "var(--yellow)", "var(--green)"];
 let i = 0;
