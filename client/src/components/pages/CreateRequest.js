@@ -15,6 +15,9 @@ const initialValues = {
 };
 
 const CreateRequest = (props) => {
+  if (!props.userId) {
+    return <div className="requests-container requests-item">log in to create a request!</div>;
+  }
   const [values, setValues] = useState(initialValues);
 
   const handleItemChange = (event) => {

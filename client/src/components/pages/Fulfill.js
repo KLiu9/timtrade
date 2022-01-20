@@ -15,7 +15,7 @@ function Box(props) {
   if (props.time === "weeks") {
     number = "2";
   }
-  let tradeInfo = props.type + " this item within " + number + " " + props.time;
+  let tradeInfo = props.type + " within " + number + " " + props.time;
   return (
     <div className="fulfill-item-box" style={{ backgroundColor: colors[i] }}>
       <div className="fulfill-item-box-inner">
@@ -52,11 +52,7 @@ function Box(props) {
           <br />
           <br />
           <br />
-          <button
-            type="resolve"
-            className="requestmatch-resolve"
-            value="Resolve"
-          >
+          <button type="resolve" className="requestmatch-resolve" value="Resolve">
             fulfill
           </button>
         </div>
