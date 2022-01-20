@@ -64,9 +64,10 @@
   font-size: 14px;
   line-height: 17px;
   border: none;
-  box-shadow: 1px 1px var(--darkgrey);
+  box-shadow: 1px 1px black;
 }
 
 .requestmatch-resolve:hover {
   background-color: var(--pink) !important;
+  cursor: pointer !important;
 }

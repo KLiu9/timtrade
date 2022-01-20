@@ -45,6 +45,7 @@
 
 .createrequest-submit:hover {
   background-color: var(--pink) !important;
+  cursor: pointer !important;
 }
 
 input,

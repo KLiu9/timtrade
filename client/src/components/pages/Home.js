@@ -46,13 +46,13 @@ const Home = (props) => {
         )}
           <button className="about-button" style={{backgroundColor: "var(--blue)",}} onClick={handleOpen}>about</button>
           <Modal className="modal" isOpen={PopUp}>
-            <button className="modal-close" onClick={handleClose}>X</button>
+            <button className="modal-close" onClick={handleClose}>✘</button>
             <div className="modal-content">
               <p>
                 <p className="modal-title">welcome to timtrade!</p>
-                <p> ➸ marketplace for the mit community </p>
-                <p> ➸ create requests and add to your inventory </p>
-                <p> ➸ explore others' items and requests </p>
+                <p> &gt; marketplace for the mit community &lt; </p>
+                <p> &gt; create requests and add to your inventory &lt; </p>
+                <p> &gt; explore others' items and requests &lt; </p>
                 {/* <ul>
                   <li>marketplace for the mit community</li>
                   <li>create requests and add to your inventory</li>

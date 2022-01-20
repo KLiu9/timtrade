@@ -54,12 +54,13 @@
   text-align: center;
   font-weight: 700;
   border: none;
-  background-color: var(--green);
-  box-shadow: 1px 1px var(--darkgreen);
+  background-color: var(--purple);
+  box-shadow: 1px 1px var(--darkpurple);
 }
 
 .edit-profile:hover {
   background-color: var(--pink) !important;
+  cursor: pointer !important;
 }
 
 .edit-link {

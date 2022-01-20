@@ -8,7 +8,9 @@
 }
 
 .NavBar-linkContainer {
-  margin-left: var(--l);
+  display: flex;
+  margin-left: auto;
+  justify-content: flex-end;
 }
 
 .NavBar-link,
@@ -32,10 +34,12 @@
 }
 
 .NavBar-align {
-  text-align: right;
+  text-align: center;
 }
 
 .img-size {
+  display: block;
+  margin: auto;
   width: 40px;
   height: 40px;
 }

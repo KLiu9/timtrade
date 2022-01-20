@@ -13,46 +13,29 @@ const NavBar = () => {
   return (
     <nav className="NavBar-container">
       <div className="NavBar-linkContainer NavBar-align">
-        <div>
-          <a href="/">
-            <img className="img-size" src={favimg} />
-          </a>
-          &ensp;&ensp;&ensp;
-          <a href="/account/">
-            <img className="img-size" src={accimg} />
-          </a>
-          &ensp;&ensp;&ensp;&ensp;&thinsp;
-          <a href="/requests/">
-            <img className="img-size" src={reqimg} />
-          </a>
-          &ensp;&ensp;&ensp;&thinsp;&thinsp;
-          <a href="/explore/">
-            <img className="img-size" src={expimg} />
-          </a>
-          &ensp;&thinsp;&thinsp;&thinsp;
-          <a href="/fulfill/">
-            <img className="img-heart" src={fulimg} />
-          </a>
-        </div>
-        
         <Link to="/" className="NavBar-link">
-          home
+          <img className="img-size" src={favimg} />
+          <div>home</div>
         </Link>
 
         <Link to="/account/" className="NavBar-link">
-          account
+          <img className="img-size" src={accimg} />
+          <div>account</div>
         </Link>
 
         <Link to="/requests/" className="NavBar-link">
-          requests
+          <img className="img-size" src={reqimg} />
+          <div>requests</div>
         </Link>
 
         <Link to="/explore/" className="NavBar-link">
-          explore
+          <img className="img-size" src={expimg} />
+          <div>explore</div>
         </Link>
 
         <Link to="/fulfill/" className="NavBar-link">
-          fulfill
+          <img className="img-size" src={fulimg} />
+          <div>fulfill</div>
         </Link>
       </div>
     </nav>
