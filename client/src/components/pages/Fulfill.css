@@ -62,7 +62,7 @@
   transition: transform 0.8s;
   transform-style: preserve-3d;
   text-align: center;
-  max-width: 100%;
+  width: 100%;
 }
 
 .fulfill-item-box:hover .fulfill-item-box-inner {
@@ -76,13 +76,13 @@
   text-align: center;
 }
 .fulfill-item-box-front {
-  max-width: 100%;
+  width: 100%;
   position: absolute;
   text-align: center;
 }
 
 .fulfill-item-box-back {
-  max-width: 100%;
+  width: 100%;
   font-style: italic;
   transform: rotateY(180deg);
 }

@@ -50,7 +50,7 @@ const Home = (props) => {
             <div className="modal-content">
               <p>
                 <p className="modal-title">welcome to timtrade!</p>
-                <p> &gt; marketplace for the mit community &lt; </p>
+                <p> &gt; a marketplace for the mit community &lt; </p>
                 <p> &gt; create requests and add to your inventory &lt; </p>
                 <p> &gt; explore others' items and requests &lt; </p>
                 {/* <ul>

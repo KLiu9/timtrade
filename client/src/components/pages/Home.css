@@ -90,6 +90,7 @@
 
 .modal-close:hover {
   color: var(--primary--dim);
+  cursor: pointer;
 }
 
 .modal-title {
