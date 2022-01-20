@@ -29,7 +29,9 @@ const Home = (props) => {
             onFailure={(err) => console.log(err)}
             // className="home-nav"
             render={(item) => (
-              <button onClick={item.onClick} className="login-button">logout</button>
+              <button onClick={item.onClick} className="login-button">
+                logout
+              </button>
             )}
           />
         ) : (
@@ -40,31 +42,41 @@ const Home = (props) => {
             onFailure={(err) => console.log(err)}
             // className="home-nav"
             render={(item) => (
-              <button onClick={item.onClick} className="login-button">login</button>
+              <button onClick={item.onClick} className="login-button">
+                login
+              </button>
             )}
           />
         )}
-          <button className="about-button" style={{backgroundColor: "var(--blue)",}} onClick={handleOpen}>about</button>
-          <Modal className="modal" isOpen={PopUp}>
-            <button className="modal-close" onClick={handleClose}>✘</button>
-            <div className="modal-content">
-              <p>
-                <p className="modal-title">welcome to timtrade!</p>
-                <p> &gt; a marketplace for the mit community &lt; </p>
-                <p> &gt; create requests and add to your inventory &lt; </p>
-                <p> &gt; explore others' items and requests &lt; </p>
-                {/* <ul>
+        <button
+          className="about-button"
+          style={{ backgroundColor: "var(--blue)" }}
+          onClick={handleOpen}
+        >
+          about
+        </button>
+        <Modal className="modal" isOpen={PopUp}>
+          <button className="modal-close" onClick={handleClose}>
+            ✘
+          </button>
+          <div className="modal-content">
+            <p>
+              <p className="modal-title">welcome to timtrade!</p>
+              <p> &gt; a marketplace for the mit community &lt; </p>
+              <p> &gt; create requests and add to your inventory &lt; </p>
+              <p> &gt; explore others' items and requests &lt; </p>
+              {/* <ul>
                   <li>marketplace for the mit community</li>
                   <li>create requests and add to your inventory</li>
                   <li>explore others' items and requests</li>
                 </ul> */}
-                <p className="modal-names"> - katie, anna, emily</p>
-              </p>
-            </div>
-          </Modal>
+              <p className="modal-names"> - katie, anna, emily</p>
+            </p>
+          </div>
+        </Modal>
       </span>
     </div>
-  )
-}
+  );
+};
 
 export default Home;

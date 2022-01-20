@@ -7,7 +7,7 @@ import { post } from "../../utilities";
 import { navigate } from "@reach/router";
 
 let colors = ["var(--purple)", "var(--blue)", "var(--yellow)", "var(--green)"];
-let i = 0;
+let j = 0;
 
 function Box(props) {
   const [requests, setRequests] = useState([]);
@@ -70,7 +70,7 @@ function Box(props) {
     status = "@" + props.username + " has your item!";
     //eventually link username to other user's profile (popup)
   }
-  i = (i + 1) % colors.length;
+  j = (j + 1) % colors.length;
 
   return (
     <div className="item-box" style={{ backgroundColor: colors[props.index % colors.length] }}>
@@ -97,6 +97,12 @@ function Box(props) {
 }
 
 const RequestMatch = (props) => {
+  if (!props.userId) {
+    return (
+      <div className="requests-container requests-item">log in to view your request matches!</div>
+    );
+  }
+
   const [requests, setRequests] = useState([]);
 
   useEffect(() => {

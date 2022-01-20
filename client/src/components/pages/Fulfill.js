@@ -52,11 +52,7 @@ function Box(props) {
           <br />
           <br />
           <br />
-          <button
-            type="resolve"
-            className="requestmatch-resolve"
-            value="Resolve"
-          >
+          <button type="resolve" className="requestmatch-resolve" value="Resolve">
             fulfill
           </button>
         </div>
@@ -94,7 +90,8 @@ const Fulfill = (props) => {
       //console.log(req);
       //const reqLower = req.name.toLowerCase();
       return (
-        req.name.toLowerCase().includes(query) || req.description.toLowerCase().includes(query)
+        req.name.toLowerCase().includes(query.toLowerCase()) ||
+        req.description.toLowerCase().includes(query.toLowerCase())
       );
     });
   };

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { get } from "../../utilities";
+import searchimg from "../../../dist/images/search.png";
 
 import "../../utilities.css";
 import "./SearchBar.css";
@@ -10,7 +11,7 @@ const SearchBar = () => {
       <form method="get" action="/fulfill/">
         <input className="search-box" type="text" placeholder="search..." name="s" />
         <button className="search-button" type="submit">
-           go
+          <img className="search-img-size" src={searchimg} />
         </button>
       </form>
     </div>
