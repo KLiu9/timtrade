@@ -348,7 +348,7 @@ const EditAccount = (props) => {
               </button>
               <div className="modal-content">
                 <br />
-                that username is taken - please enter another!
+                the username @{user.username} is taken - please enter another!
                 <br />
                 <br />
                 <br />
