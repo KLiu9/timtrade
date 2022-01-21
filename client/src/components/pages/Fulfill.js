@@ -55,7 +55,9 @@ function Box(props) {
           <b>item:</b> {props.item} <br />
           <br />
           <br />
-          <b style={{ textDecoration: "underline" }}>{!reqCreator ? "" : "@" + reqCreator.username}</b>
+          <b style={{ textDecoration: "underline" }}>
+            {!reqCreator ? "" : "@" + reqCreator.username}
+          </b>
           <br />
           <br />
           <br />
@@ -88,20 +90,36 @@ function Box(props) {
           >
             {!reqCreator ? "" : "@" + reqCreator.username}
           </button>
-          <Modal className="modal" isOpen={PopUp} ariaHideApp={false} >
-            <div style={{ backgroundColor: colors[props.index % colors.length], borderRadius: "24px" }}>
+          <Modal className="modal" isOpen={PopUp} ariaHideApp={false}>
+            <div
+              style={{ backgroundColor: colors[props.index % colors.length], borderRadius: "24px" }}
+            >
               <button className="modal-close" onClick={handleClose}>
                 ✘
               </button>
               <div className="modal-content">
                 {reqCreator && (
                   <div>
-                    <p className="modal-title" style={{ textDecoration: "underline" }}>{"@" + reqCreator.username}</p>
-                    <p> name: <i>{reqCreator.name}</i></p>
-                    <p> {reqCreator.contactMethod1}: <i>{reqCreator.contactDetails1}</i> </p>
-                    <p> {reqCreator.contactMethod2}: <i>{reqCreator.contactDetails2}</i> </p>
-                    <p> location: <i>{reqCreator.location}</i> </p>
-                    <br/>
+                    <p className="modal-title" style={{ textDecoration: "underline" }}>
+                      {"@" + reqCreator.username}
+                    </p>
+                    <p>
+                      {" "}
+                      name: <i>{reqCreator.name}</i>
+                    </p>
+                    <p>
+                      {" "}
+                      {reqCreator.contactMethod1}: <i>{reqCreator.contactDetails1}</i>{" "}
+                    </p>
+                    <p>
+                      {" "}
+                      {reqCreator.contactMethod2}: <i>{reqCreator.contactDetails2}</i>{" "}
+                    </p>
+                    <p>
+                      {" "}
+                      location: <i>{reqCreator.location}</i>{" "}
+                    </p>
+                    <br />
                   </div>
                 )}
               </div>
@@ -242,7 +260,7 @@ const Fulfill = (props) => {
   return (
     <>
       <div style={{ padding: "0px 50px" }}>
-        <SearchBar />
+        <SearchBar action={"/fulfill/"} />
         <div className="fulfill-container">{requestsList}</div>
       </div>
     </>

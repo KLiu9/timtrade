@@ -43,7 +43,9 @@ function Box(props) {
           <b>item:</b> {props.item} <br />
           <br />
           <br />
-          <b style={{ textDecoration: "underline" }}>{!reqCreator ? "" : "@" + reqCreator.username}</b>
+          <b style={{ textDecoration: "underline" }}>
+            {!reqCreator ? "" : "@" + reqCreator.username}
+          </b>
           <br />
           <br />
           <br />
@@ -75,20 +77,36 @@ function Box(props) {
           >
             {!reqCreator ? "" : "@" + reqCreator.username}
           </button>
-          <Modal className="modal" isOpen={PopUp} ariaHideApp={false} >
-            <div style={{ backgroundColor: colors[props.index % colors.length], borderRadius: "24px" }}>
+          <Modal className="modal" isOpen={PopUp} ariaHideApp={false}>
+            <div
+              style={{ backgroundColor: colors[props.index % colors.length], borderRadius: "24px" }}
+            >
               <button className="modal-close" onClick={handleClose}>
                 ✘
               </button>
               <div className="modal-content">
                 {reqCreator && (
                   <div>
-                    <p className="modal-title" style={{ textDecoration: "underline" }}>{"@" + reqCreator.username}</p>
-                    <p> name: <i>{reqCreator.name}</i></p>
-                    <p> {reqCreator.contactMethod1}: <i>{reqCreator.contactDetails1}</i> </p>
-                    <p> {reqCreator.contactMethod2}: <i>{reqCreator.contactDetails2}</i> </p>
-                    <p> location: <i>{reqCreator.location}</i> </p>
-                    <br/>
+                    <p className="modal-title" style={{ textDecoration: "underline" }}>
+                      {"@" + reqCreator.username}
+                    </p>
+                    <p>
+                      {" "}
+                      name: <i>{reqCreator.name}</i>
+                    </p>
+                    <p>
+                      {" "}
+                      {reqCreator.contactMethod1}: <i>{reqCreator.contactDetails1}</i>{" "}
+                    </p>
+                    <p>
+                      {" "}
+                      {reqCreator.contactMethod2}: <i>{reqCreator.contactDetails2}</i>{" "}
+                    </p>
+                    <p>
+                      {" "}
+                      location: <i>{reqCreator.location}</i>{" "}
+                    </p>
+                    <br />
                   </div>
                 )}
               </div>
@@ -110,7 +128,6 @@ function Box(props) {
   );
 }
 
-
 const Explore = (props) => {
   if (!props.userId) {
     return <div className="requests-container requests-item">log in to explore items!</div>;
@@ -126,78 +143,86 @@ const Explore = (props) => {
       });
     });
   }, []);
-    
-  // ensures user has entered all info in before accessing page
-  if (!user || !user.username || !user.kerb || !user.contactMethod1 || !user.contactDetails1 ||
-    !user.contactMethod2 || !user.contactDetails2 || !user.location) {
-      return (
-        <div className="requests-container requests-item">
-          enter all account info before exploring items!
-        </div>
-      );
-    };
 
-    const { search } = window.location;
-    const query = new URLSearchParams(search).get("s");
-  
-    const filterItems = (items, query) => {
-      if (!query) {
-        return items;
+  // ensures user has entered all info in before accessing page
+  if (
+    !user ||
+    !user.username ||
+    !user.kerb ||
+    !user.contactMethod1 ||
+    !user.contactDetails1 ||
+    !user.contactMethod2 ||
+    !user.contactDetails2 ||
+    !user.location
+  ) {
+    return (
+      <div className="requests-container requests-item">
+        enter all account info before exploring items!
+      </div>
+    );
+  }
+
+  const { search } = window.location;
+  const query = new URLSearchParams(search).get("s");
+
+  const filterItems = (items, query) => {
+    if (!query) {
+      return items;
+    }
+    return items.filter((item) => {
+      //console.log(req);
+      //const reqLower = req.name.toLowerCase();
+      return (
+        item.name.toLowerCase().includes(query.toLowerCase()) ||
+        item.description.toLowerCase().includes(query.toLowerCase())
+      );
+    });
+  };
+
+  let listingsList = null;
+  const hasListings = listings.length !== 0;
+  if (hasListings) {
+    const timeOrder = ["hour", "day", "week", "weeks", "month"];
+    listings.sort(function (a, b) {
+      let time1 = timeOrder.findIndex((time) => time === a.time);
+      let time2 = timeOrder.findIndex((time) => time === b.time);
+      if (time1 < time2) {
+        return -1;
       }
-      return items.filter((item) => {
-        //console.log(req);
-        //const reqLower = req.name.toLowerCase();
-        return (
-          item.name.toLowerCase().includes(query.toLowerCase()) ||
-          item.description.toLowerCase().includes(query.toLowerCase())
-        );
-      });
-    };
-  
-    let listingsList = null;
-    const hasListings = listings.length !== 0;
-    if (hasListings) {
-      const timeOrder = ["hour", "day", "week", "weeks", "month"];
-      listings.sort(function (a, b) {
-        let time1 = timeOrder.findIndex((time) => time === a.time);
-        let time2 = timeOrder.findIndex((time) => time === b.time);
-        if (time1 < time2) {
-          return -1;
-        }
-        if (time1 > time2) {
-          return 1;
-        }
-        return 0;
-      });
-      const filteredItems = filterItems(listings, query);
-      if (filteredItems.length !== 0) {
-        listingsList = filteredItems.map((itemObj, i) => (
-          <Box
-            key={`Box_${itemObj._id}`}
-            creator={itemObj.creator}
-            item={itemObj.name}
-            description={itemObj.description}
-            type={itemObj.type}
-            index={i}
-            // reqId={requestObj._id}
-            userId={props.userId}
-          />
-        ));
-      } else {
-        listingsList = <div>no listings!</div>;
+      if (time1 > time2) {
+        return 1;
       }
+      return 0;
+    });
+    const filteredItems = filterItems(listings, query);
+    if (filteredItems.length !== 0) {
+      listingsList = filteredItems.map((itemObj, i) => (
+        <Box
+          key={`Box_${itemObj._id}`}
+          creator={itemObj.creator}
+          item={itemObj.name}
+          description={itemObj.description}
+          type={itemObj.type}
+          index={i}
+          // reqId={requestObj._id}
+          userId={props.userId}
+        />
+      ));
     } else {
       listingsList = <div>no listings!</div>;
     }
-  
-    return (
-      <>
-        <div style={{ padding: "0px 50px" }}>
-          <SearchBar />
-          <div className="fulfill-container">{listingsList}</div>
-        </div>
-      </>
-    );
+  } else {
+    listingsList = <div>no listings!</div>;
+  }
+
+  return (
+    <>
+      <div style={{ padding: "0px 50px" }}>
+        <SearchBar action="/explore/" />
+        <div className="fulfill-container">{listingsList}</div>
+      </div>
+    </>
+  );
 };
 
 export default Explore;
