@@ -104,6 +104,14 @@
   width: 100%;
 }
 
+.item-box-inner {
+  position: relative;
+  transition: transform 1.2s;
+  transform-style: preserve-3d;
+  text-align: center;
+  width: 100%;
+}
+
 .fulfill-item-box:hover .fulfill-item-box-inner {
   transform: rotateY(180deg);
 }

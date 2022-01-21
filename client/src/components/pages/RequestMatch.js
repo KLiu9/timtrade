@@ -11,9 +11,20 @@ function Box(props) {
   const [requests, setRequests] = useState([]);
   const [PopUp, setPopUp] = useState(false);
   const [fulfillers, setFulfillers] = useState([]);
+  const [userPopUp, setUserPopUp] = useState(false);
 
   const handleClose = () => setPopUp(false);
-  const handleOpen = () => setPopUp(true);
+  const handleOpen = () => {
+    setPopUp(true);
+    //console.log("opened first");
+  };
+  const handleUserClose = () => {
+    setUserPopUp(false);
+  };
+  const handleUserOpen = () => {
+    setUserPopUp(true);
+  };
+
   let fulfillerUsernames = [];
   useEffect(() => {
     // document.title = "request matches";
@@ -23,7 +34,7 @@ function Box(props) {
     if (props.fulfilled && props.fulfilled.length !== 0) {
       for (let ind = 0; ind < props.fulfilled.length; ind++) {
         get(`/api/user`, { userid: props.fulfilled[ind] }).then((userObj) => {
-          setFulfillers((oldArray) => [...oldArray, userObj.username]);
+          setFulfillers((oldArray) => [...oldArray, userObj]);
         });
       }
     }
@@ -60,55 +71,116 @@ function Box(props) {
       });
     }
   };
+
   fulfillerUsernames = fulfillers.map((x) => (
     <>
-      <p>{"@" + x}</p>
+      <button
+        className="requestmatch-resolve"
+        style={{
+          backgroundColor: "var(--white)",
+          fontWeight: "bold",
+          width: "auto",
+          margin: "5px",
+        }}
+        onClick={handleUserOpen}
+      >
+        {"@" + x.username}
+      </button>
+      <Modal className="modal" isOpen={userPopUp}>
+        <button className="modal-close" onClick={handleUserClose}>
+          ✘
+        </button>
+        <div className="modal-content">
+          {x && (
+            <div>
+              <p className="modal-title">{"@" + x.username}</p>
+              <p> name: {x.name}</p>
+              <p>{x.contactMethod1 + ": " + x.contactDetails1}</p>
+              <p> {x.contactMethod2 + ": " + x.contactDetails2} </p>
+              <p> location: {x.location}</p>
+            </div>
+          )}
+        </div>
+      </Modal>
     </>
   ));
+  //console.log(fulfillerUsernames);
   j = (j + 1) % colors.length;
 
+  let number = "1";
+  if (props.time === "weeks") {
+    number = "2";
+  }
+  let tradeInfo = props.type + " within " + number + " " + props.time;
   return (
-    <div className="item-box" style={{ backgroundColor: colors[props.index % colors.length] }}>
-      <b>item:</b> {props.item} <br />
-      <br />
-      <br />
-      {/*<b>{status}</b>*/}
-      {!props.fulfilled || props.fulfilled.length === 0 ? (
-        <>
-          <b>waiting to be fulfilled...</b>
-        </>
-      ) : (
-        <>
+    <div
+      className="fulfill-item-box"
+      style={{ backgroundColor: colors[props.index % colors.length] }}
+    >
+      <div className="fulfill-item-box-inner">
+        <div className="fulfill-item-box-front">
+          <b>item:</b> {props.item} <br />
+          <br />
+          <br />
+          {!props.fulfilled || props.fulfilled.length === 0 ? (
+            <>
+              <b>waiting to be fulfilled...</b>
+            </>
+          ) : (
+            <>
+              <b>your request has been fulfilled!</b>
+            </>
+          )}
+          <br />
+          <br />
+          <br />
+          {tradeInfo}
+        </div>
+        <div className="fulfill-item-box-back">
+          <b>item:</b> {props.item} <br />
+          <b>description:</b> {props.description} <br />
+          <br />
+          <br />
+          {!props.fulfilled || props.fulfilled.length === 0 ? (
+            <>
+              <b>waiting to be fulfilled...</b>
+            </>
+          ) : (
+            <>
+              <button
+                className="requestmatch-resolve"
+                style={{ backgroundColor: "var(--white)", fontWeight: "bold", width: "auto" }}
+                onClick={handleOpen}
+              >
+                see who has your item
+              </button>
+              <Modal className="modal" isOpen={PopUp} ariaHideApp={false}>
+                <button className="modal-close" onClick={handleClose}>
+                  ✘
+                </button>
+                <div className="modal-content" style={{ fontStyle: "italic" }}>
+                  {fulfillerUsernames}
+                </div>
+                <br />
+              </Modal>
+            </>
+          )}
+          <br />
+          <br />
+          <br />
           <button
+            type="resolve"
             className="requestmatch-resolve"
-            style={{ backgroundColor: "var(--white)", fontWeight: "bold", width: "auto" }}
-            onClick={handleOpen}
+            value="Resolve"
+            style={{
+              backgroundColor: "#E5E5E5",
+            }}
+            onClick={handleResolve}
           >
-            see who has your item
+            resolve
           </button>
-          <Modal className="modal" isOpen={PopUp}>
-            <button className="modal-close" onClick={handleClose}>
-              ✘
-            </button>
-            <div className="modal-content" style={{ fontStyle: "italic" }}>{fulfillerUsernames}</div>
-            <br/>
-          </Modal>
-        </>
-      )}
-      <br />
-      <br />
-      <br />
-      <button
-        type="resolve"
-        className="requestmatch-resolve"
-        value="Resolve"
-        style={{
-          backgroundColor: "#E5E5E5",
-        }}
-        onClick={handleResolve}
-      >
-        resolve
-      </button>
+        </div>
+      </div>
     </div>
   );
 }
@@ -262,10 +334,12 @@ const RequestMatch = (props) => {
       />
     ));
   } else {
-    requestsList = <div style={{paddingLeft: "10px", fontStyle: "italic"}}>
-      <br/>
-      no requests!
-      </div>;
+    requestsList = (
+      <div style={{ paddingLeft: "10px", fontStyle: "italic" }}>
+        <br />
+        no requests!
+      </div>
+    );
   }
   let fulfillsList = [];
   let fulfillsList2 = [];
