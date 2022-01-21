@@ -1,9 +1,10 @@
 const mongoose = require("mongoose");
 
 const itemSchema = new mongoose.Schema({
+  creator: String,
   name: String,
   description: String,
-  obtain_options: String,
+  type: String,
   // upload feature
 });
 

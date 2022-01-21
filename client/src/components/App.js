@@ -5,6 +5,7 @@ import NavBar from "./modules/NavBar.js";
 import Home from "./pages/Home.js";
 import Account from "./pages/Account.js";
 import EditAccount from "./pages/EditAccount.js";
+import EditInventory from "./pages/EditInventory.js";
 import Requests from "./pages/Requests.js";
 import Explore from "./pages/Explore.js";
 import Fulfill from "./pages/Fulfill.js";
@@ -65,6 +66,7 @@ const App = () => {
         <Home path="/" handleLogin={handleLogin} handleLogout={handleLogout} userId={userId}/>
         <Account path="/account/" userId={userId}/>
         <EditAccount path="/account/edit/" userId={userId}/>
+        <EditInventory path="/account/editinventory/" userId={userId}/>
         <Requests path="/requests/" userId={userId}/>
         <Explore path="/explore/" userId={userId}/>
         <Fulfill path="/fulfill/" userId={userId}/>

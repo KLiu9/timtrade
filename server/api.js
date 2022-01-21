@@ -13,7 +13,6 @@ const express = require("express");
 const User = require("./models/user");
 const Item = require("./models/items");
 const Request = require("./models/request");
-// const Requests = require("./models/requests");
 
 // import authentication library
 const auth = require("./auth");
@@ -36,6 +35,7 @@ router.get("/whoami", (req, res) => {
   res.send(req.user);
 });
 
+
 router.get("/requests", (req, res) => {
   Request.find({ creator: req.query.creator }).then((requests) => {
     res.send(requests);
@@ -45,6 +45,18 @@ router.get("/requests", (req, res) => {
 router.get("/allrequests", (req, res) => {
   Request.find({}).then((requests) => {
     res.send(requests);
+  });
+});
+
+router.get("/listings", (req, res) => {
+  Item.find({ creator: req.query.creator }).then((items) => {
+    res.send(items);
+  })
+})
+
+router.get("/allListings", (req, res) => {
+  Item.find({}).then((items) => {
+    res.send(items);
   });
 });
 
@@ -102,7 +114,31 @@ router.post("/updateUserInfo", (req, res) => {
     result.contactMethod2 = req.body.content.contactMethod2;
     result.contactDetails2 = req.body.content.contactDetails2;
     result.location = req.body.content.location;
+
     result.save().then((newUserInfo) => res.send(newUserInfo));
+  });
+});
+
+router.post("/listItem", (req, res) => {
+  const newItem = new Item({
+    creator: req.body.creator,
+    name: req.body.content.item,
+    description: req.body.content.description,
+    type: req.body.content.type,
+  });
+
+  // console.log("NEW LISTING", newItem);
+  newItem.save().then((listing) => res.send(listing));
+});
+
+router.post("/deleteItem", (req, res) => {
+  Item.deleteOne({
+    creator: req.body.creator,
+    name: req.body.name,
+    description: req.body.description,
+    type: req.body.type,
+  }).then((result) => {
+    console.log("deleted listing");
   });
 });
 

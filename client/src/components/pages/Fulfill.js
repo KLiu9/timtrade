@@ -19,7 +19,7 @@ function Box(props) {
   const handleOpen = () => setPopUp(true);
   const handleCloseFulfill = () => setPopUpFulfill(false);
   useEffect(() => {
-    get(`/api/user`, { userid: props.creator }).then((userObj) => {
+    get("/api/user", { userid: props.creator }).then((userObj) => {
       setReqCreator(userObj);
     });
   }, []);
@@ -158,7 +158,7 @@ const Fulfill = (props) => {
         setRequests(requestObjs);
       });
     });
-  }, []);
+  }, [requests]);
 
   // ensures user has entered all info in before accessing page
   if (
