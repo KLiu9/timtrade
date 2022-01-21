@@ -70,7 +70,7 @@ function Box(props) {
           >
             {!reqCreator ? "" : "@" + reqCreator.username}
           </button>
-          <Modal className="modal" isOpen={PopUp}>
+          <Modal className="modal" isOpen={PopUp} ariaHideApp={false}>
             <button className="modal-close" onClick={handleClose}>
               ✘
             </button>
@@ -104,16 +104,29 @@ const Fulfill = (props) => {
         log in to help out and fulfill requests!
       </div>
     );
-  } 
+  }
 
+  const [user, setUser] = useState();
   const [requests, setRequests] = useState([]);
 
   useEffect(() => {
-    get("/api/allrequests", {}).then((requestObjs) => {
-      //console.log("hi", requestObjs);
-      setRequests(requestObjs);
+    get("/api/user", { userid: props.userId }).then((userObj) => {
+      setUser(userObj);
+      get("/api/allrequests", {}).then((requestObjs) => {
+        setRequests(requestObjs);
+      });
     });
   }, []);
+    
+  // ensures user has entered all info in before accessing page
+  if (!user || !user.username || !user.kerb || !user.contactMethod1 || !user.contactDetails1 ||
+    !user.contactMethod2 || !user.contactDetails2 || !user.location) {
+      return (
+        <div className="requests-container requests-item">
+          enter all account info before fulfilling requests!
+        </div>
+      );
+    };
 
   const { search } = window.location;
   const query = new URLSearchParams(search).get("s");

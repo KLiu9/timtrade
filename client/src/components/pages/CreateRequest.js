@@ -3,7 +3,7 @@ import { navigate } from "@reach/router";
 
 import "../../utilities.css";
 import "./CreateRequest.css";
-import { post } from "../../utilities";
+import { get, post } from "../../utilities";
 import "./EditAccount.css";
 
 const initialValues = {
@@ -18,7 +18,25 @@ const CreateRequest = (props) => {
   if (!props.userId) {
     return <div className="requests-container requests-item">log in to create a request!</div>;
   }
+
+  const [user, setUser] = useState();
   const [values, setValues] = useState(initialValues);
+
+  useEffect(() => {
+    get("/api/user", { userid: props.userId }).then((userObj) => {
+      setUser(userObj);
+    });
+  }, []);
+    
+  // ensures user has entered all info in before accessing page
+  if (!user || !user.username || !user.kerb || !user.contactMethod1 || !user.contactDetails1 ||
+    !user.contactMethod2 || !user.contactDetails2 || !user.location) {
+      return (
+        <div className="requests-container requests-item">
+          enter all account info before creating requests!
+        </div>
+      );
+    };
 
   const handleItemChange = (event) => {
     const prompt = event.target.value;
@@ -54,9 +72,10 @@ const CreateRequest = (props) => {
       }
       // const body = { creator: props.userId, name: values.item, description: values.description, type: values.type, time: values.time };
       const body = { creator: props.userId, content: values };
-      post("/api/request", body);
-      setValues(initialValues);
-      navigate('/requests/match')
+      post("/api/request", body).then((requestObj) => {
+        setValues(initialValues);
+        navigate('/requests/match')
+      });
     }
   };
 
