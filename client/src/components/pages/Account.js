@@ -6,6 +6,7 @@ import "../../utilities.css";
 import "./CreateRequest.css";
 import "./Account.css";
 import "./Fulfill.css";
+import beaverimg from "../../../dist/images/beaver icon.png";
 
 let colors = ["var(--purple)", "var(--blue)", "var(--yellow)", "var(--green)"];
 let i = 0;
@@ -60,14 +61,22 @@ function Box(props) {
 
   i = (i + 1) % colors.length;
   return (
-    <div className="fulfill-item-box" style={{ backgroundColor: colors[props.index % colors.length], marginBottom: "20px" }}>
+    <div
+      className="fulfill-item-box"
+      style={{
+        backgroundColor: colors[props.index % colors.length],
+        marginRight: "40px",
+        marginLeft: "40px",
+        marginBottom: "20px",
+      }}
+    >
       <div className="fulfill-item-box-inner">
         <div className="fulfill-item-box-front">
           {/* front side */}
           <b>item:</b> {props.item} <br />
           <br />
           <br />
-          *cool drawing*
+          <img className="img-size2" src={beaverimg}></img>
           <br />
           <br />
           <br />
@@ -89,7 +98,12 @@ function Box(props) {
           </button>
           <br />
           <br /> */}
-          <button type="resolve" className="requestmatch-resolve" value="Resolve" onClick={handleResolve}>
+          <button
+            type="resolve"
+            className="requestmatch-resolve"
+            value="Resolve"
+            onClick={handleResolve}
+          >
             resolve
           </button>
         </div>
@@ -134,9 +148,9 @@ const Account = (props) => {
       />
     ));
   } else {
-    listingsList = <div style={{paddingLeft: "0px", textAlign: "left", fontStyle: "italic"}}>
-      no listings!
-      </div>;
+    listingsList = (
+      <div style={{ paddingLeft: "0px", textAlign: "left", fontStyle: "italic" }}>no listings!</div>
+    );
   }
 
   user.name = user.name.toLowerCase();
@@ -163,65 +177,37 @@ const Account = (props) => {
         <div className="accountinfo-container">
           <div className="spacing">
             <div className="accountinfo-label">username:</div>
-            <input placeholder={user.username} 
-            className="accountinfo-box" 
-            readOnly>
-
-            </input>
+            <input placeholder={user.username} className="accountinfo-box" readOnly></input>
           </div>
           <div className="spacing">
             <div className="accountinfo-label">kerb:</div>
-            <input
-              placeholder={user.kerb}
-              className="accountinfo-box"
-              readOnly
-            />
+            <input placeholder={user.kerb} className="accountinfo-box" readOnly />
           </div>
           <div className="spacing">
             <div className="accountinfo-label">preferred contact:</div>
-            <input
-              placeholder={user.contactMethod1}
-              className="accountinfo-box"
-              readOnly
-            />
+            <input placeholder={user.contactMethod1} className="accountinfo-box" readOnly />
           </div>
           <div className="spacing">
             <div className="accountinfo-label">details:</div>
-            <input
-              placeholder={user.contactDetails1}
-              className="accountinfo-box"
-              readOnly
-            ></input>
+            <input placeholder={user.contactDetails1} className="accountinfo-box" readOnly></input>
           </div>
           <div className="spacing">
             <div className="accountinfo-label">alternative contact:</div>
-            <input
-              placeholder={user.contactMethod2}
-              className="accountinfo-box"
-              readOnly
-            ></input>
+            <input placeholder={user.contactMethod2} className="accountinfo-box" readOnly></input>
           </div>
           <div className="spacing">
             <div className="accountinfo-label">details:</div>
-            <input
-              placeholder={user.contactDetails2}
-              className="accountinfo-box"
-              readOnly
-            ></input>
+            <input placeholder={user.contactDetails2} className="accountinfo-box" readOnly></input>
           </div>
           <div className="spacing">
             <div className="accountinfo-label">location:</div>
-            <input
-              placeholder={user.location}
-              className="accountinfo-box"
-              readOnly
-            ></input>
+            <input placeholder={user.location} className="accountinfo-box" readOnly></input>
           </div>
         </div>
       </div>
 
       {/* INVENTORY SECTION */}
-      <div style={{paddingTop: "25%"}}>
+      <div style={{ paddingTop: "25%" }}>
         <div className="user-box">
           <div className="user-title">my inventory</div>
           <button
@@ -229,13 +215,18 @@ const Account = (props) => {
             className="edit-profile"
             value="Submit"
             onClick={() => navigate("/account/editinventory/")}
-            style={{width: "140px"}}
+            style={{ width: "140px" }}
           >
             add to inventory
           </button>
         </div>
-        <div className="accountinfo-container" style={{marginTop: "20px", height: "auto"}}>
-          <div className="fulfill-container" style={{height: "auto", marginTop: "0px", marginBottom: "0px"}}>{listingsList}</div>
+        <div className="accountinfo-container" style={{ marginTop: "20px", height: "auto" }}>
+          <div
+            className="fulfill-container"
+            style={{ height: "auto", marginTop: "0px", marginBottom: "0px" }}
+          >
+            {listingsList}
+          </div>
         </div>
       </div>
     </div>

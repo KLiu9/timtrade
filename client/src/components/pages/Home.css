@@ -57,6 +57,12 @@
 
 .home-img-size {
   width: 450px;
+  text-align: center;
+}
+
+.home-icon-size {
+  width: 200px;
+  text-align: center;
 }
 
 .modal {

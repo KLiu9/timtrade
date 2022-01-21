@@ -8,9 +8,9 @@ import "./EditAccount.css";
 
 const initialValues = {
   item: "",
-  enterItem: "", 
+  enterItem: "",
   description: "",
-  type: "" // add upload feature?
+  type: "", // add upload feature?
 };
 
 const EditInventory = (props) => {
@@ -26,16 +26,24 @@ const EditInventory = (props) => {
       setUser(userObj);
     });
   }, []);
-    
+
   // ensures user has entered all info in before accessing page
-  if (!user || !user.username || !user.kerb || !user.contactMethod1 || !user.contactDetails1 ||
-    !user.contactMethod2 || !user.contactDetails2 || !user.location) {
-      return (
-        <div className="requests-container requests-item">
-          enter all account info before creating requests!
-        </div>
-      );
-    };
+  if (
+    !user ||
+    !user.username ||
+    !user.kerb ||
+    !user.contactMethod1 ||
+    !user.contactDetails1 ||
+    !user.contactMethod2 ||
+    !user.contactDetails2 ||
+    !user.location
+  ) {
+    return (
+      <div className="requests-container requests-item">
+        enter all account info before creating requests!
+      </div>
+    );
+  }
 
   const handleItemChange = (event) => {
     const prompt = event.target.value;
@@ -58,7 +66,12 @@ const EditInventory = (props) => {
   };
 
   const handleSubmit = (event) => {
-    if (values.item !== "" && values.description !== "" && values.type !== "" && values.time !== "") {
+    if (
+      values.item !== "" &&
+      values.description !== "" &&
+      values.type !== "" &&
+      values.time !== ""
+    ) {
       event.preventDefault();
       // if user chose to enter own item, set values.item to be that item
       if (values.item === "other") {
@@ -67,21 +80,22 @@ const EditInventory = (props) => {
       const body = { creator: props.userId, content: values };
       post("/api/listItem", body).then((requestObj) => {
         setValues(initialValues);
-        navigate('/account/')
+        navigate("/account/");
       });
     }
   };
 
-//   const handleBadSubmit = (event) => {
-//     event.preventDefault();
-//   };
+  //   const handleBadSubmit = (event) => {
+  //     event.preventDefault();
+  //   };
 
   const itemOptions = ["", "batteries", "tape", "mug", "chair", "other"];
 
   return (
     <div style={{ padding: "0px 50px" }}>
       <p className="page-title">
-        add to<br />
+        add to
+        <br />
         inventory
       </p>
       <div className="createrequest-container">
@@ -141,7 +155,7 @@ const EditInventory = (props) => {
             style={{ backgroundColor: "var(--green)" }}
             onClick={handleSubmit}
           >
-              submit
+            submit
           </button>
         </form>
       </div>
