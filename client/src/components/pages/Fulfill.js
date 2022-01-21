@@ -215,7 +215,7 @@ const Fulfill = (props) => {
     //console.log("after sort", requests);
     const filteredReqs = filterReqs(requests, query);
     if (filteredReqs.length !== 0) {
-      console.log(filteredReqs);
+      //console.log(filteredReqs);
       requestsList = filteredReqs.map((requestObj, i) => (
         <Box
           key={`Box_${requestObj._id}`}
