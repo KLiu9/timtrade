@@ -13,9 +13,11 @@ let i = 0;
 function Box(props) {
   const [reqCreator, setReqCreator] = useState();
   const [PopUp, setPopUp] = useState(false);
+  const [PopUpFulfill, setPopUpFulfill] = useState(false);
 
   const handleClose = () => setPopUp(false);
   const handleOpen = () => setPopUp(true);
+  const handleCloseFulfill = () => setPopUpFulfill(false);
   useEffect(() => {
     get(`/api/user`, { userid: props.creator }).then((userObj) => {
       setReqCreator(userObj);
@@ -24,6 +26,7 @@ function Box(props) {
 
   const handleFulfill = (event) => {
     event.preventDefault();
+    setPopUpFulfill(true);
     const body = { reqId: props.reqId, creatorId: props.userId };
     post("/api/updateRequest", body).then((result) => {
       console.log("result", result);
@@ -111,6 +114,25 @@ function Box(props) {
           >
             fulfill
           </button>
+          <Modal className="modal" isOpen={PopUpFulfill} ariaHideApp={false}>
+            <button className="modal-close" onClick={handleCloseFulfill}>
+              ✘
+            </button>
+            <div className="modal-content">
+              {reqCreator && (
+                <div>
+                  <p className="modal-title">fulfilled</p>
+                  <p>
+                    {
+                      "thank you for fulfilling @" +
+                        reqCreator.username +
+                        "'s request!" /** add more here? */
+                    }
+                  </p>
+                </div>
+              )}
+            </div>
+          </Modal>
         </div>
       </div>
     </div>
@@ -137,16 +159,24 @@ const Fulfill = (props) => {
       });
     });
   }, []);
-    
+
   // ensures user has entered all info in before accessing page
-  if (!user || !user.username || !user.kerb || !user.contactMethod1 || !user.contactDetails1 ||
-    !user.contactMethod2 || !user.contactDetails2 || !user.location) {
-      return (
-        <div className="requests-container requests-item">
-          enter all account info before fulfilling requests!
-        </div>
-      );
-    };
+  if (
+    !user ||
+    !user.username ||
+    !user.kerb ||
+    !user.contactMethod1 ||
+    !user.contactDetails1 ||
+    !user.contactMethod2 ||
+    !user.contactDetails2 ||
+    !user.location
+  ) {
+    return (
+      <div className="requests-container requests-item">
+        enter all account info before fulfilling requests!
+      </div>
+    );
+  }
 
   const { search } = window.location;
   const query = new URLSearchParams(search).get("s");
