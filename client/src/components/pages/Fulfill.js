@@ -14,6 +14,7 @@ function Box(props) {
   const [reqCreator, setReqCreator] = useState();
   const [PopUp, setPopUp] = useState(false);
   const [PopUpFulfill, setPopUpFulfill] = useState(false);
+  const [PopUpFulfillOwn, setPopUpFulfillOwn] = useState(false);
 
   const handleClose = () => setPopUp(false);
   const handleOpen = () => setPopUp(true);
@@ -23,18 +24,23 @@ function Box(props) {
       setReqCreator(userObj);
     });
   }, []);
+  const handleCloseFulfillOwn = () => setPopUpFulfillOwn(false);
 
   const handleFulfill = (event) => {
     event.preventDefault();
-    setPopUpFulfill(true);
-    const body = { reqId: props.reqId, creatorId: props.userId };
-    post("/api/updateRequest", body).then((result) => {
-      console.log("result", result);
-    });
-    /*const body = { _id: props.userId};
+    if (props.userId === reqCreator._id) {
+      setPopUpFulfillOwn(true);
+    } else {
+      setPopUpFulfill(true);
+      const body = { reqId: props.reqId, creatorId: props.userId };
+      post("/api/updateRequest", body).then((result) => {
+        console.log("result", result);
+      });
+      /*const body = { _id: props.userId};
     post("/api/updateUserInfo", body).then((result) => {
       console.log("result", result);
     });*/
+    }
   };
 
   //console.log("hihi", reqCreator);
@@ -167,6 +173,23 @@ function Box(props) {
                     </p>
                   </div>
                 )}
+              </div>
+            </div>
+          </Modal>
+          <Modal className="modal" isOpen={PopUpFulfillOwn} ariaHideApp={false}>
+            <div
+              style={{ backgroundColor: colors[props.index % colors.length], borderRadius: "24px" }}
+            >
+              <button className="modal-close" onClick={handleCloseFulfillOwn}>
+                ✘
+              </button>
+              <div className="modal-content">
+                <p className="modal-title">oops! </p>
+                <p>
+                  you can't fulfill your own request! to delete your request, go to the request
+                  matches page.
+                </p>
+                <br />
               </div>
             </div>
           </Modal>
