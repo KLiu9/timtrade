@@ -136,22 +136,26 @@ function Box(props) {
             fulfill
           </button>
           <Modal className="modal" isOpen={PopUpFulfill} ariaHideApp={false}>
-            <button className="modal-close" onClick={handleCloseFulfill}>
-              ✘
-            </button>
-            <div className="modal-content">
-              {reqCreator && (
-                <div>
-                  <p className="modal-title">fulfilled</p>
-                  <p>
-                    {
-                      "thank you for fulfilling @" +
-                        reqCreator.username +
-                        "'s request!" /** add more here? */
-                    }
-                  </p>
-                </div>
-              )}
+            <div
+              style={{ backgroundColor: colors[props.index % colors.length], borderRadius: "24px" }}
+            >
+              <button className="modal-close" onClick={handleCloseFulfill}>
+                ✘
+              </button>
+              <div className="modal-content">
+                {reqCreator && (
+                  <div>
+                    <p className="modal-title">fulfilled</p>
+                    <p>
+                      {
+                        "thank you for fulfilling @" +
+                          reqCreator.username +
+                          "'s request!" /** add more here? */
+                      }
+                    </p>
+                  </div>
+                )}
+              </div>
             </div>
           </Modal>
         </div>

@@ -33,7 +33,7 @@ function Box(props) {
     });
     if (props.fulfilled && props.fulfilled.length !== 0) {
       for (let ind = 0; ind < props.fulfilled.length; ind++) {
-        get(`/api/user`, { userid: props.fulfilled[ind] }).then((userObj) => {
+        get("/api/user", { userid: props.fulfilled[ind] }).then((userObj) => {
           setFulfillers((oldArray) => [...oldArray, userObj]);
         });
       }
@@ -155,13 +155,17 @@ function Box(props) {
                 see who has your item
               </button>
               <Modal className="modal" isOpen={PopUp} ariaHideApp={false}>
-                <button className="modal-close" onClick={handleClose}>
-                  ✘
-                </button>
-                <div className="modal-content" style={{ fontStyle: "italic" }}>
-                  {fulfillerUsernames}
+                <div
+                  style={{ backgroundColor: colors[props.index % colors.length], borderRadius: "24px" }}
+                >
+                  <button className="modal-close" onClick={handleClose}>
+                    ✘
+                  </button>
+                  <div className="modal-content" style={{ fontStyle: "italic" }}>
+                    {fulfillerUsernames}
+                  </div>
+                  <br />
                 </div>
-                <br />
               </Modal>
             </>
           )}
@@ -192,7 +196,7 @@ function FulfillBox(props) {
   const handleClose = () => setPopUp(false);
   const handleOpen = () => setPopUp(true);
   useEffect(() => {
-    get(`/api/user`, { userid: props.creator }).then((userObj) => {
+    get("/api/user", { userid: props.creator }).then((userObj) => {
       setReqCreator(userObj);
     });
   }, []);
@@ -222,7 +226,7 @@ function FulfillBox(props) {
           <b>item:</b> {props.item} <br />
           <br />
           <br />
-          <b>{!reqCreator ? "" : "@" + reqCreator.username}</b>
+          <b style={{ textDecoration: "underline" }}>{!reqCreator ? "" : "@" + reqCreator.username}</b>
           <br />
           <br />
           <br />
@@ -245,19 +249,24 @@ function FulfillBox(props) {
             {!reqCreator ? "" : "@" + reqCreator.username}
           </button>
           <Modal className="modal" isOpen={PopUp} ariaHideApp={false}>
-            <button className="modal-close" onClick={handleClose}>
-              ✘
-            </button>
-            <div className="modal-content">
-              {reqCreator && (
-                <div>
-                  <p className="modal-title">{"@" + reqCreator.username}</p>
-                  <p> name: {reqCreator.name}</p>
-                  <p>{reqCreator.contactMethod1 + ": " + reqCreator.contactDetails1}</p>
-                  <p> {reqCreator.contactMethod2 + ": " + reqCreator.contactDetails2} </p>
-                  <p> location: {reqCreator.location}</p>
-                </div>
-              )}
+            <div
+              style={{ backgroundColor: colors[props.index % colors.length], borderRadius: "24px" }}
+            >
+              <button className="modal-close" onClick={handleClose}>
+                ✘
+              </button>
+              <div className="modal-content">
+                {reqCreator && (
+                  <div>
+                    <p className="modal-title">{"@" + reqCreator.username}</p>
+                    <p> name: {reqCreator.name}</p>
+                    <p>{reqCreator.contactMethod1 + ": " + reqCreator.contactDetails1}</p>
+                    <p> {reqCreator.contactMethod2 + ": " + reqCreator.contactDetails2} </p>
+                    <p> location: {reqCreator.location}</p>
+                  </div>
+                )}
+              </div>
+              <br/>
             </div>
           </Modal>
           <br />
