@@ -109,7 +109,7 @@ function Box(props) {
                     <p className="modal-title" style={{ textDecoration: "underline" }}>
                       {"@" + reqCreator.username}
                     </p>
-                    <p>
+                    <p><b>
                       {" "}
                       rating:{" "}
                       {reqCreator.ratings.length === 0
@@ -120,7 +120,7 @@ function Box(props) {
                           )
                             .toFixed(1)
                             .toString() + "/5.0"}{" "}
-                    </p>
+                    </b></p>
                     <p>
                       {" "}
                       name: <i>{reqCreator.name}</i>
@@ -185,10 +185,10 @@ function Box(props) {
               </button>
               <div className="modal-content">
                 <p className="modal-title">oops! </p>
-                <p>
+                <div style={{ paddingLeft: "5%", paddingRight: "5%"}}>
                   you can't fulfill your own request! to delete your request, go to the request
                   matches page.
-                </p>
+                </div>
                 <br />
               </div>
             </div>
