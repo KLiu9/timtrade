@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import GoogleLogin, { GoogleLogout } from "react-google-login";
 import timtrade from "../../../dist/images/timtrade.png";
-import beaverimg from "../../../dist/images/beaver icon.png";
+//import beaverimg from "../../../dist/images/beaver icon.png";
 import Modal from "react-modal";
 
 import "../../utilities.css";

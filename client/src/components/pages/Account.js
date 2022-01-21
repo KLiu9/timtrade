@@ -6,7 +6,7 @@ import "../../utilities.css";
 import "./CreateRequest.css";
 import "./Account.css";
 import "./Fulfill.css";
-import beaverimg from "../../../dist/images/beaver icon.png";
+//import beaverimg from "../../../dist/images/beaver icon.png";
 
 let colors = ["var(--purple)", "var(--blue)", "var(--yellow)", "var(--green)"];
 let i = 0;
@@ -76,7 +76,7 @@ function Box(props) {
           <b>item:</b> {props.item} <br />
           <br />
           <br />
-          <img className="img-size2" src={beaverimg}></img>
+          {/*<img className="img-size2" src={beaverimg}></img>*/}
           <br />
           <br />
           <br />
