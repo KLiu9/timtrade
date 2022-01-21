@@ -134,3 +134,13 @@
   font-style: italic;
   transform: rotateY(180deg);
 }
+
+.requestmatch-subtitle2 {
+  margin-left: 5%;
+  padding-top: 4%;
+  font-size: 2em;
+  float: none;
+  font-weight: bold;
+  text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  text-align: left;
+}

@@ -109,7 +109,6 @@ const Account = (props) => {
   useEffect(() => {
     get("/api/user", { userid: props.userId }).then((userObj) => {
       setUser(userObj);
-      console.log("working up till now");
       get("/api/listings", { creator: props.userId }).then((itemObjs) => {
         setListings(itemObjs);
       });
