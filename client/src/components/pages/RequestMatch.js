@@ -3,15 +3,23 @@ import Modal from "react-modal";
 import "../../utilities.css";
 import "./RequestMatch.css";
 import { get, post } from "../../utilities";
+import { navigate } from "@reach/router";
 
 let colors = ["var(--purple)", "var(--blue)", "var(--yellow)", "var(--green)"];
 let j = 0;
+
+const initialFulfillValues = {
+  fulfiller: "",
+  rating: "",
+};
 
 function Box(props) {
   const [requests, setRequests] = useState([]);
   const [PopUp, setPopUp] = useState(false);
   const [fulfillers, setFulfillers] = useState([]);
   const [userPopUp, setUserPopUp] = useState(false);
+  const [ratingPopUp, setRatingPopUp] = useState(false);
+  const [fulfillValues, setFulfillValues] = useState(initialFulfillValues);
 
   const handleClose = () => setPopUp(false);
   const handleOpen = () => {
@@ -23,6 +31,12 @@ function Box(props) {
   };
   const handleUserOpen = () => {
     setUserPopUp(true);
+  };
+  const handleRatingOpen = () => {
+    setRatingPopUp(true);
+  };
+  const handleRatingClose = () => {
+    setRatingPopUp(false);
   };
 
   let fulfillerUsernames = [];
@@ -40,7 +54,40 @@ function Box(props) {
     }
   }, []);
 
+  const handleActualResolve = (event) => {
+    event.preventDefault();
+    handleRatingOpen();
+    /*let done = false;
+    let i = 0;
+    while (!done && i < requests.length) {
+      if (
+        requests[i].name === props.item &&
+        requests[i].description === props.description &&
+        requests[i].type === props.type
+      ) {
+        done = true;
+      } else {
+        i++;
+      }
+    }
+
+    if (i < requests.length) {
+      requests.splice(i, 1);
+      const body = {
+        creator: props.creator,
+        name: props.item,
+        description: props.description,
+        time: props.time,
+        type: props.type,
+      };
+      post("/api/deleterequest", body).then((request) => {
+        console.log("request", request);
+      });
+    }*/
+  };
+
   const handleResolve = (event) => {
+    //this fn actually handles delete, not resolve
     event.preventDefault();
 
     let done = false;
@@ -72,6 +119,62 @@ function Box(props) {
     }
   };
 
+  const handleSubmitRating = (event) => {
+    //event.preventDefault();
+    console.log("props", props);
+    console.log("values", fulfillValues);
+    if (fulfillValues.fulfiller !== "" && fulfillValues.rating !== "") {
+      event.preventDefault();
+      const body = { userid: fulfillValues.fulfiller, newrating: parseInt(fulfillValues.rating) };
+      post("/api/updateRating", body).then((result) => {
+        setFulfillValues(initialFulfillValues);
+        let done = false;
+        let i = 0;
+        while (!done && i < requests.length) {
+          if (
+            requests[i].name === props.item &&
+            requests[i].description === props.description &&
+            requests[i].type === props.type
+          ) {
+            done = true;
+          } else {
+            i++;
+          }
+        }
+
+        if (i < requests.length) {
+          requests.splice(i, 1);
+          const body = {
+            creator: props.creator,
+            name: props.item,
+            description: props.description,
+            time: props.time,
+            type: props.type,
+          };
+          post("/api/deleterequest", body).then((request) => {
+            console.log("request", request);
+          });
+        }
+        //handleRatingClose();
+        //handleUserClose();
+        navigate("/requests/match");
+      });
+    }
+  };
+
+  const handleFulfillerChange = (event) => {
+    const prompt = event.target.value;
+    setFulfillValues({ ...fulfillValues, fulfiller: prompt });
+    //setFulfiller(prompt);
+    console.log("values", fulfillValues);
+  };
+
+  const handleRatingChange = (event) => {
+    const prompt = event.target.value;
+    setFulfillValues({ ...fulfillValues, rating: prompt });
+    console.log("values", fulfillValues);
+  };
+
   fulfillerUsernames = fulfillers.map((x) => (
     <>
       <button
@@ -94,6 +197,15 @@ function Box(props) {
           {x && (
             <div>
               <p className="modal-title">{"@" + x.username}</p>
+              <p>
+                {" "}
+                rating:{" "}
+                {x.ratings.length === 0
+                  ? "no ratings yet!"
+                  : (x.ratings.reduce((a, b) => a + b, 0) / x.ratings.length)
+                      .toFixed(1)
+                      .toString() + "/5.0"}{" "}
+              </p>
               <p> name: {x.name}</p>
               <p>{x.contactMethod1 + ": " + x.contactDetails1}</p>
               <p> {x.contactMethod2 + ": " + x.contactDetails2} </p>
@@ -144,6 +256,20 @@ function Box(props) {
           {!props.fulfilled || props.fulfilled.length === 0 ? (
             <>
               <b>waiting to be fulfilled...</b>
+              <br />
+              <br />
+              <br />
+              <button
+                type="resolve"
+                className="requestmatch-resolve"
+                value="Resolve"
+                style={{
+                  backgroundColor: "#E5E5E5",
+                }}
+                onClick={handleResolve}
+              >
+                delete
+              </button>
             </>
           ) : (
             <>
@@ -156,20 +282,99 @@ function Box(props) {
               </button>
               <Modal className="modal" isOpen={PopUp} ariaHideApp={false}>
                 <div
-                  style={{ backgroundColor: colors[props.index % colors.length], borderRadius: "24px" }}
+                  style={{
+                    backgroundColor: colors[props.index % colors.length],
+                    borderRadius: "24px",
+                  }}
                 >
                   <button className="modal-close" onClick={handleClose}>
                     ✘
                   </button>
                   <div className="modal-content" style={{ fontStyle: "italic" }}>
                     {fulfillerUsernames}
+                    <br />
+                    <br />
+                    <br />
+                    <button
+                      type="resolve"
+                      className="requestmatch-resolve"
+                      value="Resolve"
+                      style={{
+                        backgroundColor: "#E5E5E5",
+                      }}
+                      onClick={handleActualResolve}
+                    >
+                      resolve
+                    </button>
+                    <Modal className="modal" isOpen={ratingPopUp} ariaHideApp={false}>
+                      <button className="modal-close" onClick={handleRatingClose}>
+                        ✘
+                      </button>
+                      <div className="modal-content">
+                        <form>
+                          who fulfilled your request?{" "}
+                          <select
+                            prompt={fulfillValues.fulfiller}
+                            onChange={handleFulfillerChange}
+                            name="fulfiller"
+                            className="createrequest-box"
+                            style={{ backgroundColor: "var(--purple)" }}
+                          >
+                            <option key={""} value={""}></option>
+                            {fulfillers.map((x) => (
+                              <option key={x.username} value={x._id}>
+                                {x.username}
+                              </option>
+                            ))}
+                          </select>
+                          please rate your experience with this user:
+                          <select
+                            prompt={fulfillValues.rating}
+                            onChange={handleRatingChange}
+                            name="rating"
+                            className="createrequest-box"
+                            style={{ backgroundColor: "var(--pink)" }}
+                          >
+                            <option value=""></option>
+                            <option value={5}>5</option>
+                            <option value={4}>4</option>
+                            <option value={3}>3</option>
+                            <option value={2}>2</option>
+                            <option value={1}>1</option>
+                            ))}
+                          </select>
+                          <button
+                            type="submit"
+                            className="createrequest-submit"
+                            value="Submit"
+                            style={{ backgroundColor: "var(--green)" }}
+                            onClick={handleSubmitRating}
+                          >
+                            submit feedback
+                          </button>
+                          <br />
+                        </form>
+                      </div>
+                    </Modal>
+                    <br />
+                    <button
+                      type="resolve"
+                      className="requestmatch-resolve"
+                      value="Resolve"
+                      style={{
+                        backgroundColor: "#E5E5E5",
+                      }}
+                      onClick={handleResolve}
+                    >
+                      delete
+                    </button>
+                    <br />
                   </div>
-                  <br />
                 </div>
               </Modal>
             </>
           )}
-          <br />
+          {/*<br />
           <br />
           <br />
           <button
@@ -181,8 +386,8 @@ function Box(props) {
             }}
             onClick={handleResolve}
           >
-            resolve
-          </button>
+            delete
+          </button>*/}
         </div>
       </div>
     </div>
@@ -226,7 +431,9 @@ function FulfillBox(props) {
           <b>item:</b> {props.item} <br />
           <br />
           <br />
-          <b style={{ textDecoration: "underline" }}>{!reqCreator ? "" : "@" + reqCreator.username}</b>
+          <b style={{ textDecoration: "underline" }}>
+            {!reqCreator ? "" : "@" + reqCreator.username}
+          </b>
           <br />
           <br />
           <br />
@@ -259,6 +466,18 @@ function FulfillBox(props) {
                 {reqCreator && (
                   <div>
                     <p className="modal-title">{"@" + reqCreator.username}</p>
+                    <p>
+                      {" "}
+                      rating:{" "}
+                      {reqCreator.ratings.length === 0
+                        ? "no ratings yet!"
+                        : (
+                            reqCreator.ratings.reduce((a, b) => a + b, 0) /
+                            reqCreator.ratings.length
+                          )
+                            .toFixed(1)
+                            .toString() + "/5.0"}{" "}
+                    </p>
                     <p> name: {reqCreator.name}</p>
                     <p>{reqCreator.contactMethod1 + ": " + reqCreator.contactDetails1}</p>
                     <p> {reqCreator.contactMethod2 + ": " + reqCreator.contactDetails2} </p>
@@ -266,7 +485,7 @@ function FulfillBox(props) {
                   </div>
                 )}
               </div>
-              <br/>
+              <br />
             </div>
           </Modal>
           <br />

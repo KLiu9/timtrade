@@ -105,6 +105,18 @@ function Box(props) {
                     </p>
                     <p>
                       {" "}
+                      rating:{" "}
+                      {reqCreator.ratings.length === 0
+                        ? "no ratings yet!"
+                        : (
+                            reqCreator.ratings.reduce((a, b) => a + b, 0) /
+                            reqCreator.ratings.length
+                          )
+                            .toFixed(1)
+                            .toString() + "/5.0"}{" "}
+                    </p>
+                    <p>
+                      {" "}
                       name: <i>{reqCreator.name}</i>
                     </p>
                     <p>

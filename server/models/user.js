@@ -11,6 +11,7 @@ const UserSchema = new mongoose.Schema({
   contactMethod2: String,
   contactDetails2: String,
   location: String,
+  ratings: Array,
 });
 
 // compile model from schema

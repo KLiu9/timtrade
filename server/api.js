@@ -124,6 +124,15 @@ router.post("/updateUserInfo", (req, res) => {
   });
 });
 
+router.post("/updateRating", (req, res) => {
+  User.findById(req.body.userid).then((result) => {
+    console.log("before", result);
+    result.ratings.push(req.body.newrating);
+    console.log("after", result);
+    result.save().then((newUserInfo) => res.send(newUserInfo));
+  });
+});
+
 router.post("/listItem", (req, res) => {
   const newItem = new Item({
     creator: req.body.creator,
