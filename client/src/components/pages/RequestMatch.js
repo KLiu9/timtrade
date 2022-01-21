@@ -22,9 +22,7 @@ function Box(props) {
     });
     if (props.fulfilled && props.fulfilled.length !== 0) {
       for (let ind = 0; ind < props.fulfilled.length; ind++) {
-        console.log(props.fulfilled[ind]);
         get(`/api/user`, { userid: props.fulfilled[ind] }).then((userObj) => {
-          console.log(userObj);
           setFulfillers((oldArray) => [...oldArray, userObj.username]);
         });
       }
@@ -115,6 +113,97 @@ function Box(props) {
   );
 }
 
+function FulfillBox(props) {
+  const [reqCreator, setReqCreator] = useState();
+  const [PopUp, setPopUp] = useState(false);
+
+  const handleClose = () => setPopUp(false);
+  const handleOpen = () => setPopUp(true);
+  useEffect(() => {
+    get(`/api/user`, { userid: props.creator }).then((userObj) => {
+      setReqCreator(userObj);
+    });
+  }, []);
+
+  const handleUnfulfill = (event) => {
+    event.preventDefault();
+    const body = { reqId: props.reqId, fulfillerId: props.userId };
+    post("/api/unfulfill", body).then((result) => {
+      console.log("result", result);
+    });
+  };
+
+  //i = (i + 1) % colors.length;
+  let number = "1";
+  if (props.time === "weeks") {
+    number = "2";
+  }
+  let tradeInfo = props.type + " within " + number + " " + props.time;
+  return (
+    <div
+      className="fulfill-item-box"
+      style={{ backgroundColor: colors[props.index % colors.length] }}
+    >
+      <div className="fulfill-item-box-inner">
+        <div className="fulfill-item-box-front">
+          {/* front side */}
+          <b>item:</b> {props.item} <br />
+          <br />
+          <br />
+          <b>{!reqCreator ? "" : "@" + reqCreator.username}</b>
+          <br />
+          <br />
+          <br />
+          {tradeInfo}
+          <br />
+        </div>
+        <div className="fulfill-item-box-back">
+          {/* back side */}
+          <b>item:</b> {props.item} <br />
+          <b>description:</b> {props.description} <br />
+          <br />
+          {/* <b>{props.creator}</b> */}
+          <br />
+          <br />
+          <button
+            className="requestmatch-resolve"
+            style={{ backgroundColor: "var(--white)", fontWeight: "bold", width: "auto" }}
+            onClick={handleOpen}
+          >
+            {!reqCreator ? "" : "@" + reqCreator.username}
+          </button>
+          <Modal className="modal" isOpen={PopUp} ariaHideApp={false}>
+            <button className="modal-close" onClick={handleClose}>
+              ✘
+            </button>
+            <div className="modal-content">
+              {reqCreator && (
+                <div>
+                  <p className="modal-title">{"@" + reqCreator.username}</p>
+                  <p> name: {reqCreator.name}</p>
+                  <p>{reqCreator.contactMethod1 + ": " + reqCreator.contactDetails1}</p>
+                  <p> {reqCreator.contactMethod2 + ": " + reqCreator.contactDetails2} </p>
+                  <p> location: {reqCreator.location}</p>
+                </div>
+              )}
+            </div>
+          </Modal>
+          <br />
+          <br />
+          <button
+            type="resolve"
+            className="requestmatch-resolve"
+            value="Resolve"
+            onClick={handleUnfulfill}
+          >
+            unfulfill
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 const RequestMatch = (props) => {
   if (!props.userId) {
     return (
@@ -124,6 +213,7 @@ const RequestMatch = (props) => {
 
   const [user, setUser] = useState();
   const [requests, setRequests] = useState([]);
+  const [allRequests, setAllRequests] = useState([]);
 
   useEffect(() => {
     get("/api/user", { userid: props.userId }).then((userObj) => {
@@ -131,18 +221,29 @@ const RequestMatch = (props) => {
       get("/api/requests", { creator: props.userId }).then((requestObjs) => {
         setRequests(requestObjs);
       });
+      get("/api/allrequests", {}).then((requestObjs) => {
+        setAllRequests(requestObjs);
+      });
     });
   }, [props.userId, requests]);
-    
+
   // ensures user has entered all info in before accessing page
-  if (!user || !user.username || !user.kerb || !user.contactMethod1 || !user.contactDetails1 ||
-    !user.contactMethod2 || !user.contactDetails2 || !user.location) {
-      return (
-        <div className="requests-container requests-item">
-          enter all account info before viewing matches!
-        </div>
-      );
-    };
+  if (
+    !user ||
+    !user.username ||
+    !user.kerb ||
+    !user.contactMethod1 ||
+    !user.contactDetails1 ||
+    !user.contactMethod2 ||
+    !user.contactDetails2 ||
+    !user.location
+  ) {
+    return (
+      <div className="requests-container requests-item">
+        enter all account info before viewing matches!
+      </div>
+    );
+  }
 
   let requestsList = null;
   const hasRequests = requests.length !== 0;
@@ -166,12 +267,42 @@ const RequestMatch = (props) => {
       no requests!
       </div>;
   }
+  let fulfillsList = [];
+  let fulfillsList2 = [];
+  if (allRequests.length !== 0) {
+    for (let ind = 0; ind < allRequests.length; ind++) {
+      if (allRequests[ind].fulfilled.includes(props.userId)) {
+        fulfillsList.push(allRequests[ind]);
+      }
+    }
+  }
+  if (fulfillsList.length !== 0) {
+    fulfillsList2 = fulfillsList.map((requestObj) => (
+      <FulfillBox
+        key={`Box_${requestObj._id}`}
+        item={requestObj.name}
+        creator={requestObj.creator}
+        time={requestObj.time}
+        type={requestObj.type}
+        index={0}
+        description={requestObj.description}
+        reqId={requestObj._id}
+        userId={props.userId}
+      />
+    ));
+  } else {
+    fulfillsList2 = <div>you have not fulfilled any requests!</div>;
+  }
 
   return (
     <>
       <div style={{ padding: "0px 50px" }}>
         <p className="page-title">request matches</p>
+        <br /> {/**SOMEONE PLS HELP FIX LOL */}
+        <p className="requestmatch-subtitle">items you requested</p>
         <div className="requestmatch-container">{requestsList}</div>
+        <p className="requestmatch-subtitle">items you fulfilled</p>
+        <div className="requestmatch-container">{fulfillsList2}</div>
       </div>
     </>
   );

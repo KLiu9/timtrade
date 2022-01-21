@@ -153,6 +153,19 @@ router.post("/updateRequest", (req, res) => {
   });
 });
 
+router.post("/unfulfill", (req, res) => {
+  Request.findById(req.body.reqId).then((result) => {
+    console.log("before:", result);
+    for (let i = 0; i < result.fulfilled.length; i++) {
+      if (result.fulfilled[i] === req.body.fulfillerId) {
+        result.fulfilled.splice(i, 1);
+      }
+    }
+    console.log("after:", result);
+    result.save().then((updatedReq) => res.send(updatedReq));
+  });
+});
+
 // anything else falls to this "not found" case
 router.all("*", (req, res) => {
   console.log(`API route not found: ${req.method} ${req.url}`);
