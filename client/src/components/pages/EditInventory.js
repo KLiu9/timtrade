@@ -5,6 +5,7 @@ import { get, post } from "../../utilities";
 import "../../utilities.css";
 import "./CreateRequest.css";
 import "./EditAccount.css";
+import Modal from "react-modal";
 
 const initialValues = {
   item: "",
@@ -20,7 +21,9 @@ const EditInventory = (props) => {
 
   const [user, setUser] = useState();
   const [values, setValues] = useState(initialValues);
-
+  const [PopUp, setPopUp] = useState(false);
+  const handleClose = () => setPopUp(false);
+  const handleOpen = () => setPopUp(true);
   useEffect(() => {
     get("/api/user", { userid: props.userId }).then((userObj) => {
       setUser(userObj);
@@ -66,11 +69,12 @@ const EditInventory = (props) => {
   };
 
   const handleSubmit = (event) => {
+    console.log(values);
     if (
       values.item !== "" &&
+      !(values.item === "other" && values.enterItem === "") &&
       values.description !== "" &&
-      values.type !== "" &&
-      values.time !== ""
+      values.type !== ""
     ) {
       event.preventDefault();
       // if user chose to enter own item, set values.item to be that item
@@ -82,6 +86,10 @@ const EditInventory = (props) => {
         setValues(initialValues);
         navigate("/account/");
       });
+    } else {
+      event.preventDefault();
+      console.log("fill in all the boxes");
+      handleOpen();
     }
   };
 
@@ -157,6 +165,17 @@ const EditInventory = (props) => {
           >
             submit
           </button>
+          <Modal className="modal" isOpen={PopUp} ariaHideApp={false}>
+            <div>
+              <button className="modal-close" onClick={handleClose}>
+                ✘
+              </button>
+              <br />
+              <div className="modal-content">please fill in all the boxes!</div>
+              <br />
+              <br />
+            </div>
+          </Modal>
         </form>
       </div>
     </div>

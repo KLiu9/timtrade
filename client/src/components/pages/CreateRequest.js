@@ -5,6 +5,7 @@ import "../../utilities.css";
 import "./CreateRequest.css";
 import { get, post } from "../../utilities";
 import "./EditAccount.css";
+import Modal from "react-modal";
 
 const initialValues = {
   item: "",
@@ -21,7 +22,9 @@ const CreateRequest = (props) => {
 
   const [user, setUser] = useState();
   const [values, setValues] = useState(initialValues);
-
+  const [PopUp, setPopUp] = useState(false);
+  const handleClose = () => setPopUp(false);
+  const handleOpen = () => setPopUp(true);
   useEffect(() => {
     get("/api/user", { userid: props.userId }).then((userObj) => {
       setUser(userObj);
@@ -91,6 +94,10 @@ const CreateRequest = (props) => {
         setValues(initialValues);
         navigate("/requests/match");
       });
+    } else {
+      event.preventDefault();
+      console.log("fill in all the boxes");
+      handleOpen();
     }
   };
 
@@ -180,6 +187,17 @@ const CreateRequest = (props) => {
           >
             submit
           </button>
+          <Modal className="modal" isOpen={PopUp} ariaHideApp={false}>
+            <div>
+              <button className="modal-close" onClick={handleClose}>
+                ✘
+              </button>
+              <br />
+              <div className="modal-content">please fill in all the boxes!</div>
+              <br />
+              <br />
+            </div>
+          </Modal>
         </form>
       </div>
     </div>
