@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-
+import Modal from "react-modal";
 import "../../utilities.css";
 import "./RequestMatch.css";
 import { get } from "../../utilities";
@@ -10,12 +10,26 @@ let j = 0;
 
 function Box(props) {
   const [requests, setRequests] = useState([]);
+  const [PopUp, setPopUp] = useState(false);
+  const [fulfillers, setFulfillers] = useState([]);
 
+  const handleClose = () => setPopUp(false);
+  const handleOpen = () => setPopUp(true);
+  let fulfillerUsernames = [];
   useEffect(() => {
     // document.title = "request matches";
     get("/api/requests", { creator: props.userId }).then((requestObjs) => {
       setRequests(requestObjs);
     });
+    if (props.fulfilled && props.fulfilled.length !== 0) {
+      for (let ind = 0; ind < props.fulfilled.length; ind++) {
+        console.log(props.fulfilled[ind]);
+        get(`/api/user`, { userid: props.fulfilled[ind] }).then((userObj) => {
+          console.log(userObj);
+          setFulfillers((oldArray) => [...oldArray, userObj.username]);
+        });
+      }
+    }
   }, []);
 
   const handleResolve = (event) => {
@@ -49,22 +63,39 @@ function Box(props) {
       });
     }
   };
-
-  let status;
-  if (props.username === undefined) {
-    status = "waiting to be fulfilled...";
-  } else {
-    status = "@" + props.username + " has your item!";
-    //eventually link username to other user's profile (popup)
-  }
+  fulfillerUsernames = fulfillers.map((x) => (
+    <>
+      <p>{"@" + x}</p>
+    </>
+  ));
   j = (j + 1) % colors.length;
-
   return (
     <div className="item-box" style={{ backgroundColor: colors[props.index % colors.length] }}>
       <b>item:</b> {props.item} <br />
       <br />
       <br />
-      <b>{status}</b>
+      {/*<b>{status}</b>*/}
+      {!props.fulfilled || props.fulfilled.length === 0 ? (
+        <>
+          <b>waiting to be fulfilled...</b>
+        </>
+      ) : (
+        <>
+          <button
+            className="requestmatch-resolve"
+            style={{ backgroundColor: "var(--white)", fontWeight: "bold", width: "auto" }}
+            onClick={handleOpen}
+          >
+            see who has your item
+          </button>
+          <Modal className="modal" isOpen={PopUp}>
+            <button className="modal-close" onClick={handleClose}>
+              ✘
+            </button>
+            <div className="modal-content">{fulfillerUsernames}</div>
+          </Modal>
+        </>
+      )}
       <br />
       <br />
       <br />
@@ -125,6 +156,7 @@ const RequestMatch = (props) => {
         time={requestObj.time}
         userId={props.userId}
         index={i}
+        fulfilled={requestObj.fulfilled}
       />
     ));
   } else {

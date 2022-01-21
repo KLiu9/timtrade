@@ -6,6 +6,7 @@ const requestSchema = new mongoose.Schema({
   description: String,
   type: String,
   time: String,
+  fulfilled: Array,
 });
 
 module.exports = mongoose.model("request", requestSchema);

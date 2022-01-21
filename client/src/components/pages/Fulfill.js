@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { get } from "../../utilities";
+import { get, post } from "../../utilities";
 
 import "../../utilities.css";
 import "./Fulfill.css";
@@ -22,6 +22,18 @@ function Box(props) {
     });
   }, []);
 
+  const handleFulfill = (event) => {
+    event.preventDefault();
+    const body = { reqId: props.reqId, creatorId: props.userId };
+    post("/api/updateRequest", body).then((result) => {
+      console.log("result", result);
+    });
+    /*const body = { _id: props.userId};
+    post("/api/updateUserInfo", body).then((result) => {
+      console.log("result", result);
+    });*/
+  };
+
   //console.log("hihi", reqCreator);
   i = (i + 1) % colors.length;
   let number = "1";
@@ -30,7 +42,10 @@ function Box(props) {
   }
   let tradeInfo = props.type + " within " + number + " " + props.time;
   return (
-    <div className="fulfill-item-box" style={{ backgroundColor: colors[props.index % colors.length] }}>
+    <div
+      className="fulfill-item-box"
+      style={{ backgroundColor: colors[props.index % colors.length] }}
+    >
       <div className="fulfill-item-box-inner">
         <div className="fulfill-item-box-front">
           {/* front side */}
@@ -88,7 +103,12 @@ function Box(props) {
           </Modal>
           <br />
           <br />
-          <button type="resolve" className="requestmatch-resolve" value="Resolve">
+          <button
+            type="resolve"
+            className="requestmatch-resolve"
+            value="Resolve"
+            onClick={handleFulfill}
+          >
             fulfill
           </button>
         </div>
@@ -165,7 +185,7 @@ const Fulfill = (props) => {
     //console.log("after sort", requests);
     const filteredReqs = filterReqs(requests, query);
     if (filteredReqs.length !== 0) {
-      //console.log("after filter", filteredReqs);
+      console.log(filteredReqs);
       requestsList = filteredReqs.map((requestObj, i) => (
         <Box
           key={`Box_${requestObj._id}`}
@@ -175,6 +195,8 @@ const Fulfill = (props) => {
           type={requestObj.type}
           time={requestObj.time}
           index={i}
+          reqId={requestObj._id}
+          userId={props.userId}
         />
       ));
     } else {

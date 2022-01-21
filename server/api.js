@@ -75,6 +75,7 @@ router.post("/request", (req, res) => {
     description: req.body.content.description,
     type: req.body.content.type,
     time: req.body.content.time,
+    fulfilled: [],
   });
 
   newRequest.save().then((request) => res.send(request));
@@ -122,6 +123,17 @@ router.post("/listItem", (req, res) => {
 
   console.log("NEW LISTING", newItem);
   newItem.save().then((listing) => res.send(listing));
+});
+
+router.post("/updateRequest", (req, res) => {
+  Request.findById(req.body.reqId).then((result) => {
+    console.log("before:", result);
+    if (!result.fulfilled.includes(req.body.creatorId)) {
+      result.fulfilled.push(req.body.creatorId);
+    }
+    console.log("after:", result);
+    result.save().then((updatedReq) => res.send(updatedReq));
+  });
 });
 
 // anything else falls to this "not found" case
