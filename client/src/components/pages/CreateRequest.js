@@ -27,16 +27,24 @@ const CreateRequest = (props) => {
       setUser(userObj);
     });
   }, []);
-    
+
   // ensures user has entered all info in before accessing page
-  if (!user || !user.username || !user.kerb || !user.contactMethod1 || !user.contactDetails1 ||
-    !user.contactMethod2 || !user.contactDetails2 || !user.location) {
-      return (
-        <div className="requests-container requests-item">
-          enter all account info before creating requests!
-        </div>
-      );
-    };
+  if (
+    !user ||
+    !user.username ||
+    !user.kerb ||
+    !user.contactMethod1 ||
+    !user.contactDetails1 ||
+    !user.contactMethod2 ||
+    !user.contactDetails2 ||
+    !user.location
+  ) {
+    return (
+      <div className="requests-container requests-item">
+        enter all account info before creating requests!
+      </div>
+    );
+  }
 
   const handleItemChange = (event) => {
     const prompt = event.target.value;
@@ -64,7 +72,14 @@ const CreateRequest = (props) => {
   };
 
   const handleSubmit = (event) => {
-    if (values.item !== "" && values.description !== "" && values.type !== "" && values.time !== "") {
+    console.log(values);
+    if (
+      values.item !== "" &&
+      !(values.item === "other" && values.enterItem === "") &&
+      values.description !== "" &&
+      values.type !== "" &&
+      values.time !== ""
+    ) {
       event.preventDefault();
       // if user chose to enter own item, set values.item to be that item
       if (values.item === "other") {
@@ -74,7 +89,7 @@ const CreateRequest = (props) => {
       const body = { creator: props.userId, content: values };
       post("/api/request", body).then((requestObj) => {
         setValues(initialValues);
-        navigate('/requests/match')
+        navigate("/requests/match");
       });
     }
   };
@@ -163,7 +178,7 @@ const CreateRequest = (props) => {
             style={{ backgroundColor: "var(--green)" }}
             onClick={handleSubmit}
           >
-              submit
+            submit
           </button>
         </form>
       </div>

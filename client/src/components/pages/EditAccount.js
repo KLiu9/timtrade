@@ -6,16 +6,22 @@ import { post } from "../../utilities";
 import "../../utilities.css";
 import "./Account.css";
 import "./EditAccount.css";
+import Modal from "react-modal";
 
 const EditAccount = (props) => {
-
   const [user, setUser] = useState();
+  const [allUsers, setAllUsers] = useState([]);
+  const [PopUp, setPopUp] = useState(false);
+  const handleClose = () => setPopUp(false);
+  const handleOpen = () => setPopUp(true);
+
   useEffect(() => {
     if (props.userId !== undefined) {
-      get(`/api/user`, { userid: props.userId }).then((userObj)  => setUser(userObj));
+      get(`/api/user`, { userid: props.userId }).then((userObj) => setUser(userObj));
     }
-  }, [props.userId])
-  
+    get("/api/allUsers", {}).then((result) => setAllUsers(result));
+  }, [props.userId]);
+
   if (!user) {
     return <div className="u-margin">loading...</div>;
   }
@@ -23,7 +29,7 @@ const EditAccount = (props) => {
   const handleUsernameChange = (event) => {
     const prompt = event.target.value;
     setUser({ ...user, username: prompt });
-  }
+  };
 
   const handleKerbChange = (event) => {
     const prompt = event.target.value;
@@ -57,12 +63,23 @@ const EditAccount = (props) => {
 
   const handleAccountSubmit = (event) => {
     event.preventDefault();
-    console.log("user before submit", user);
-    const body = { _id: props.userId, content: user };
-    post("/api/updateUserInfo", body).then((result) => {
-      setUser(user);
-      navigate("/account/");
-    });
+    let count = 0;
+    for (let i = 0; i < allUsers.length; i++) {
+      if (allUsers[i].username === user.username && allUsers[i]._id !== props.userId) {
+        count += 1;
+      }
+    }
+    console.log("user", user);
+    if (count >= 1) {
+      console.log("username taken");
+      handleOpen();
+    } else {
+      const body = { _id: props.userId, content: user };
+      post("/api/updateUserInfo", body).then((result) => {
+        setUser(user);
+        navigate("/account/");
+      });
+    }
   };
 
   // let id = user._id;
@@ -76,8 +93,8 @@ const EditAccount = (props) => {
         <div className="user-box">
           <div className="user-title">
             {!user.username || user.username === ""
-                ? "set your username!" /** change this lol */
-                : "@" + user.username}
+              ? "set your username!" /** change this lol */
+              : "@" + user.username}
           </div>
           <div className="email-title">{user.email}</div>
         </div>
@@ -325,6 +342,18 @@ const EditAccount = (props) => {
                 done
               </button>
             </div>
+            <Modal className="modal" isOpen={PopUp} ariaHideApp={false}>
+              <button className="modal-close" onClick={handleClose}>
+                ✘
+              </button>
+              <div className="modal-content">
+                <br />
+                that username is taken - please enter another!
+                <br />
+                <br />
+                <br />
+              </div>
+            </Modal>
           </div>
         </form>
       </div>

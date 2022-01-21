@@ -35,7 +35,6 @@ router.get("/whoami", (req, res) => {
   res.send(req.user);
 });
 
-
 router.get("/requests", (req, res) => {
   Request.find({ creator: req.query.creator }).then((requests) => {
     res.send(requests);
@@ -51,8 +50,8 @@ router.get("/allrequests", (req, res) => {
 router.get("/listings", (req, res) => {
   Item.find({ creator: req.query.creator }).then((items) => {
     res.send(items);
-  })
-})
+  });
+});
 
 router.get("/allListings", (req, res) => {
   Item.find({}).then((items) => {
@@ -63,6 +62,12 @@ router.get("/allListings", (req, res) => {
 router.get("/user", (req, res) => {
   User.findById(req.query.userid).then((user) => {
     res.send(user);
+  });
+});
+
+router.get("/allUsers", (req, res) => {
+  User.find({}).then((users) => {
+    res.send(users);
   });
 });
 
