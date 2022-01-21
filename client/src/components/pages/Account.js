@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { navigate } from "@reach/router";
-import { get } from "../../utilities";
+import { get, post } from "../../utilities";
 
 import "../../utilities.css";
 import "./CreateRequest.css";
@@ -19,6 +19,45 @@ function Box(props) {
   //   });
   // }, []);
 
+  const [items, setItems] = useState([]);
+  useEffect(() => {
+    // document.title = "request matches";
+    get("/api/listings", { creator: props.userId }).then((itemObjs) => {
+      setItems(itemObjs);
+    });
+  }, []);
+
+  const handleResolve = (event) => {
+    event.preventDefault();
+
+    let done = false;
+    let i = 0;
+    while (!done && i < items.length) {
+      if (
+        items[i].name === props.item &&
+        items[i].description === props.description &&
+        items[i].type === props.type
+      ) {
+        done = true;
+      } else {
+        i++;
+      }
+    }
+
+    if (i < items.length) {
+      items.splice(i, 1);
+      const body = {
+        creator: props.creator,
+        name: props.item,
+        description: props.description,
+        type: props.type,
+      };
+      post("/api/deleteItem", body).then((item) => {
+        console.log("item", item);
+      });
+    }
+  };
+
   i = (i + 1) % colors.length;
   return (
     <div className="fulfill-item-box" style={{ backgroundColor: colors[props.index % colors.length], marginBottom: "20px" }}>
@@ -28,7 +67,7 @@ function Box(props) {
           <b>item:</b> {props.item} <br />
           <br />
           <br />
-          cool drawing
+          *cool drawing*
           <br />
           <br />
           <br />
@@ -49,10 +88,10 @@ function Box(props) {
             {!reqCreator ? "" : "@" + reqCreator.username}
           </button>
           <br />
-          <br />
-          <button type="resolve" className="requestmatch-resolve" value="Resolve">
-            fulfill
-          </button> */}
+          <br /> */}
+          <button type="resolve" className="requestmatch-resolve" value="Resolve" onClick={handleResolve}>
+            resolve
+          </button>
         </div>
       </div>
     </div>
@@ -75,7 +114,7 @@ const Account = (props) => {
         setListings(itemObjs);
       });
     });
-  }, []);
+  }, [listings]);
 
   if (!user) {
     return <div>loading...</div>;
@@ -96,7 +135,9 @@ const Account = (props) => {
       />
     ));
   } else {
-    listingsList = <div>no listings!</div>;
+    listingsList = <div style={{paddingLeft: "0px", textAlign: "left", fontStyle: "italic"}}>
+      no listings!
+      </div>;
   }
 
   user.name = user.name.toLowerCase();

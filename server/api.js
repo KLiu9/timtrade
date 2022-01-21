@@ -51,9 +51,14 @@ router.get("/allrequests", (req, res) => {
 router.get("/listings", (req, res) => {
   Item.find({ creator: req.query.creator }).then((items) => {
     res.send(items);
-    console.log("MY LISTINGS", items);
   })
 })
+
+router.get("/allListings", (req, res) => {
+  Item.find({}).then((items) => {
+    res.send(items);
+  });
+});
 
 router.get("/user", (req, res) => {
   User.findById(req.query.userid).then((user) => {
@@ -109,6 +114,7 @@ router.post("/updateUserInfo", (req, res) => {
     result.contactMethod2 = req.body.content.contactMethod2;
     result.contactDetails2 = req.body.content.contactDetails2;
     result.location = req.body.content.location;
+
     result.save().then((newUserInfo) => res.send(newUserInfo));
   });
 });
@@ -121,8 +127,19 @@ router.post("/listItem", (req, res) => {
     type: req.body.content.type,
   });
 
-  console.log("NEW LISTING", newItem);
+  // console.log("NEW LISTING", newItem);
   newItem.save().then((listing) => res.send(listing));
+});
+
+router.post("/deleteItem", (req, res) => {
+  Item.deleteOne({
+    creator: req.body.creator,
+    name: req.body.name,
+    description: req.body.description,
+    type: req.body.type,
+  }).then((result) => {
+    console.log("deleted listing");
+  });
 });
 
 router.post("/updateRequest", (req, res) => {

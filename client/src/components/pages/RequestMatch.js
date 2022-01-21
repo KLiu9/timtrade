@@ -2,8 +2,7 @@ import React, { useState, useEffect } from "react";
 import Modal from "react-modal";
 import "../../utilities.css";
 import "./RequestMatch.css";
-import { get } from "../../utilities";
-import { post } from "../../utilities";
+import { get, post } from "../../utilities";
 
 let colors = ["var(--purple)", "var(--blue)", "var(--yellow)", "var(--green)"];
 let j = 0;
@@ -69,6 +68,7 @@ function Box(props) {
     </>
   ));
   j = (j + 1) % colors.length;
+
   return (
     <div className="item-box" style={{ backgroundColor: colors[props.index % colors.length] }}>
       <b>item:</b> {props.item} <br />
@@ -160,7 +160,10 @@ const RequestMatch = (props) => {
       />
     ));
   } else {
-    requestsList = <div>no requests!</div>;
+    requestsList = <div style={{paddingLeft: "10px", fontStyle: "italic"}}>
+      <br/>
+      no requests!
+      </div>;
   }
 
   return (

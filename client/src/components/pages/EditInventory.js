@@ -130,9 +130,9 @@ const EditInventory = (props) => {
             style={{ backgroundColor: "var(--blue)" }}
           >
             <option value="select"></option>
-            <option value="buy">sell</option>
+            <option value="sell">sell</option>
             <option value="trade">trade</option>
-            <option value="borrow">lend</option>
+            <option value="lend">lend</option>
           </select>
           <button
             type="submit"
