@@ -277,14 +277,14 @@ const RequestMatch = (props) => {
     }
   }
   if (fulfillsList.length !== 0) {
-    fulfillsList2 = fulfillsList.map((requestObj) => (
+    fulfillsList2 = fulfillsList.map((requestObj, i) => (
       <FulfillBox
         key={`Box_${requestObj._id}`}
         item={requestObj.name}
         creator={requestObj.creator}
         time={requestObj.time}
         type={requestObj.type}
-        index={0}
+        index={i}
         description={requestObj.description}
         reqId={requestObj._id}
         userId={props.userId}
@@ -297,9 +297,9 @@ const RequestMatch = (props) => {
   return (
     <>
       <div style={{ padding: "0px 50px" }}>
-        <p className="page-title">request matches</p>
-        <br /> {/**SOMEONE PLS HELP FIX LOL */}
-        <p className="requestmatch-subtitle">items you requested</p>
+        <p className="page-title" style={{marginTop: "-0.1%"}}>request matches</p>
+        <br/>
+        <p className="requestmatch-subtitle2">items you requested</p>
         <div className="requestmatch-container">{requestsList}</div>
         <p className="requestmatch-subtitle">items you fulfilled</p>
         <div className="requestmatch-container">{fulfillsList2}</div>
