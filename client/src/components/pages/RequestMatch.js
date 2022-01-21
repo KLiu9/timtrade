@@ -599,10 +599,12 @@ const RequestMatch = (props) => {
   return (
     <>
       <div style={{ padding: "0px 50px" }}>
-        <p className="page-title" style={{ marginTop: "-0.1%" }}>
+        <p className="page-title" style={{ marginTop: "-0.1%", marginBottom: "-0.1%" }}>
           request matches
         </p>
+        <div></div>
         <br />
+        <br></br>
         <p className="requestmatch-subtitle2">items you requested</p>
         <div className="requestmatch-container">{requestsList}</div>
         <p className="requestmatch-subtitle">items you fulfilled</p>

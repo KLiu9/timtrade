@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import GoogleLogin, { GoogleLogout } from "react-google-login";
 import timtrade from "../../../dist/images/timtrade.png";
+import beaverimg from "../../../dist/images/beaver icon.png";
 import Modal from "react-modal";
 
 import "../../utilities.css";
@@ -18,7 +19,8 @@ const Home = (props) => {
   return (
     <div className="flex-container">
       <div className="flex-container">
-        <img className="home-img-size flex-item" src={timtrade} />
+        {/* <img className="home-icon-size flex-item" src={beaverimg} /> */}
+        <img className="home-img-size flex-item center" src={timtrade} />
       </div>
       <span className="home-nav flex-item">
         {props.userId ? (

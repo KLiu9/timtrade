@@ -6,6 +6,7 @@ import "../../utilities.css";
 import "./CreateRequest.css";
 import "./Account.css";
 import "./Fulfill.css";
+import beaverimg from "../../../dist/images/beaver icon.png";
 
 let colors = ["var(--purple)", "var(--blue)", "var(--yellow)", "var(--green)"];
 let i = 0;
@@ -62,7 +63,12 @@ function Box(props) {
   return (
     <div
       className="fulfill-item-box"
-      style={{ backgroundColor: colors[props.index % colors.length], marginBottom: "20px" }}
+      style={{
+        backgroundColor: colors[props.index % colors.length],
+        marginRight: "40px",
+        marginLeft: "40px",
+        marginBottom: "20px",
+      }}
     >
       <div className="fulfill-item-box-inner">
         <div className="fulfill-item-box-front">
@@ -70,7 +76,7 @@ function Box(props) {
           <b>item:</b> {props.item} <br />
           <br />
           <br />
-          *cool drawing*
+          <img className="img-size2" src={beaverimg}></img>
           <br />
           <br />
           <br />
