@@ -68,6 +68,7 @@ router.post("/request", (req, res) => {
     description: req.body.content.description,
     type: req.body.content.type,
     time: req.body.content.time,
+    fulfilled: [],
   });
 
   newRequest.save().then((request) => res.send(request));
@@ -102,6 +103,17 @@ router.post("/updateUserInfo", (req, res) => {
     result.contactDetails2 = req.body.content.contactDetails2;
     result.location = req.body.content.location;
     result.save().then((newUserInfo) => res.send(newUserInfo));
+  });
+});
+
+router.post("/updateRequest", (req, res) => {
+  Request.findById(req.body.reqId).then((result) => {
+    console.log("before:", result);
+    if (!result.fulfilled.includes(req.body.creatorId)) {
+      result.fulfilled.push(req.body.creatorId);
+    }
+    console.log("after:", result);
+    result.save().then((updatedReq) => res.send(updatedReq));
   });
 });
 
