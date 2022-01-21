@@ -4,7 +4,6 @@ import "../../utilities.css";
 import "./RequestMatch.css";
 import { get } from "../../utilities";
 import { post } from "../../utilities";
-import { navigate } from "@reach/router";
 
 let colors = ["var(--purple)", "var(--blue)", "var(--yellow)", "var(--green)"];
 let j = 0;
@@ -19,10 +18,7 @@ function Box(props) {
   let fulfillerUsernames = [];
   useEffect(() => {
     // document.title = "request matches";
-    // if (props.userId !== undefined) {
     get("/api/requests", { creator: props.userId }).then((requestObjs) => {
-      // console.log("bye", props.userId);
-      // console.log("61e4d99700fa5b28b75a9f9b");
       setRequests(requestObjs);
     });
     if (props.fulfilled && props.fulfilled.length !== 0) {
@@ -38,21 +34,15 @@ function Box(props) {
 
   const handleResolve = (event) => {
     event.preventDefault();
-    //console.log("requests before pressing resolve", requests);
-    //console.log("request being resolved", props);
 
     let done = false;
     let i = 0;
     while (!done && i < requests.length) {
-      /*console.log(i, requests[i]);
-      console.log(requests[i].name);
-      console.log(props.item);*/
       if (
         requests[i].name === props.item &&
         requests[i].description === props.description &&
         requests[i].type === props.type
       ) {
-        //console.log("found match");
         done = true;
       } else {
         i++;
@@ -60,7 +50,6 @@ function Box(props) {
     }
 
     if (i < requests.length) {
-      //console.log("index of match: ", i);
       requests.splice(i, 1);
       const body = {
         creator: props.creator,
@@ -73,8 +62,6 @@ function Box(props) {
         console.log("request", request);
       });
     }
-    // navigate("/requests/");
-    //console.log("requests after pressing resolve", requests);
   };
   fulfillerUsernames = fulfillers.map((x) => (
     <>
@@ -134,24 +121,36 @@ const RequestMatch = (props) => {
     );
   }
 
+  const [user, setUser] = useState();
   const [requests, setRequests] = useState([]);
 
   useEffect(() => {
-    // document.title = "request matches";
-    if (props.userId !== undefined) {
+    get("/api/user", { userid: props.userId }).then((userObj) => {
+      setUser(userObj);
       get("/api/requests", { creator: props.userId }).then((requestObjs) => {
-        // console.log("bye", props.userId);
-        // console.log("61e4d99700fa5b28b75a9f9b");
-        // console.log("hi", requestObjs);
         setRequests(requestObjs);
       });
-    }
+    });
   }, [props.userId, requests]);
-  /*const handleResolve = (event) => {
-    event.preventDefault();
-    // const body = { creator: props.userId, name: values.item, description: values.description, type: values.type, time: values.time };
-    console.log("initial requests", requests);
-  };*/
+    
+  // ensures user has entered all info in before accessing page
+  if (!user || !user.username || !user.kerb || !user.contactMethod1 || !user.contactDetails1 ||
+    !user.contactMethod2 || !user.contactDetails2 || !user.location) {
+      return (
+        <div className="requests-container requests-item">
+          enter all account info before viewing matches!
+        </div>
+      );
+    };
+
+  // useEffect(() => {
+  //   // document.title = "request matches";
+  //   if (props.userId !== undefined) {
+  //     get("/api/requests", { creator: props.userId }).then((requestObjs) => {
+  //       setRequests(requestObjs);
+  //     });
+  //   }
+  // }, [props.userId, requests]);
 
   let requestsList = null;
   const hasRequests = requests.length !== 0;
@@ -172,6 +171,7 @@ const RequestMatch = (props) => {
   } else {
     requestsList = <div>no requests!</div>;
   }
+
   return (
     <>
       <div style={{ padding: "0px 50px" }}>

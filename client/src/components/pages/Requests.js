@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "@reach/router";
-import createreqimg from "../../../dist/images/createrequest.png";
-import reqmatchimg from "../../../dist/images/requestmatch2.png";
+import { get } from "../../utilities";
 
 import "../../utilities.css";
 import "./Requests.css";
+import createreqimg from "../../../dist/images/createrequest.png";
+import reqmatchimg from "../../../dist/images/requestmatch2.png";
 import reqmatchwords from "../../../dist/images/requestmatchwords.png";
 import createreqwords from "../../../dist/images/createrequestwords.png";
 
@@ -17,6 +18,23 @@ const Requests = (props) => {
     );
   }
 
+  const [user, setUser] = useState();
+  useEffect(() => {
+    get("/api/user", { userid: props.userId }).then((userObj) => {
+      setUser(userObj);
+    });
+  }, []);
+    
+  // ensures user has entered all info in before accessing page
+  if (!user || !user.username || !user.kerb || !user.contactMethod1 || !user.contactDetails1 ||
+    !user.contactMethod2 || !user.contactDetails2 || !user.location) {
+      return (
+        <div className="requests-container requests-item">
+          enter all account info before requesting items!
+        </div>
+      );
+    };
+  
   return (
     <div className="requests-container">
       <div className="create-request">

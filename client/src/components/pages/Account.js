@@ -12,20 +12,19 @@ const Account = (props) => {
   }
 
   const [user, setUser] = useState();
+
   useEffect(() => {
     get(`/api/user`, { userid: props.userId }).then((userObj) => setUser(userObj));
   }, []);
   if (!user) {
     return <div>loading...</div>;
   }
-  let id = user._id;
-  console.log(user);
+
   user.name = user.name.toLowerCase();
   return (
     // MOVE LOGOUT BUTTON TO THIS PAGE (instead of navbar)
     <div style={{ padding: "0px 50px" }}>
       <div>
-        {/* <a className="user-title">{props.username}</a> */}
         <div className="user-box">
           <div className="user-title">
             {!user.username || user.username === ""

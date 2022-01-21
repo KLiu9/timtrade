@@ -55,23 +55,23 @@ const Home = (props) => {
         >
           about
         </button>
-        <Modal className="modal" isOpen={PopUp}>
+        <Modal className="modal" isOpen={PopUp} ariaHideApp={false}>
           <button className="modal-close" onClick={handleClose}>
             ✘
           </button>
           <div className="modal-content">
-            <p>
+            <div>
               <p className="modal-title">welcome to timtrade!</p>
               <p> &gt; a marketplace for the mit community &lt; </p>
               <p> &gt; create requests and add to your inventory &lt; </p>
-              <p> &gt; explore others' items and requests &lt; </p>
+              <p> &gt; explore various items and fulfill requests &lt; </p>
               {/* <ul>
                   <li>marketplace for the mit community</li>
                   <li>create requests and add to your inventory</li>
                   <li>explore others' items and requests</li>
                 </ul> */}
               <p className="modal-names"> - katie, anna, emily</p>
-            </p>
+            </div>
           </div>
         </Modal>
       </span>
