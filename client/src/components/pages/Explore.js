@@ -43,7 +43,7 @@ function Box(props) {
           <b>item:</b> {props.item} <br />
           <br />
           <br />
-          <b>{!reqCreator ? "" : "@" + reqCreator.username}</b>
+          <b style={{ textDecoration: "underline" }}>{!reqCreator ? "" : "@" + reqCreator.username}</b>
           <br />
           <br />
           <br />
@@ -66,7 +66,6 @@ function Box(props) {
           <b>item:</b> {props.item} <br />
           <b>description:</b> {props.description} <br />
           <br />
-          {/* <b>{props.creator}</b> */}
           <br />
           <br />
           <button
@@ -76,20 +75,23 @@ function Box(props) {
           >
             {!reqCreator ? "" : "@" + reqCreator.username}
           </button>
-          <Modal className="modal" isOpen={PopUp} ariaHideApp={false}>
-            <button className="modal-close" onClick={handleClose}>
-              ✘
-            </button>
-            <div className="modal-content">
-              {reqCreator && (
-                <div>
-                  <p className="modal-title">{"@" + reqCreator.username}</p>
-                  <p> name: {reqCreator.name}</p>
-                  <p>{reqCreator.contactMethod1 + ": " + reqCreator.contactDetails1}</p>
-                  <p> {reqCreator.contactMethod2 + ": " + reqCreator.contactDetails2} </p>
-                  <p> location: {reqCreator.location}</p>
-                </div>
-              )}
+          <Modal className="modal" isOpen={PopUp} ariaHideApp={false} >
+            <div style={{ backgroundColor: colors[props.index % colors.length], borderRadius: "24px" }}>
+              <button className="modal-close" onClick={handleClose}>
+                ✘
+              </button>
+              <div className="modal-content">
+                {reqCreator && (
+                  <div>
+                    <p className="modal-title" style={{ textDecoration: "underline" }}>{"@" + reqCreator.username}</p>
+                    <p> name: <i>{reqCreator.name}</i></p>
+                    <p> {reqCreator.contactMethod1}: <i>{reqCreator.contactDetails1}</i> </p>
+                    <p> {reqCreator.contactMethod2}: <i>{reqCreator.contactDetails2}</i> </p>
+                    <p> location: <i>{reqCreator.location}</i> </p>
+                    <br/>
+                  </div>
+                )}
+              </div>
             </div>
           </Modal>
           <br />
@@ -167,10 +169,8 @@ const Explore = (props) => {
         }
         return 0;
       });
-      //console.log("after sort", requests);
       const filteredItems = filterItems(listings, query);
       if (filteredItems.length !== 0) {
-        // console.log(filteredItems);
         listingsList = filteredItems.map((itemObj, i) => (
           <Box
             key={`Box_${itemObj._id}`}

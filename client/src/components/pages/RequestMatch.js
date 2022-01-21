@@ -92,7 +92,8 @@ function Box(props) {
             <button className="modal-close" onClick={handleClose}>
               ✘
             </button>
-            <div className="modal-content">{fulfillerUsernames}</div>
+            <div className="modal-content" style={{ fontStyle: "italic" }}>{fulfillerUsernames}</div>
+            <br/>
           </Modal>
         </>
       )}
