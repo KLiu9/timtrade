@@ -112,15 +112,6 @@ const RequestMatch = (props) => {
       );
     };
 
-  // useEffect(() => {
-  //   // document.title = "request matches";
-  //   if (props.userId !== undefined) {
-  //     get("/api/requests", { creator: props.userId }).then((requestObjs) => {
-  //       setRequests(requestObjs);
-  //     });
-  //   }
-  // }, [props.userId, requests]);
-
   let requestsList = null;
   const hasRequests = requests.length !== 0;
   if (hasRequests) {

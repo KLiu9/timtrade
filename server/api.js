@@ -13,7 +13,6 @@ const express = require("express");
 const User = require("./models/user");
 const Item = require("./models/items");
 const Request = require("./models/request");
-// const Requests = require("./models/requests");
 
 // import authentication library
 const auth = require("./auth");
@@ -36,6 +35,7 @@ router.get("/whoami", (req, res) => {
   res.send(req.user);
 });
 
+
 router.get("/requests", (req, res) => {
   Request.find({ creator: req.query.creator }).then((requests) => {
     res.send(requests);
@@ -47,6 +47,13 @@ router.get("/allrequests", (req, res) => {
     res.send(requests);
   });
 });
+
+router.get("/listings", (req, res) => {
+  Item.find({ creator: req.query.creator }).then((items) => {
+    res.send(items);
+    console.log("MY LISTINGS", items);
+  })
+})
 
 router.get("/user", (req, res) => {
   User.findById(req.query.userid).then((user) => {
@@ -103,6 +110,18 @@ router.post("/updateUserInfo", (req, res) => {
     result.location = req.body.content.location;
     result.save().then((newUserInfo) => res.send(newUserInfo));
   });
+});
+
+router.post("/listItem", (req, res) => {
+  const newItem = new Item({
+    creator: req.body.creator,
+    name: req.body.content.item,
+    description: req.body.content.description,
+    type: req.body.content.type,
+  });
+
+  console.log("NEW LISTING", newItem);
+  newItem.save().then((listing) => res.send(listing));
 });
 
 // anything else falls to this "not found" case
