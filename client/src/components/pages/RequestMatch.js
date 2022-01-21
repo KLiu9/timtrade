@@ -197,7 +197,7 @@ function Box(props) {
           {x && (
             <div>
               <p className="modal-title">{"@" + x.username}</p>
-              <p>
+              <p><b>
                 {" "}
                 rating:{" "}
                 {x.ratings.length === 0
@@ -205,11 +205,12 @@ function Box(props) {
                   : (x.ratings.reduce((a, b) => a + b, 0) / x.ratings.length)
                       .toFixed(1)
                       .toString() + "/5.0"}{" "}
-              </p>
-              <p> name: {x.name}</p>
-              <p>{x.contactMethod1 + ": " + x.contactDetails1}</p>
-              <p> {x.contactMethod2 + ": " + x.contactDetails2} </p>
-              <p> location: {x.location}</p>
+              </b></p>
+              <p> name: <i>{x.name}</i></p>
+              <p>{x.contactMethod1}: <i>{x.contactDetails1}</i></p>
+              <p> {x.contactMethod2}: <i>{x.contactDetails2}</i></p>
+              <p> location: <i>{x.location}</i></p>
+              <br/>
             </div>
           )}
         </div>
@@ -341,7 +342,6 @@ function Box(props) {
                             <option value={3}>3</option>
                             <option value={2}>2</option>
                             <option value={1}>1</option>
-                            ))}
                           </select>
                           <button
                             type="submit"
@@ -466,7 +466,7 @@ function FulfillBox(props) {
                 {reqCreator && (
                   <div>
                     <p className="modal-title">{"@" + reqCreator.username}</p>
-                    <p>
+                    <p><b>
                       {" "}
                       rating:{" "}
                       {reqCreator.ratings.length === 0
@@ -477,11 +477,12 @@ function FulfillBox(props) {
                           )
                             .toFixed(1)
                             .toString() + "/5.0"}{" "}
-                    </p>
-                    <p> name: {reqCreator.name}</p>
-                    <p>{reqCreator.contactMethod1 + ": " + reqCreator.contactDetails1}</p>
-                    <p> {reqCreator.contactMethod2 + ": " + reqCreator.contactDetails2} </p>
-                    <p> location: {reqCreator.location}</p>
+                    </b></p>
+                    <p> name: <i>{reqCreator.name}</i></p>
+                    <p>{reqCreator.contactMethod1}: <i>{reqCreator.contactDetails1}</i></p>
+                    <p> {reqCreator.contactMethod2}: <i>{reqCreator.contactDetails2}</i></p>
+                    <p> location: <i>{reqCreator.location}</i></p>
+                    <br/>
                   </div>
                 )}
               </div>

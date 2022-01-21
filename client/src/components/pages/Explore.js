@@ -90,7 +90,7 @@ function Box(props) {
                     <p className="modal-title" style={{ textDecoration: "underline" }}>
                       {"@" + reqCreator.username}
                     </p>
-                    <p>
+                    <p><b>
                       {" "}
                       rating:{" "}
                       {reqCreator.ratings.length === 0
@@ -101,7 +101,7 @@ function Box(props) {
                           )
                             .toFixed(1)
                             .toString() + "/5.0"}{" "}
-                    </p>
+                    </b></p>
                     <p>
                       {" "}
                       name: <i>{reqCreator.name}</i>
