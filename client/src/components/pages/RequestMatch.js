@@ -20,6 +20,7 @@ function Box(props) {
   const [userPopUp, setUserPopUp] = useState(false);
   const [ratingPopUp, setRatingPopUp] = useState(false);
   const [fulfillValues, setFulfillValues] = useState(initialFulfillValues);
+  const [confirmationPopUp, setConfirmationPopUp] = useState(false);
 
   const handleClose = () => setPopUp(false);
   const handleOpen = () => {
@@ -37,6 +38,14 @@ function Box(props) {
   };
   const handleRatingClose = () => {
     setRatingPopUp(false);
+  };
+
+  const handleConfPopUpClose = () => {
+    setConfirmationPopUp(false);
+  };
+
+  const handleDelete = () => {
+    setConfirmationPopUp(true);
   };
 
   let fulfillerUsernames = [];
@@ -190,29 +199,49 @@ function Box(props) {
         {"@" + x.username}
       </button>
       <Modal className="modal" isOpen={userPopUp}>
-        <button className="modal-close" onClick={handleUserClose}>
-          ✘
-        </button>
-        <div className="modal-content">
-          {x && (
-            <div>
-              <p className="modal-title">{"@" + x.username}</p>
-              <p><b>
-                {" "}
-                rating:{" "}
-                {x.ratings.length === 0
-                  ? "no ratings yet!"
-                  : (x.ratings.reduce((a, b) => a + b, 0) / x.ratings.length)
-                      .toFixed(1)
-                      .toString() + "/5.0"}{" "}
-              </b></p>
-              <p> name: <i>{x.name}</i></p>
-              <p>{x.contactMethod1}: <i>{x.contactDetails1}</i></p>
-              <p> {x.contactMethod2}: <i>{x.contactDetails2}</i></p>
-              <p> location: <i>{x.location}</i></p>
-              <br/>
-            </div>
-          )}
+        <div
+          style={{
+            backgroundColor: colors[props.index % colors.length],
+            borderRadius: "24px",
+          }}
+        >
+          <button className="modal-close" onClick={handleUserClose}>
+            ✘
+          </button>
+          <div className="modal-content">
+            {x && (
+              <div>
+                <p className="modal-title">{"@" + x.username}</p>
+                <p>
+                  <b>
+                    {" "}
+                    rating:{" "}
+                    {x.ratings.length === 0
+                      ? "no ratings yet!"
+                      : (x.ratings.reduce((a, b) => a + b, 0) / x.ratings.length)
+                          .toFixed(1)
+                          .toString() + "/5.0"}{" "}
+                  </b>
+                </p>
+                <p>
+                  {" "}
+                  name: <i>{x.name}</i>
+                </p>
+                <p>
+                  {x.contactMethod1}: <i>{x.contactDetails1}</i>
+                </p>
+                <p>
+                  {" "}
+                  {x.contactMethod2}: <i>{x.contactDetails2}</i>
+                </p>
+                <p>
+                  {" "}
+                  location: <i>{x.location}</i>
+                </p>
+                <br />
+              </div>
+            )}
+          </div>
         </div>
       </Modal>
     </>
@@ -267,10 +296,42 @@ function Box(props) {
                 style={{
                   backgroundColor: "#E5E5E5",
                 }}
-                onClick={handleResolve}
+                onClick={handleDelete}
               >
                 delete
               </button>
+              <Modal className="modal" isOpen={confirmationPopUp} ariaHideApp={false}>
+                <div
+                  style={{
+                    backgroundColor: colors[props.index % colors.length],
+                    borderRadius: "24px",
+                  }}
+                >
+                  <button className="modal-close" onClick={handleConfPopUpClose}>
+                    ✘
+                  </button>
+                  <br />
+                  <br />
+                  <div className="modal-content">
+                    are you sure you want to delete your request?
+                    <br />
+                    <br />
+                    <button
+                      type="resolve"
+                      className="requestmatch-resolve"
+                      value="Resolve"
+                      style={{
+                        backgroundColor: "#E5E5E5",
+                      }}
+                      onClick={handleResolve}
+                    >
+                      delete
+                    </button>
+                    <br />
+                    <br />
+                  </div>
+                </div>
+              </Modal>
             </>
           ) : (
             <>
@@ -308,52 +369,59 @@ function Box(props) {
                       resolve
                     </button>
                     <Modal className="modal" isOpen={ratingPopUp} ariaHideApp={false}>
-                      <button className="modal-close" onClick={handleRatingClose}>
-                        ✘
-                      </button>
-                      <div className="modal-content">
-                        <form>
-                          who fulfilled your request?{" "}
-                          <select
-                            prompt={fulfillValues.fulfiller}
-                            onChange={handleFulfillerChange}
-                            name="fulfiller"
-                            className="createrequest-box"
-                            style={{ backgroundColor: "var(--purple)" }}
-                          >
-                            <option key={""} value={""}></option>
-                            {fulfillers.map((x) => (
-                              <option key={x.username} value={x._id}>
-                                {x.username}
-                              </option>
-                            ))}
-                          </select>
-                          please rate your experience with this user:
-                          <select
-                            prompt={fulfillValues.rating}
-                            onChange={handleRatingChange}
-                            name="rating"
-                            className="createrequest-box"
-                            style={{ backgroundColor: "var(--pink)" }}
-                          >
-                            <option value=""></option>
-                            <option value={5}>5</option>
-                            <option value={4}>4</option>
-                            <option value={3}>3</option>
-                            <option value={2}>2</option>
-                            <option value={1}>1</option>
-                          </select>
-                          <button
-                            type="submit"
-                            className="createrequest-submit"
-                            value="Submit"
-                            style={{ backgroundColor: "var(--green)" }}
-                            onClick={handleSubmitRating}
-                          >
-                            submit feedback
-                          </button>
-                          <br />
-                        </form>
+                      <div
+                        style={{
+                          backgroundColor: colors[props.index % colors.length],
+                          borderRadius: "24px",
+                        }}
+                      >
+                        <button className="modal-close" onClick={handleRatingClose}>
+                          ✘
+                        </button>
+                        <div className="modal-content">
+                          <form>
+                            who fulfilled your request?{" "}
+                            <select
+                              prompt={fulfillValues.fulfiller}
+                              onChange={handleFulfillerChange}
+                              name="fulfiller"
+                              className="createrequest-box"
+                              style={{ backgroundColor: "var(--purple)" }}
+                            >
+                              <option key={""} value={""}></option>
+                              {fulfillers.map((x) => (
+                                <option key={x.username} value={x._id}>
+                                  {x.username}
+                                </option>
+                              ))}
+                            </select>
+                            please rate your experience with this user:
+                            <select
+                              prompt={fulfillValues.rating}
+                              onChange={handleRatingChange}
+                              name="rating"
+                              className="createrequest-box"
+                              style={{ backgroundColor: "var(--pink)" }}
+                            >
+                              <option value=""></option>
+                              <option value={5}>5</option>
+                              <option value={4}>4</option>
+                              <option value={3}>3</option>
+                              <option value={2}>2</option>
+                              <option value={1}>1</option>
+                            </select>
+                            <button
+                              type="submit"
+                              className="createrequest-submit"
+                              value="Submit"
+                              style={{ backgroundColor: "var(--green)" }}
+                              onClick={handleSubmitRating}
+                            >
+                              submit feedback
+                            </button>
+                            <br />
+                          </form>
+                        </div>
                       </div>
                     </Modal>
                     <br />
@@ -364,30 +432,48 @@ function Box(props) {
                       style={{
                         backgroundColor: "#E5E5E5",
                       }}
-                      onClick={handleResolve}
+                      onClick={handleDelete}
                     >
                       delete
                     </button>
+                    <Modal className="modal" isOpen={confirmationPopUp} ariaHideApp={false}>
+                      <div
+                        style={{
+                          backgroundColor: colors[props.index % colors.length],
+                          borderRadius: "24px",
+                        }}
+                      >
+                        <button className="modal-close" onClick={handleConfPopUpClose}>
+                          ✘
+                        </button>
+                        <br />
+                        <br />
+                        <div className="modal-content">
+                          are you sure you want to delete your request?
+                          <br />
+                          <br />
+                          <button
+                            type="resolve"
+                            className="requestmatch-resolve"
+                            value="Resolve"
+                            style={{
+                              backgroundColor: "#E5E5E5",
+                            }}
+                            onClick={handleResolve}
+                          >
+                            delete
+                          </button>
+                          <br />
+                          <br />
+                        </div>
+                      </div>
+                    </Modal>
                     <br />
                   </div>
                 </div>
               </Modal>
             </>
           )}
-          {/*<br />
-          <br />
-          <br />
-          <button
-            type="resolve"
-            className="requestmatch-resolve"
-            value="Resolve"
-            style={{
-              backgroundColor: "#E5E5E5",
-            }}
-            onClick={handleResolve}
-          >
-            delete
-          </button>*/}
         </div>
       </div>
     </div>
@@ -466,23 +552,36 @@ function FulfillBox(props) {
                 {reqCreator && (
                   <div>
                     <p className="modal-title">{"@" + reqCreator.username}</p>
-                    <p><b>
+                    <p>
+                      <b>
+                        {" "}
+                        rating:{" "}
+                        {reqCreator.ratings.length === 0
+                          ? "no ratings yet!"
+                          : (
+                              reqCreator.ratings.reduce((a, b) => a + b, 0) /
+                              reqCreator.ratings.length
+                            )
+                              .toFixed(1)
+                              .toString() + "/5.0"}{" "}
+                      </b>
+                    </p>
+                    <p>
                       {" "}
-                      rating:{" "}
-                      {reqCreator.ratings.length === 0
-                        ? "no ratings yet!"
-                        : (
-                            reqCreator.ratings.reduce((a, b) => a + b, 0) /
-                            reqCreator.ratings.length
-                          )
-                            .toFixed(1)
-                            .toString() + "/5.0"}{" "}
-                    </b></p>
-                    <p> name: <i>{reqCreator.name}</i></p>
-                    <p>{reqCreator.contactMethod1}: <i>{reqCreator.contactDetails1}</i></p>
-                    <p> {reqCreator.contactMethod2}: <i>{reqCreator.contactDetails2}</i></p>
-                    <p> location: <i>{reqCreator.location}</i></p>
-                    <br/>
+                      name: <i>{reqCreator.name}</i>
+                    </p>
+                    <p>
+                      {reqCreator.contactMethod1}: <i>{reqCreator.contactDetails1}</i>
+                    </p>
+                    <p>
+                      {" "}
+                      {reqCreator.contactMethod2}: <i>{reqCreator.contactDetails2}</i>
+                    </p>
+                    <p>
+                      {" "}
+                      location: <i>{reqCreator.location}</i>
+                    </p>
+                    <br />
                   </div>
                 )}
               </div>
