@@ -22,6 +22,7 @@ function Box(props) {
   const [fulfillValues, setFulfillValues] = useState(initialFulfillValues);
   const [confirmationPopUp, setConfirmationPopUp] = useState(false);
   const [fillBoxesPopUp, setFillBoxesPopUp] = useState(false);
+  const [userClicked, setUserClicked] = useState();
 
   const handleClose = () => setPopUp(false);
   const handleOpen = () => {
@@ -31,9 +32,21 @@ function Box(props) {
   const handleUserClose = () => {
     setUserPopUp(false);
   };
-  const handleUserOpen = () => {
+  const handleUserOpen = (event) => {
+    event.preventDefault();
+    const prompt = event.target.value;
+    console.log("fulfillvalues", fulfillValues);
+    console.log(fulfillValues.fulfiller[0]);
+    setFulfillValues({ ...fulfillValues, fulfiller: prompt });
+    console.log("new", fulfillValues);
     setUserPopUp(true);
   };
+
+  const handleClick = (obj) => () => {
+    setUserClicked(obj);
+    setUserPopUp(true);
+  };
+
   const handleRatingOpen = () => {
     setRatingPopUp(true);
   };
@@ -71,33 +84,6 @@ function Box(props) {
   const handleActualResolve = (event) => {
     event.preventDefault();
     handleRatingOpen();
-    /*let done = false;
-    let i = 0;
-    while (!done && i < requests.length) {
-      if (
-        requests[i].name === props.item &&
-        requests[i].description === props.description &&
-        requests[i].type === props.type
-      ) {
-        done = true;
-      } else {
-        i++;
-      }
-    }
-
-    if (i < requests.length) {
-      requests.splice(i, 1);
-      const body = {
-        creator: props.creator,
-        name: props.item,
-        description: props.description,
-        time: props.time,
-        type: props.type,
-      };
-      post("/api/deleterequest", body).then((request) => {
-        console.log("request", request);
-      });
-    }*/
   };
 
   const handleResolve = (event) => {
@@ -200,56 +186,12 @@ function Box(props) {
           width: "auto",
           margin: "5px",
         }}
-        onClick={handleUserOpen}
+        value={x.username}
+        //onClick={handleUserOpen}
+        onClick={handleClick(x)}
       >
         {"@" + x.username}
       </button>
-      <Modal className="modal" isOpen={userPopUp} ariaHideApp={false}>
-        <div
-          style={{
-            backgroundColor: colors[props.index % colors.length],
-            borderRadius: "24px",
-          }}
-        >
-          <button className="modal-close" onClick={handleUserClose}>
-            ✘
-          </button>
-          <div className="modal-content">
-            {x && (
-              <div>
-                <p className="modal-title">{"@" + x.username}</p>
-                <p>
-                  <b>
-                    {" "}
-                    rating:{" "}
-                    {x.ratings.length === 0
-                      ? "no ratings yet!"
-                      : (x.ratings.reduce((a, b) => a + b, 0) / x.ratings.length)
-                          .toFixed(1)
-                          .toString() + "/5.0"}{" "}
-                  </b>
-                </p>
-                <p>
-                  {" "}
-                  name: <i>{x.name}</i>
-                </p>
-                <p>
-                  {x.contactMethod1}: <i>{x.contactDetails1}</i>
-                </p>
-                <p>
-                  {" "}
-                  {x.contactMethod2}: <i>{x.contactDetails2}</i>
-                </p>
-                <p>
-                  {" "}
-                  location: <i>{x.location}</i>
-                </p>
-                <br />
-              </div>
-            )}
-          </div>
-        </div>
-      </Modal>
     </>
   ));
   //console.log(fulfillerUsernames);
@@ -361,6 +303,55 @@ function Box(props) {
                   <div className="modal-content" style={{ fontStyle: "italic" }}>
                     {fulfillerUsernames}
                     <br />
+                    <Modal className="modal" isOpen={userPopUp} ariaHideApp={false}>
+                      <div
+                        style={{
+                          backgroundColor: colors[props.index % colors.length],
+                          borderRadius: "24px",
+                        }}
+                      >
+                        <button className="modal-close" onClick={handleUserClose}>
+                          ✘
+                        </button>
+                        <div className="modal-content">
+                          {userClicked && (
+                            <div>
+                              <p className="modal-title">{"@" + userClicked.username}</p>
+                              <p>
+                                <b>
+                                  {" "}
+                                  rating:{" "}
+                                  {userClicked.ratings.length === 0
+                                    ? "no ratings yet!"
+                                    : (
+                                        userClicked.ratings.reduce((a, b) => a + b, 0) /
+                                        userClicked.ratings.length
+                                      )
+                                        .toFixed(1)
+                                        .toString() + "/5.0"}{" "}
+                                </b>
+                              </p>
+                              <p>
+                                {" "}
+                                name: <i>{userClicked.name}</i>
+                              </p>
+                              <p>
+                                {userClicked.contactMethod1}: <i>{userClicked.contactDetails1}</i>
+                              </p>
+                              <p>
+                                {" "}
+                                {userClicked.contactMethod2}: <i>{userClicked.contactDetails2}</i>
+                              </p>
+                              <p>
+                                {" "}
+                                location: <i>{userClicked.location}</i>
+                              </p>
+                              <br />
+                            </div>
+                          )}
+                        </div>
+                      </div>
+                    </Modal>
                     <br />
                     <br />
                     <button
@@ -392,7 +383,12 @@ function Box(props) {
                               onChange={handleFulfillerChange}
                               name="fulfiller"
                               className="createrequest-box"
-                              style={{ backgroundColor: "var(--grey)", marginRight: "5%", marginTop: "2%", marginBottom: "3%" }}
+                              style={{
+                                backgroundColor: "var(--grey)",
+                                marginRight: "5%",
+                                marginTop: "2%",
+                                marginBottom: "3%",
+                              }}
                             >
                               <option key={""} value={""}></option>
                               {fulfillers.map((x) => (
@@ -407,7 +403,11 @@ function Box(props) {
                               onChange={handleRatingChange}
                               name="rating"
                               className="createrequest-box"
-                              style={{ backgroundColor: "var(--grey)", marginRight: "5%", marginTop: "2%" }}
+                              style={{
+                                backgroundColor: "var(--grey)",
+                                marginRight: "5%",
+                                marginTop: "2%",
+                              }}
                             >
                               <option value=""></option>
                               <option value={5}>5</option>
@@ -420,7 +420,11 @@ function Box(props) {
                               type="submit"
                               className="createrequest-submit"
                               value="Submit"
-                              style={{ backgroundColor: "var(--green)", marginRight: "5%", marginBottom: "3%" }}
+                              style={{
+                                backgroundColor: "var(--green)",
+                                marginRight: "5%",
+                                marginBottom: "3%",
+                              }}
                               onClick={handleSubmitRating}
                             >
                               submit feedback
@@ -458,8 +462,12 @@ function Box(props) {
                     >
                       delete
                     </button>
-                    <Modal className="modal" isOpen={confirmationPopUp} ariaHideApp={false} 
-                    style={{left: "50%", top: "50%", transform: "translate(-50%, -50%)"}}>
+                    <Modal
+                      className="modal"
+                      isOpen={confirmationPopUp}
+                      ariaHideApp={false}
+                      style={{ left: "50%", top: "50%", transform: "translate(-50%, -50%)" }}
+                    >
                       <div
                         style={{
                           backgroundColor: colors[props.index % colors.length],

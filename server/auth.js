@@ -32,7 +32,7 @@ function getOrCreateUser(user) {
       contactMethod2: "",
       contactDetails2: "",
       location: "",
-      rating: 5,
+      ratings: [],
     });
 
     return newUser.save();
