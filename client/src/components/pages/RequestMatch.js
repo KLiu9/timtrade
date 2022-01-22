@@ -21,6 +21,7 @@ function Box(props) {
   const [ratingPopUp, setRatingPopUp] = useState(false);
   const [fulfillValues, setFulfillValues] = useState(initialFulfillValues);
   const [confirmationPopUp, setConfirmationPopUp] = useState(false);
+  const [fillBoxesPopUp, setFillBoxesPopUp] = useState(false);
 
   const handleClose = () => setPopUp(false);
   const handleOpen = () => {
@@ -46,6 +47,10 @@ function Box(props) {
 
   const handleDelete = () => {
     setConfirmationPopUp(true);
+  };
+
+  const handleFillBoxesClose = () => {
+    setFillBoxesPopUp(false);
   };
 
   let fulfillerUsernames = [];
@@ -130,8 +135,8 @@ function Box(props) {
 
   const handleSubmitRating = (event) => {
     //event.preventDefault();
-    console.log("props", props);
-    console.log("values", fulfillValues);
+    //console.log("props", props);
+    //console.log("values", fulfillValues);
     if (fulfillValues.fulfiller !== "" && fulfillValues.rating !== "") {
       event.preventDefault();
       const body = { userid: fulfillValues.fulfiller, newrating: parseInt(fulfillValues.rating) };
@@ -168,6 +173,9 @@ function Box(props) {
         //handleUserClose();
         navigate("/requests/match");
       });
+    } else {
+      event.preventDefault();
+      setFillBoxesPopUp(true);
     }
   };
 
@@ -419,6 +427,22 @@ function Box(props) {
                             >
                               submit feedback
                             </button>
+                            <Modal className="modal" isOpen={fillBoxesPopUp} ariaHideApp={false}>
+                              <div
+                                style={{
+                                  backgroundColor: colors[props.index % colors.length],
+                                  borderRadius: "24px",
+                                }}
+                              >
+                                <button className="modal-close" onClick={handleFillBoxesClose}>
+                                  ✘
+                                </button>
+                                <br />
+                                <div className="modal-content">please fill in all the boxes!</div>
+                                <br />
+                                <br />
+                              </div>
+                            </Modal>
                             <br />
                           </form>
                         </div>
