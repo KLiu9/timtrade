@@ -483,6 +483,10 @@ function Box(props) {
 function FulfillBox(props) {
   const [reqCreator, setReqCreator] = useState();
   const [PopUp, setPopUp] = useState(false);
+  const [confirmationPopUp, setConfirmationPopUp] = useState(false);
+  const handleConfPopUpClose = () => {
+    setConfirmationPopUp(false);
+  };
 
   const handleClose = () => setPopUp(false);
   const handleOpen = () => setPopUp(true);
@@ -498,6 +502,10 @@ function FulfillBox(props) {
     post("/api/unfulfill", body).then((result) => {
       console.log("result", result);
     });
+  };
+
+  const handleDelete = () => {
+    setConfirmationPopUp(true);
   };
 
   //i = (i + 1) % colors.length;
@@ -594,10 +602,42 @@ function FulfillBox(props) {
             type="resolve"
             className="requestmatch-resolve"
             value="Resolve"
-            onClick={handleUnfulfill}
+            onClick={handleDelete}
           >
             unfulfill
           </button>
+          <Modal className="modal" isOpen={confirmationPopUp} ariaHideApp={false}>
+            <div
+              style={{
+                backgroundColor: colors[props.index % colors.length],
+                borderRadius: "24px",
+              }}
+            >
+              <button className="modal-close" onClick={handleConfPopUpClose}>
+                ✘
+              </button>
+              <br />
+              <br />
+              <div className="modal-content">
+                are you sure you want to unfulfill this request?
+                <br />
+                <br />
+                <button
+                  type="resolve"
+                  className="requestmatch-resolve"
+                  value="Resolve"
+                  style={{
+                    backgroundColor: "#E5E5E5",
+                  }}
+                  onClick={handleUnfulfill}
+                >
+                  unfulfill
+                </button>
+                <br />
+                <br />
+              </div>
+            </div>
+          </Modal>
         </div>
       </div>
     </div>
