@@ -104,7 +104,7 @@ router.post("/deleterequest", (req, res) => {
     time: req.body.time,
     type: req.body.type,
   }).then((result) => {
-    console.log("deleted request");
+    // console.log("deleted request");
   });
 });
 
@@ -126,9 +126,9 @@ router.post("/updateUserInfo", (req, res) => {
 
 router.post("/updateRating", (req, res) => {
   User.findById(req.body.userid).then((result) => {
-    console.log("before", result);
+    // console.log("before", result);
     result.ratings.push(req.body.newrating);
-    console.log("after", result);
+    // console.log("after", result);
     result.save().then((newUserInfo) => res.send(newUserInfo));
   });
 });
@@ -152,30 +152,30 @@ router.post("/deleteItem", (req, res) => {
     description: req.body.description,
     type: req.body.type,
   }).then((result) => {
-    console.log("deleted listing");
+    // console.log("deleted listing");
   });
 });
 
 router.post("/updateRequest", (req, res) => {
   Request.findById(req.body.reqId).then((result) => {
-    console.log("before:", result);
+    // console.log("before:", result);
     if (!result.fulfilled.includes(req.body.creatorId)) {
       result.fulfilled.push(req.body.creatorId);
     }
-    console.log("after:", result);
+    // console.log("after:", result);
     result.save().then((updatedReq) => res.send(updatedReq));
   });
 });
 
 router.post("/unfulfill", (req, res) => {
   Request.findById(req.body.reqId).then((result) => {
-    console.log("before:", result);
+    // console.log("before:", result);
     for (let i = 0; i < result.fulfilled.length; i++) {
       if (result.fulfilled[i] === req.body.fulfillerId) {
         result.fulfilled.splice(i, 1);
       }
     }
-    console.log("after:", result);
+    // console.log("after:", result);
     result.save().then((updatedReq) => res.send(updatedReq));
   });
 });

@@ -135,6 +135,7 @@ const CreateRequest = (props) => {
                 type="text"
                 placeholder="a succulent"
                 className="createrequest-box"
+                maxlength="30"
               />
             </>
           )}
@@ -145,6 +146,7 @@ const CreateRequest = (props) => {
             type="text"
             placeholder="include specifications such as number, size, and more"
             className="createrequest-box"
+            maxlength="100"
           />
           <p className="request-label">type of request:</p>
           <select

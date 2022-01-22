@@ -54,7 +54,7 @@
   padding: 20px;
   overflow-y: auto;
   perspective: 2000px;
-  display: grid;
+  display: flex;
 }
 
 .fulfill-item-box-inner {

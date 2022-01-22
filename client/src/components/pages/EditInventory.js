@@ -132,6 +132,7 @@ const EditInventory = (props) => {
                 type="text"
                 placeholder="a succulent"
                 className="createrequest-box"
+                maxlength="30"
               />
             </>
           )}
@@ -142,6 +143,7 @@ const EditInventory = (props) => {
             type="text"
             placeholder="include specifications such as number, size, and more"
             className="createrequest-box"
+            maxlength="100"
           />
           <p className="request-label">type of listing:</p>
           <select

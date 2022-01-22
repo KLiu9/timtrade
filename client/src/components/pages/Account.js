@@ -63,7 +63,7 @@ function Box(props) {
         type: props.type,
       };
       post("/api/deleteItem", body).then((item) => {
-        console.log("item", item);
+        // console.log("item", item);
       });
     }
   };

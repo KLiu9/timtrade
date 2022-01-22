@@ -108,6 +108,7 @@ const EditAccount = (props) => {
                 placeholder={user.username !== "" ? user.username : "bobaconnoisseur"}
                 type="text"
                 className="editprofile-box"
+                maxlength="20"
               ></input>
             </div>
 
@@ -119,6 +120,7 @@ const EditAccount = (props) => {
                 placeholder={user.kerb !== "" ? user.kerb : "beavertim"}
                 type="text"
                 className="editprofile-box"
+                maxlength="8"
               />
             </div>
 
@@ -172,6 +174,7 @@ const EditAccount = (props) => {
                     type="text"
                     placeholder={"555-555-5555"}
                     className="editprofile-box"
+                    maxlength="12"
                   />
                 </div>
               </>
@@ -187,6 +190,7 @@ const EditAccount = (props) => {
                     type="text"
                     placeholder={"timbeaver"}
                     className="editprofile-box"
+                    maxlength="30"
                   />
                 </div>
               </>
@@ -202,6 +206,7 @@ const EditAccount = (props) => {
                     type="text"
                     placeholder={"timbeaver@mit.edu"}
                     className="editprofile-box"
+                    maxlength="64"
                   />
                 </div>
               </>
@@ -217,6 +222,7 @@ const EditAccount = (props) => {
                     type="text"
                     placeholder={"tim beaver"}
                     className="editprofile-box"
+                    maxlength="50"
                   />
                 </div>
               </>
@@ -272,6 +278,7 @@ const EditAccount = (props) => {
                     type="text"
                     placeholder={"555-555-5555"}
                     className="editprofile-box"
+                    maxlength="12"
                   />
                 </div>
               </>
@@ -287,6 +294,7 @@ const EditAccount = (props) => {
                     type="text"
                     placeholder={"@timbeaver"}
                     className="editprofile-box"
+                    maxlength="30"
                   />
                 </div>
               </>
@@ -302,6 +310,7 @@ const EditAccount = (props) => {
                     type="text"
                     placeholder={"timbeaver@mit.edu"}
                     className="editprofile-box"
+                    maxlength="64"
                   />
                 </div>
               </>
@@ -317,6 +326,7 @@ const EditAccount = (props) => {
                     type="text"
                     placeholder={"@timbeaver"}
                     className="editprofile-box"
+                    maxlength="50"
                   />
                 </div>
               </>
