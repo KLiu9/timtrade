@@ -79,6 +79,7 @@
   width: 100%;
   position: absolute;
   text-align: center;
+  overflow-wrap: anywhere;
 }
 
 .fulfill-item-box-back {
@@ -86,6 +87,7 @@
   text-align: center;
   font-style: italic;
   transform: rotateY(180deg);
+  overflow-wrap: anywhere;
 }
 
 .tradeInfo {
