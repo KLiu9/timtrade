@@ -290,15 +290,15 @@ const Fulfill = (props) => {
         />
       ));
     } else {
-      requestsList = <div>no requests!</div>;
+      requestsList = <div style={{ paddingLeft: "15px", textAlign: "left", fontStyle: "italic", fontWeight: "bold" }}><br/>no requests!</div>;
     }
   } else {
-    requestsList = <div>no requests!</div>;
+    requestsList = <div style={{ paddingLeft: "10px", textAlign: "left", fontStyle: "italic", fontWeight: "bold" }}><br/>no requests!</div>;
   }
 
   return (
     <>
-      <div style={{ padding: "0px 50px" }}>
+      <div style={{ padding: "0px 50px", marginLeft: "1%" }}>
         <SearchBar action={"/fulfill/"} />
         <div className="fulfill-container">{requestsList}</div>
       </div>

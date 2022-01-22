@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import Modal from "react-modal";
 import { navigate } from "@reach/router";
 import { get, post } from "../../utilities";
 
@@ -21,12 +22,20 @@ function Box(props) {
   // }, []);
 
   const [items, setItems] = useState([]);
+  const [confirmationPopUp, setConfirmationPopUp] = useState(false);
   useEffect(() => {
-    // document.title = "request matches";
     get("/api/listings", { creator: props.userId }).then((itemObjs) => {
       setItems(itemObjs);
     });
   }, []);
+
+  const handleConfPopUpClose = () => {
+    setConfirmationPopUp(false);
+  };
+
+  const handleDelete = () => {
+    setConfirmationPopUp(true);
+  };
 
   const handleResolve = (event) => {
     event.preventDefault();
@@ -68,6 +77,7 @@ function Box(props) {
         marginRight: "40px",
         marginLeft: "40px",
         marginBottom: "20px",
+        height: "300px"
       }}
     >
       <div className="fulfill-item-box-inner">
@@ -102,10 +112,35 @@ function Box(props) {
             type="resolve"
             className="requestmatch-resolve"
             value="Resolve"
-            onClick={handleResolve}
+            onClick={handleDelete}
           >
-            resolve
+            delete
           </button>
+          <Modal className="modal3" isOpen={confirmationPopUp} ariaHideApp={false}>
+            <div style={{ backgroundColor: colors[props.index % colors.length], borderRadius: "24px" }}
+            >
+              <button className="modal-close" onClick={handleConfPopUpClose}>
+                ✘
+              </button>
+              <br /><br />
+              <div className="modal-content">
+                are you sure you want to delete your listing?
+                <br /><br />
+                <button
+                  type="resolve"
+                  className="requestmatch-resolve"
+                  value="Resolve"
+                  style={{
+                    backgroundColor: "#E5E5E5",
+                  }}
+                  onClick={handleResolve}
+                >
+                  delete
+                </button>
+                <br /><br />
+              </div>
+            </div>
+          </Modal>
         </div>
       </div>
     </div>
@@ -229,10 +264,10 @@ const Account = (props) => {
             add to inventory
           </button>
         </div>
-        <div className="accountinfo-container" style={{ marginTop: "20px", height: "auto" }}>
+        <div className="accountinfo-container" style={{ marginTop: "20px", paddingLeft: "0px" }}>
           <div
-            className="fulfill-container"
-            style={{ height: "auto", marginTop: "0px", marginBottom: "0px" }}
+            className="inventory-container"
+            style={{ marginRight: "20px" }}
           >
             {listingsList}
           </div>
@@ -242,4 +277,4 @@ const Account = (props) => {
   );
 };
 
-export default Account;
+export default Account; 

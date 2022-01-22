@@ -165,13 +165,13 @@ const EditInventory = (props) => {
           >
             submit
           </button>
-          <Modal className="modal" isOpen={PopUp} ariaHideApp={false}>
+          <Modal className="modal2" isOpen={PopUp} ariaHideApp={false}>
             <div>
               <button className="modal-close" onClick={handleClose}>
                 ✘
               </button>
               <br />
-              <div className="modal-content">please fill in all the boxes!</div>
+              <div className="modal-content" style={{ fontWeight: "bold" }}>please complete all fields!</div>
               <br />
               <br />
             </div>

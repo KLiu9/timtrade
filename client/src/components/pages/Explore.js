@@ -221,15 +221,15 @@ const Explore = (props) => {
         />
       ));
     } else {
-      listingsList = <div>no listings!</div>;
+      listingsList = <div style={{ paddingLeft: "10px", textAlign: "left", fontStyle: "italic", fontWeight: "bold" }}><br/>no listings!</div>;
     }
   } else {
-    listingsList = <div>no listings!</div>;
+    listingsList = <div style={{ paddingLeft: "10px", textAlign: "left", fontStyle: "italic", fontWeight: "bold" }}><br/>no listings!</div>;
   }
 
   return (
     <>
-      <div style={{ padding: "0px 50px" }}>
+      <div style={{ padding: "0px 50px", marginLeft: "1%" }}>
         <SearchBar action="/explore/" />
         <div className="fulfill-container">{listingsList}</div>
       </div>

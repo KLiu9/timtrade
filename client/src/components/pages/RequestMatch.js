@@ -135,8 +135,6 @@ function Box(props) {
 
   const handleSubmitRating = (event) => {
     //event.preventDefault();
-    //console.log("props", props);
-    //console.log("values", fulfillValues);
     if (fulfillValues.fulfiller !== "" && fulfillValues.rating !== "") {
       event.preventDefault();
       const body = { userid: fulfillValues.fulfiller, newrating: parseInt(fulfillValues.rating) };
@@ -206,7 +204,7 @@ function Box(props) {
       >
         {"@" + x.username}
       </button>
-      <Modal className="modal" isOpen={userPopUp}>
+      <Modal className="modal" isOpen={userPopUp} ariaHideApp={false}>
         <div
           style={{
             backgroundColor: colors[props.index % colors.length],
@@ -308,7 +306,7 @@ function Box(props) {
               >
                 delete
               </button>
-              <Modal className="modal" isOpen={confirmationPopUp} ariaHideApp={false}>
+              <Modal className="modal3" isOpen={confirmationPopUp} ariaHideApp={false}>
                 <div
                   style={{
                     backgroundColor: colors[props.index % colors.length],
@@ -394,7 +392,7 @@ function Box(props) {
                               onChange={handleFulfillerChange}
                               name="fulfiller"
                               className="createrequest-box"
-                              style={{ backgroundColor: "var(--purple)" }}
+                              style={{ backgroundColor: "var(--grey)", marginRight: "5%", marginTop: "2%", marginBottom: "3%" }}
                             >
                               <option key={""} value={""}></option>
                               {fulfillers.map((x) => (
@@ -409,7 +407,7 @@ function Box(props) {
                               onChange={handleRatingChange}
                               name="rating"
                               className="createrequest-box"
-                              style={{ backgroundColor: "var(--pink)" }}
+                              style={{ backgroundColor: "var(--grey)", marginRight: "5%", marginTop: "2%" }}
                             >
                               <option value=""></option>
                               <option value={5}>5</option>
@@ -422,7 +420,7 @@ function Box(props) {
                               type="submit"
                               className="createrequest-submit"
                               value="Submit"
-                              style={{ backgroundColor: "var(--green)" }}
+                              style={{ backgroundColor: "var(--green)", marginRight: "5%", marginBottom: "3%" }}
                               onClick={handleSubmitRating}
                             >
                               submit feedback
@@ -460,7 +458,8 @@ function Box(props) {
                     >
                       delete
                     </button>
-                    <Modal className="modal" isOpen={confirmationPopUp} ariaHideApp={false}>
+                    <Modal className="modal" isOpen={confirmationPopUp} ariaHideApp={false} 
+                    style={{left: "50%", top: "50%", transform: "translate(-50%, -50%)"}}>
                       <div
                         style={{
                           backgroundColor: colors[props.index % colors.length],
@@ -630,7 +629,7 @@ function FulfillBox(props) {
           >
             unfulfill
           </button>
-          <Modal className="modal" isOpen={confirmationPopUp} ariaHideApp={false}>
+          <Modal className="modal3" isOpen={confirmationPopUp} ariaHideApp={false}>
             <div
               style={{
                 backgroundColor: colors[props.index % colors.length],

@@ -6,6 +6,7 @@ import "./CreateRequest.css";
 import { get, post } from "../../utilities";
 import "./EditAccount.css";
 import Modal from "react-modal";
+import fillerimg from "../../../dist/images/createreqpage.png";
 
 const initialValues = {
   item: "",
@@ -88,7 +89,6 @@ const CreateRequest = (props) => {
       if (values.item === "other") {
         values.item = values.enterItem;
       }
-      // const body = { creator: props.userId, name: values.item, description: values.description, type: values.type, time: values.time };
       const body = { creator: props.userId, content: values };
       post("/api/request", body).then((requestObj) => {
         setValues(initialValues);
@@ -96,23 +96,19 @@ const CreateRequest = (props) => {
       });
     } else {
       event.preventDefault();
-      console.log("fill in all the boxes");
       handleOpen();
     }
   };
 
-  const handleBadSubmit = (event) => {
-    event.preventDefault();
-  };
-
   const itemOptions = ["", "batteries", "tape", "mug", "chair", "other"];
-
   return (
     <div style={{ padding: "0px 50px" }}>
-      <p className="page-title">
+      <div className="page-title">
         create a<br />
         request
-      </p>
+        {/* help w formatting image */}
+        {/* <img className="fillerimg-size" src={fillerimg} /> */}
+      </div>
       <div className="createrequest-container">
         <p className="request-label">select an item below:</p>
         <form>
@@ -187,13 +183,15 @@ const CreateRequest = (props) => {
           >
             submit
           </button>
-          <Modal className="modal" isOpen={PopUp} ariaHideApp={false}>
+          <Modal className="modal2" isOpen={PopUp} ariaHideApp={false}>
             <div>
               <button className="modal-close" onClick={handleClose}>
                 ✘
               </button>
               <br />
-              <div className="modal-content">please fill in all the boxes!</div>
+              <div className="modal-content" style={{ fontWeight: "bold" }}>
+                please complete all fields!
+              </div>
               <br />
               <br />
             </div>
