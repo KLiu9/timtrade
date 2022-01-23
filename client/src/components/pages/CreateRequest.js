@@ -100,7 +100,7 @@ const CreateRequest = (props) => {
             create a<br />
             request
             {/* help w formatting image */}
-            <img className="fillerimg-size" src={fillerimg} />
+            {/* <img className="fillerimg-size" src={fillerimg} /> */}
           </div>
           <div className="createrequest-container">
             <p className="request-label">select an item below:</p>
