@@ -95,12 +95,14 @@ const CreateRequest = (props) => {
     allUserInfo ? (
       <div>
         <NavBar/>
-        <div style={{ padding: "0px 50px" }}>
+        <div>
           <div className="page-title">
-            create a<br />
-            request
+            <p style={{paddingRight: "10%"}}>
+              create a<br />
+              request
+            </p>
             {/* help w formatting image */}
-            {/* <img className="fillerimg-size" src={fillerimg} /> */}
+            <img className="fillerimg-size" src={fillerimg} style={{marginTop: "-4%"}}/>
           </div>
           <div className="createrequest-container">
             <p className="request-label">select an item below:</p>

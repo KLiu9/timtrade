@@ -292,6 +292,9 @@ const Fulfill = (props) => {
       <>
         <NavBar/>
         <div style={{ padding: "0px 50px", marginLeft: "1%" }}>
+          <p className="requestmatch-title" style={{ marginTop: "-0.1%", marginBottom: "-0.1%" }}>
+            fulfill
+          </p>
           <SearchBar action={"/fulfill/"} />
           <div className="fulfill-container">{requestsList}</div>
         </div>

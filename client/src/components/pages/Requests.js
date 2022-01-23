@@ -35,7 +35,7 @@ const Requests = (props) => {
     allUserInfo ? (
       <div>
         <NavBar/>
-        <div className="requests-container">
+        <div className="requests-container" style={{marginTop: "-3%"}}>
           <div className="create-request">
             <Link to="/requests/create/" className="requests-item">
               <img className="req-img-size" src={createreqimg} />

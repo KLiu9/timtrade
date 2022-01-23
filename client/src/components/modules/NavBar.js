@@ -5,20 +5,21 @@ import accimg from "../../../dist/images/account2.png";
 import reqimg from "../../../dist/images/request.png";
 import expimg from "../../../dist/images/explore.png";
 import fulimg from "../../../dist/images/fulfill.png";
-import homimg from "../../../dist/images/account.png";
+import homimg from "../../../dist/images/timtrade2.png";
 
 import "./NavBar.css";
 
 const NavBar = () => {
   return (
-    // window.location.pathname === "/" ? (<></>) : (
-      <nav className="NavBar-container">
-        <div className="NavBar-linkContainer NavBar-align">
-          <Link to="/" className="NavBar-link">
-            <img className="img-size" src={homimg} />
-            <div>home</div>
-          </Link>
+    <nav className="NavBar-container">
+      <div className="NavBar-linkContainer NavBar-align">
+        <Link to="/" className="NavBar-link" style={{justifyContent: "flex-start", paddingLeft: "45%"}}>
+          <span>
+            <img className="homeimg-size" src={homimg} />
+          </span>
+        </Link>
 
+        <div className="NavBar-linkContainer NavBar-align" style={{justifyContent: "flex-end"}}>
           <Link to="/account/" className="NavBar-link">
             <img className="img-size" src={accimg} />
             <div>account</div>
@@ -39,8 +40,8 @@ const NavBar = () => {
             <div>fulfill</div>
           </Link>
         </div>
-      </nav>
-    // )
+      </div>
+    </nav>
   );
 };
 

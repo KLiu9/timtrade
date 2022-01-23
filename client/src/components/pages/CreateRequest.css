@@ -56,8 +56,10 @@ select {
 }
 
 .page-title {
-  margin-top: 75px;
-  margin-left: 5%;
+  display: flex;
+  flex-direction: column;
+  max-width: 20%;
+  /* margin-top: 5%; */
   text-align: center;
   float: left;
   font-size: 3em;
@@ -82,7 +84,7 @@ select {
 }
 
 .fillerimg-size {
-  width: 20%;
+  /* width: 20%; */
   height: 20%;
   /* position: relative; */
   /* float: left; */

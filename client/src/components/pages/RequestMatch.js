@@ -761,7 +761,7 @@ const RequestMatch = (props) => {
       <>
         <NavBar/>
         <div style={{ padding: "0px 50px" }}>
-          <p className="page-title" style={{ marginTop: "-0.1%", marginBottom: "-0.1%" }}>
+          <p className="requestmatch-title" style={{ marginTop: "-0.1%", marginBottom: "-0.1%" }}>
             request matches
           </p>
           <div></div>

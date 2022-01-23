@@ -219,6 +219,9 @@ const Explore = (props) => {
       <>
         <NavBar/>
         <div style={{ padding: "0px 50px", marginLeft: "1%" }}>
+          <p className="requestmatch-title" style={{ marginTop: "-0.1%", marginBottom: "-0.1%" }}>
+            explore
+          </p>
           <SearchBar action="/explore/" />
           <div className="fulfill-container">{listingsList}</div>
         </div>
