@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { navigate } from "@reach/router";
-import { get } from "../../utilities";
-import { post } from "../../utilities";
+import { get, post } from "../../utilities";
+import Modal from "react-modal";
+
+import NavBar from "../modules/NavBar.js";
 
 import "../../utilities.css";
 import "./Account.css";
 import "./EditAccount.css";
-import Modal from "react-modal";
+
 
 const EditAccount = (props) => {
   const [user, setUser] = useState();
@@ -88,284 +90,287 @@ const EditAccount = (props) => {
   // const body = { _id: props.userId, content: user };
   // post("/api/updateUserInfo", body);
   return (
-    <div className="editaccount-container" style={{ padding: "0px 50px" }}>
-      <div>
-        <div className="user-box">
-          <div className="user-title">
-            {!user.username || user.username === ""
-              ? "set your username!" /** change this lol */
-              : "@" + user.username}
+    <div>
+      <NavBar/>
+      <div className="editaccount-container" style={{ padding: "0px 50px" }}>
+        <div>
+          <div className="user-box">
+            <div className="user-title">
+              {!user.username || user.username === ""
+                ? "set your username!" /** change this lol */
+                : "@" + user.username}
+            </div>
+            <div className="email-title">{user.email}</div>
           </div>
-          <div className="email-title">{user.email}</div>
-        </div>
-        <form>
-          <div className="accountinfo-container">
-            <div className="spacing">
-              <div className="accountinfo-label">username:</div>
-              <input
-                prompt={user.username}
-                onChange={handleUsernameChange}
-                placeholder={user.username !== "" ? user.username : "bobaconnoisseur"}
-                type="text"
-                className="editprofile-box"
-                maxlength="20"
-              ></input>
-            </div>
-
-            <div className="spacing">
-              <div className="accountinfo-label">kerb:</div>
-              <input
-                prompt={user.kerb}
-                onChange={handleKerbChange}
-                placeholder={user.kerb !== "" ? user.kerb : "beavertim"}
-                type="text"
-                className="editprofile-box"
-                maxlength="8"
-              />
-            </div>
-
-            <div className="spacing">
-              <div className="accountinfo-label">preferred contact:</div>
-              <select
-                prompt={user.contactMethod1}
-                onChange={handleContactMethod1Change}
-                className="editprofile-box"
-              >
-                <option value={user.contactMethod1}>{user.contactMethod1}</option>
-                {user.contactMethod1 !== "phone" && (
-                  <>
-                    <option value="phone">phone</option>
-                  </>
-                )}
-                {user.contactMethod1 !== "email" && (
-                  <>
-                    <option value="email">email</option>
-                  </>
-                )}
-                {user.contactMethod1 !== "messenger" && (
-                  <>
-                    <option value="messenger">messenger</option>
-                  </>
-                )}
-                {user.contactMethod1 !== "instagram" && (
-                  <>
-                    <option value="instagram">instagram</option>
-                  </>
-                )}
-                {user.contactMethod1 !== "discord" && (
-                  <>
-                    <option value="discord">discord</option>
-                  </>
-                )}
-                {user.contactMethod1 !== "whatsapp" && (
-                  <>
-                    <option value="whatsapp">whatsapp</option>
-                  </>
-                )}
-              </select>
-            </div>
-            {(user.contactMethod1 === "phone" || user.contactMethod1 === "whatsapp") && (
-              <>
-                <div className="spacing">
-                  <div className="accountinfo-label">enter your phone number:</div>
-                  <input
-                    prompt={user.contactDetails1}
-                    onChange={handleContactDetails1Change}
-                    type="text"
-                    placeholder={"555-555-5555"}
-                    className="editprofile-box"
-                    maxlength="12"
-                  />
-                </div>
-              </>
-            )}
-
-            {(user.contactMethod1 === "instagram" || user.contactMethod1 === "discord") && (
-              <>
-                <div className="spacing">
-                  <div className="accountinfo-label">enter your username:</div>
-                  <input
-                    prompt={user.contactDetails1}
-                    onChange={handleContactDetails1Change}
-                    type="text"
-                    placeholder={"timbeaver"}
-                    className="editprofile-box"
-                    maxlength="30"
-                  />
-                </div>
-              </>
-            )}
-
-            {user.contactMethod1 === "email" && (
-              <>
-                <div className="spacing">
-                  <div className="accountinfo-label">enter your email:</div>
-                  <input
-                    prompt={user.contactDetails1}
-                    onChange={handleContactDetails1Change}
-                    type="text"
-                    placeholder={"timbeaver@mit.edu"}
-                    className="editprofile-box"
-                    maxlength="64"
-                  />
-                </div>
-              </>
-            )}
-
-            {user.contactMethod1 === "messenger" && (
-              <>
-                <div className="spacing">
-                  <div className="accountinfo-label">enter your facebook name:</div>
-                  <input
-                    prompt={user.contactDetails1}
-                    onChange={handleContactDetails1Change}
-                    type="text"
-                    placeholder={"tim beaver"}
-                    className="editprofile-box"
-                    maxlength="50"
-                  />
-                </div>
-              </>
-            )}
-
-            <div className="spacing">
-              <div className="accountinfo-label">alternate contact:</div>
-              <select
-                prompt={user.contactMethod2}
-                onChange={handleContactMethod2Change}
-                className="editprofile-box"
-              >
-                <option value={user.contactMethod2}>{user.contactMethod2}</option>
-                {user.contactMethod2 !== "phone" && (
-                  <>
-                    <option value="phone">phone</option>
-                  </>
-                )}
-                {user.contactMethod2 !== "email" && (
-                  <>
-                    <option value="email">email</option>
-                  </>
-                )}
-                {user.contactMethod2 !== "messenger" && (
-                  <>
-                    <option value="messenger">messenger</option>
-                  </>
-                )}
-                {user.contactMethod2 !== "instagram" && (
-                  <>
-                    <option value="instagram">instagram</option>
-                  </>
-                )}
-                {user.contactMethod2 !== "discord" && (
-                  <>
-                    <option value="discord">discord</option>
-                  </>
-                )}
-                {user.contactMethod2 !== "whatsapp" && (
-                  <>
-                    <option value="whatsapp">whatsapp</option>
-                  </>
-                )}
-              </select>
-            </div>
-            {(user.contactMethod2 === "phone" || user.contactMethod2 === "whatsapp") && (
-              <>
-                <div className="spacing">
-                  <div className="accountinfo-label">enter your phone number:</div>
-                  <input
-                    prompt={user.contactDetails2}
-                    onChange={handleContactDetails2Change}
-                    type="text"
-                    placeholder={"555-555-5555"}
-                    className="editprofile-box"
-                    maxlength="12"
-                  />
-                </div>
-              </>
-            )}
-
-            {(user.contactMethod2 === "instagram" || user.contactMethod2 === "discord") && (
-              <>
-                <div className="spacing">
-                  <div className="accountinfo-label">enter your username:</div>
-                  <input
-                    prompt={user.contactDetails2}
-                    onChange={handleContactDetails2Change}
-                    type="text"
-                    placeholder={"@timbeaver"}
-                    className="editprofile-box"
-                    maxlength="30"
-                  />
-                </div>
-              </>
-            )}
-
-            {user.contactMethod2 === "email" && (
-              <>
-                <div className="spacing">
-                  <div className="accountinfo-label">enter your email:</div>
-                  <input
-                    prompt={user.contactDetails2}
-                    onChange={handleContactDetails2Change}
-                    type="text"
-                    placeholder={"timbeaver@mit.edu"}
-                    className="editprofile-box"
-                    maxlength="64"
-                  />
-                </div>
-              </>
-            )}
-
-            {user.contactMethod2 === "messenger" && (
-              <>
-                <div className="spacing">
-                  <div className="accountinfo-label">enter your facebook name:</div>
-                  <input
-                    prompt={user.contactDetails2}
-                    onChange={handleContactDetails2Change}
-                    type="text"
-                    placeholder={"@timbeaver"}
-                    className="editprofile-box"
-                    maxlength="50"
-                  />
-                </div>
-              </>
-            )}
-
-            <div className="spacing">
-              <div className="accountinfo-label">location:</div>
-              <input
-                prompt={user.location}
-                placeholder={user.location !== "" ? user.location : "new vassar"}
-                onChange={handleLocChange}
-                type="text"
-                className="editprofile-box"
-              ></input>
-            </div>
-            <div className="spacing">
-              <button
-                type="submit"
-                className="edit-profile"
-                value="Submit"
-                onClick={handleAccountSubmit}
-              >
-                done
-              </button>
-            </div>
-            <Modal className="modal" isOpen={PopUp} ariaHideApp={false}>
-              <button className="modal-close" onClick={handleClose}>
-                ✘
-              </button>
-              <div className="modal-content">
-                <br />
-                the username @{user.username} is taken - please enter another!
-                <br />
-                <br />
-                <br />
+          <form>
+            <div className="accountinfo-container">
+              <div className="spacing">
+                <div className="accountinfo-label">username:</div>
+                <input
+                  prompt={user.username}
+                  onChange={handleUsernameChange}
+                  placeholder={user.username !== "" ? user.username : "bobaconnoisseur"}
+                  type="text"
+                  className="editprofile-box"
+                  maxlength="20"
+                ></input>
               </div>
-            </Modal>
-          </div>
-        </form>
+
+              <div className="spacing">
+                <div className="accountinfo-label">kerb:</div>
+                <input
+                  prompt={user.kerb}
+                  onChange={handleKerbChange}
+                  placeholder={user.kerb !== "" ? user.kerb : "beavertim"}
+                  type="text"
+                  className="editprofile-box"
+                  maxlength="8"
+                />
+              </div>
+
+              <div className="spacing">
+                <div className="accountinfo-label">preferred contact:</div>
+                <select
+                  prompt={user.contactMethod1}
+                  onChange={handleContactMethod1Change}
+                  className="editprofile-box"
+                >
+                  <option value={user.contactMethod1}>{user.contactMethod1}</option>
+                  {user.contactMethod1 !== "phone" && (
+                    <>
+                      <option value="phone">phone</option>
+                    </>
+                  )}
+                  {user.contactMethod1 !== "email" && (
+                    <>
+                      <option value="email">email</option>
+                    </>
+                  )}
+                  {user.contactMethod1 !== "messenger" && (
+                    <>
+                      <option value="messenger">messenger</option>
+                    </>
+                  )}
+                  {user.contactMethod1 !== "instagram" && (
+                    <>
+                      <option value="instagram">instagram</option>
+                    </>
+                  )}
+                  {user.contactMethod1 !== "discord" && (
+                    <>
+                      <option value="discord">discord</option>
+                    </>
+                  )}
+                  {user.contactMethod1 !== "whatsapp" && (
+                    <>
+                      <option value="whatsapp">whatsapp</option>
+                    </>
+                  )}
+                </select>
+              </div>
+              {(user.contactMethod1 === "phone" || user.contactMethod1 === "whatsapp") && (
+                <>
+                  <div className="spacing">
+                    <div className="accountinfo-label">enter your phone number:</div>
+                    <input
+                      prompt={user.contactDetails1}
+                      onChange={handleContactDetails1Change}
+                      type="text"
+                      placeholder={"555-555-5555"}
+                      className="editprofile-box"
+                      maxlength="12"
+                    />
+                  </div>
+                </>
+              )}
+
+              {(user.contactMethod1 === "instagram" || user.contactMethod1 === "discord") && (
+                <>
+                  <div className="spacing">
+                    <div className="accountinfo-label">enter your username:</div>
+                    <input
+                      prompt={user.contactDetails1}
+                      onChange={handleContactDetails1Change}
+                      type="text"
+                      placeholder={"timbeaver"}
+                      className="editprofile-box"
+                      maxlength="30"
+                    />
+                  </div>
+                </>
+              )}
+
+              {user.contactMethod1 === "email" && (
+                <>
+                  <div className="spacing">
+                    <div className="accountinfo-label">enter your email:</div>
+                    <input
+                      prompt={user.contactDetails1}
+                      onChange={handleContactDetails1Change}
+                      type="text"
+                      placeholder={"timbeaver@mit.edu"}
+                      className="editprofile-box"
+                      maxlength="64"
+                    />
+                  </div>
+                </>
+              )}
+
+              {user.contactMethod1 === "messenger" && (
+                <>
+                  <div className="spacing">
+                    <div className="accountinfo-label">enter your facebook name:</div>
+                    <input
+                      prompt={user.contactDetails1}
+                      onChange={handleContactDetails1Change}
+                      type="text"
+                      placeholder={"tim beaver"}
+                      className="editprofile-box"
+                      maxlength="50"
+                    />
+                  </div>
+                </>
+              )}
+
+              <div className="spacing">
+                <div className="accountinfo-label">alternate contact:</div>
+                <select
+                  prompt={user.contactMethod2}
+                  onChange={handleContactMethod2Change}
+                  className="editprofile-box"
+                >
+                  <option value={user.contactMethod2}>{user.contactMethod2}</option>
+                  {user.contactMethod2 !== "phone" && (
+                    <>
+                      <option value="phone">phone</option>
+                    </>
+                  )}
+                  {user.contactMethod2 !== "email" && (
+                    <>
+                      <option value="email">email</option>
+                    </>
+                  )}
+                  {user.contactMethod2 !== "messenger" && (
+                    <>
+                      <option value="messenger">messenger</option>
+                    </>
+                  )}
+                  {user.contactMethod2 !== "instagram" && (
+                    <>
+                      <option value="instagram">instagram</option>
+                    </>
+                  )}
+                  {user.contactMethod2 !== "discord" && (
+                    <>
+                      <option value="discord">discord</option>
+                    </>
+                  )}
+                  {user.contactMethod2 !== "whatsapp" && (
+                    <>
+                      <option value="whatsapp">whatsapp</option>
+                    </>
+                  )}
+                </select>
+              </div>
+              {(user.contactMethod2 === "phone" || user.contactMethod2 === "whatsapp") && (
+                <>
+                  <div className="spacing">
+                    <div className="accountinfo-label">enter your phone number:</div>
+                    <input
+                      prompt={user.contactDetails2}
+                      onChange={handleContactDetails2Change}
+                      type="text"
+                      placeholder={"555-555-5555"}
+                      className="editprofile-box"
+                      maxlength="12"
+                    />
+                  </div>
+                </>
+              )}
+
+              {(user.contactMethod2 === "instagram" || user.contactMethod2 === "discord") && (
+                <>
+                  <div className="spacing">
+                    <div className="accountinfo-label">enter your username:</div>
+                    <input
+                      prompt={user.contactDetails2}
+                      onChange={handleContactDetails2Change}
+                      type="text"
+                      placeholder={"@timbeaver"}
+                      className="editprofile-box"
+                      maxlength="30"
+                    />
+                  </div>
+                </>
+              )}
+
+              {user.contactMethod2 === "email" && (
+                <>
+                  <div className="spacing">
+                    <div className="accountinfo-label">enter your email:</div>
+                    <input
+                      prompt={user.contactDetails2}
+                      onChange={handleContactDetails2Change}
+                      type="text"
+                      placeholder={"timbeaver@mit.edu"}
+                      className="editprofile-box"
+                      maxlength="64"
+                    />
+                  </div>
+                </>
+              )}
+
+              {user.contactMethod2 === "messenger" && (
+                <>
+                  <div className="spacing">
+                    <div className="accountinfo-label">enter your facebook name:</div>
+                    <input
+                      prompt={user.contactDetails2}
+                      onChange={handleContactDetails2Change}
+                      type="text"
+                      placeholder={"@timbeaver"}
+                      className="editprofile-box"
+                      maxlength="50"
+                    />
+                  </div>
+                </>
+              )}
+
+              <div className="spacing">
+                <div className="accountinfo-label">location:</div>
+                <input
+                  prompt={user.location}
+                  placeholder={user.location !== "" ? user.location : "new vassar"}
+                  onChange={handleLocChange}
+                  type="text"
+                  className="editprofile-box"
+                ></input>
+              </div>
+              <div className="spacing">
+                <button
+                  type="submit"
+                  className="edit-profile"
+                  value="Submit"
+                  onClick={handleAccountSubmit}
+                >
+                  done
+                </button>
+              </div>
+              <Modal className="modal2" isOpen={PopUp} ariaHideApp={false}>
+                <button className="modal-close" onClick={handleClose}>
+                  ✘
+                </button>
+                <div className="modal-content">
+                  <br />
+                  the username @{user.username} is taken - please enter another!
+                  <br />
+                  <br />
+                  <br />
+                </div>
+              </Modal>
+            </div>
+          </form>
+        </div>
       </div>
     </div>
   );

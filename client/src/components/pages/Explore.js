@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { get, post } from "../../utilities";
+import { get } from "../../utilities";
+import Modal from "react-modal";
+
+import NavBar from "../modules/NavBar.js";
+import SearchBar from "../modules/SearchBar.js";
 
 import "../../utilities.css";
 import "./Fulfill.css";
-import Modal from "react-modal";
-
-import SearchBar from "../modules/SearchBar.js";
 
 let colors = ["var(--purple)", "var(--blue)", "var(--yellow)", "var(--green)"];
 let i = 0;
@@ -221,14 +222,15 @@ const Explore = (props) => {
         />
       ));
     } else {
-      listingsList = <div style={{ paddingLeft: "10px", textAlign: "left", fontStyle: "italic", fontWeight: "bold" }}><br/>no listings!</div>;
+      listingsList = <div style={{ paddingLeft: "10px", textAlign: "left", fontStyle: "italic" }}><br/>no listings!</div>;
     }
   } else {
-    listingsList = <div style={{ paddingLeft: "10px", textAlign: "left", fontStyle: "italic", fontWeight: "bold" }}><br/>no listings!</div>;
+    listingsList = <div style={{ paddingLeft: "10px", textAlign: "left", fontStyle: "italic" }}><br/>no listings!</div>;
   }
 
   return (
     <>
+      <NavBar/>
       <div style={{ padding: "0px 50px", marginLeft: "1%" }}>
         <SearchBar action="/explore/" />
         <div className="fulfill-container">{listingsList}</div>

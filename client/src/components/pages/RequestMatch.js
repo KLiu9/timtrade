@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from "react";
-import Modal from "react-modal";
-import "../../utilities.css";
-import "./RequestMatch.css";
 import { get, post } from "../../utilities";
 import { navigate } from "@reach/router";
+import Modal from "react-modal";
+
+import NavBar from "../modules/NavBar.js";
+
+import "../../utilities.css";
+import "./RequestMatch.css";
 
 let colors = ["var(--purple)", "var(--blue)", "var(--yellow)", "var(--green)"];
 let j = 0;
@@ -764,11 +767,12 @@ const RequestMatch = (props) => {
       />
     ));
   } else {
-    fulfillsList2 = <div>you have not fulfilled any requests!</div>;
+    fulfillsList2 = <div style={{ paddingLeft: "10px", fontStyle: "italic" }}><br/>you have not fulfilled any requests!</div>;
   }
 
   return (
     <>
+      <NavBar/>
       <div style={{ padding: "0px 50px" }}>
         <p className="page-title" style={{ marginTop: "-0.1%", marginBottom: "-0.1%" }}>
           request matches

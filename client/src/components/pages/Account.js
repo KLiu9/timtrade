@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import Modal from "react-modal";
 import { navigate } from "@reach/router";
 import { get, post } from "../../utilities";
+import NavBar from "../modules/NavBar.js";
 
 import "../../utilities.css";
 import "./CreateRequest.css";
@@ -76,7 +77,6 @@ function Box(props) {
         backgroundColor: colors[props.index % colors.length],
         marginRight: "40px",
         marginLeft: "40px",
-        marginBottom: "20px",
         height: "300px"
       }}
     >
@@ -171,6 +171,7 @@ const Account = (props) => {
   let listingsList = null;
   const hasListings = listings.length !== 0;
   if (hasListings) {
+    // console.log(listings.length);
     listingsList = listings.map((itemObj, i) => (
       <Box
         key={`Box_${itemObj._id}`}
@@ -184,92 +185,93 @@ const Account = (props) => {
     ));
   } else {
     listingsList = (
-      <div style={{ paddingLeft: "0px", textAlign: "left", fontStyle: "italic" }}>no listings!</div>
+      <div style={{ paddingLeft: "7%", textAlign: "left", fontStyle: "italic" }}>no listings!</div>
     );
   }
 
   user.name = user.name.toLowerCase();
   return (
-    // MOVE LOGOUT BUTTON TO THIS PAGE (instead of navbar)
-    <div style={{ padding: "0px 50px" }}>
-      <div>
-        <div className="user-box">
-          <div className="user-title">
-            {!user.username || user.username === ""
-              ? "set your username!" /** change this lol */
-              : "@" + user.username}
+    <div>
+      <NavBar />
+      <div style={{ padding: "0px 50px" }}>
+        <div>
+          <div className="user-box">
+            <div className="user-title">
+              {!user.username || user.username === ""
+                ? "set your username!" /** change this lol */
+                : "@" + user.username}
+            </div>
+            <div className="email-title">{user.email}</div>
+            <div className="email-title" style={{ textDecoration: "none" }}>
+              {" "}
+              rating:{" "}
+              {user.ratings.length === 0
+                ? "no ratings yet!"
+                : (user.ratings.reduce((a, b) => a + b, 0) / user.ratings.length)
+                    .toFixed(1)
+                    .toString() + "/5.0"}{" "}
+            </div>
+            <button
+              type="submit"
+              className="edit-profile"
+              value="Submit"
+              onClick={() => navigate("/account/edit/")}
+            >
+              edit profile
+            </button>
           </div>
-          <div className="email-title">{user.email}</div>
-          <div className="email-title" style={{ textDecoration: "none" }}>
-            {" "}
-            rating:{" "}
-            {user.ratings.length === 0
-              ? "no ratings yet!"
-              : (user.ratings.reduce((a, b) => a + b, 0) / user.ratings.length)
-                  .toFixed(1)
-                  .toString() + "/5.0"}{" "}
+          <div className="accountinfo-container">
+            <div className="spacing">
+              <div className="accountinfo-label">username:</div>
+              <input placeholder={user.username} className="accountinfo-box" readOnly></input>
+            </div>
+            <div className="spacing">
+              <div className="accountinfo-label">kerb:</div>
+              <input placeholder={user.kerb} className="accountinfo-box" readOnly />
+            </div>
+            <div className="spacing">
+              <div className="accountinfo-label">preferred contact:</div>
+              <input placeholder={user.contactMethod1} className="accountinfo-box" readOnly />
+            </div>
+            <div className="spacing">
+              <div className="accountinfo-label">details:</div>
+              <input placeholder={user.contactDetails1} className="accountinfo-box" readOnly></input>
+            </div>
+            <div className="spacing">
+              <div className="accountinfo-label">alternative contact:</div>
+              <input placeholder={user.contactMethod2} className="accountinfo-box" readOnly></input>
+            </div>
+            <div className="spacing">
+              <div className="accountinfo-label">details:</div>
+              <input placeholder={user.contactDetails2} className="accountinfo-box" readOnly></input>
+            </div>
+            <div className="spacing">
+              <div className="accountinfo-label">location:</div>
+              <input placeholder={user.location} className="accountinfo-box" readOnly></input>
+            </div>
           </div>
-          <button
-            type="submit"
-            className="edit-profile"
-            value="Submit"
-            onClick={() => navigate("/account/edit/")}
-          >
-            edit profile
-          </button>
         </div>
-        <div className="accountinfo-container">
-          <div className="spacing">
-            <div className="accountinfo-label">username:</div>
-            <input placeholder={user.username} className="accountinfo-box" readOnly></input>
-          </div>
-          <div className="spacing">
-            <div className="accountinfo-label">kerb:</div>
-            <input placeholder={user.kerb} className="accountinfo-box" readOnly />
-          </div>
-          <div className="spacing">
-            <div className="accountinfo-label">preferred contact:</div>
-            <input placeholder={user.contactMethod1} className="accountinfo-box" readOnly />
-          </div>
-          <div className="spacing">
-            <div className="accountinfo-label">details:</div>
-            <input placeholder={user.contactDetails1} className="accountinfo-box" readOnly></input>
-          </div>
-          <div className="spacing">
-            <div className="accountinfo-label">alternative contact:</div>
-            <input placeholder={user.contactMethod2} className="accountinfo-box" readOnly></input>
-          </div>
-          <div className="spacing">
-            <div className="accountinfo-label">details:</div>
-            <input placeholder={user.contactDetails2} className="accountinfo-box" readOnly></input>
-          </div>
-          <div className="spacing">
-            <div className="accountinfo-label">location:</div>
-            <input placeholder={user.location} className="accountinfo-box" readOnly></input>
-          </div>
-        </div>
-      </div>
 
-      {/* INVENTORY SECTION */}
-      <div style={{ paddingTop: "25%" }}>
-        <div className="user-box">
-          <div className="user-title">my inventory</div>
-          <button
-            type="submit"
-            className="edit-profile"
-            value="Submit"
-            onClick={() => navigate("/account/editinventory/")}
-            style={{ width: "140px" }}
-          >
-            add to inventory
-          </button>
-        </div>
-        <div className="accountinfo-container" style={{ marginTop: "20px", paddingLeft: "0px" }}>
-          <div
-            className="inventory-container"
-            style={{ marginRight: "20px" }}
-          >
-            {listingsList}
+        {/* INVENTORY SECTION */}
+        <div style={{ paddingTop: "25%" }}>
+          <div className="user-box">
+            <div className="user-title">my inventory</div>
+            <button
+              type="submit"
+              className="edit-profile"
+              value="Submit"
+              onClick={() => navigate("/account/editinventory/")}
+              style={{ width: "140px" }}
+            >
+              add to inventory
+            </button>
+          </div>
+          <div className="accountinfo-container" style={{ marginTop: "20px", paddingLeft: "0px" }}>
+            <div
+              className="inventory-container"
+            >
+              {listingsList}
+            </div>
           </div>
         </div>
       </div>

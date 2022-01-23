@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { get, post } from "../../utilities";
+import Modal from "react-modal";
+
+import NavBar from "../modules/NavBar.js";
+import SearchBar from "../modules/SearchBar.js";
 
 import "../../utilities.css";
 import "./Fulfill.css";
-import Modal from "react-modal";
-
-import SearchBar from "../modules/SearchBar.js";
 
 let colors = ["var(--purple)", "var(--blue)", "var(--yellow)", "var(--green)"];
 let i = 0;
@@ -153,7 +154,7 @@ function Box(props) {
           >
             fulfill
           </button>
-          <Modal className="modal" isOpen={PopUpFulfill} ariaHideApp={false}>
+          <Modal className="modal2" isOpen={PopUpFulfill} ariaHideApp={false}>
             <div
               style={{ backgroundColor: colors[props.index % colors.length], borderRadius: "24px" }}
             >
@@ -171,6 +172,7 @@ function Box(props) {
                           "'s request!" /** add more here? */
                       }
                     </p>
+                    <br/>
                   </div>
                 )}
               </div>
@@ -290,14 +292,15 @@ const Fulfill = (props) => {
         />
       ));
     } else {
-      requestsList = <div style={{ paddingLeft: "15px", textAlign: "left", fontStyle: "italic", fontWeight: "bold" }}><br/>no requests!</div>;
+      requestsList = <div style={{ paddingLeft: "15px", textAlign: "left", fontStyle: "italic" }}><br/>no requests!</div>;
     }
   } else {
-    requestsList = <div style={{ paddingLeft: "10px", textAlign: "left", fontStyle: "italic", fontWeight: "bold" }}><br/>no requests!</div>;
+    requestsList = <div style={{ paddingLeft: "10px", textAlign: "left", fontStyle: "italic" }}><br/>no requests!</div>;
   }
 
   return (
     <>
+      <NavBar/>
       <div style={{ padding: "0px 50px", marginLeft: "1%" }}>
         <SearchBar action={"/fulfill/"} />
         <div className="fulfill-container">{requestsList}</div>

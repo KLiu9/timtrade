@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { navigate } from "@reach/router";
 import { get, post } from "../../utilities";
+import Modal from "react-modal";
+
+import NavBar from "../modules/NavBar.js";
 
 import "../../utilities.css";
 import "./CreateRequest.css";
 import "./EditAccount.css";
-import Modal from "react-modal";
 
 const initialValues = {
   item: "",
@@ -43,7 +45,7 @@ const EditInventory = (props) => {
   ) {
     return (
       <div className="requests-container requests-item">
-        enter all account info before creating requests!
+        enter all account info before listing items!
       </div>
     );
   }
@@ -100,85 +102,88 @@ const EditInventory = (props) => {
   const itemOptions = ["", "batteries", "tape", "mug", "chair", "other"];
 
   return (
-    <div style={{ padding: "0px 50px" }}>
-      <p className="page-title">
-        add to
-        <br />
-        inventory
-      </p>
-      <div className="createrequest-container">
-        <p className="request-label">select an item below:</p>
-        <form>
-          <select
-            prompt={values.item}
-            onChange={handleItemChange}
-            name="item"
-            className="createrequest-box"
-            style={{ backgroundColor: "var(--purple)" }}
-          >
-            {itemOptions.map((option) => (
-              <option key={option} value={option}>
-                {option}
-              </option>
-            ))}
-          </select>
-          {/* only shows this box if other is selected */}
-          {values.item === "other" && (
-            <>
-              <p className="request-label">or enter your own item:</p>
-              <input
-                prompt={values.enterItem}
-                onChange={handleEnterItemChange}
-                type="text"
-                placeholder="a succulent"
-                className="createrequest-box"
-                maxlength="30"
-              />
-            </>
-          )}
-          <p className="request-label">add a brief description:</p>
-          <input
-            prompt={values.description}
-            onChange={handleDescriptionChange}
-            type="text"
-            placeholder="include specifications such as number, size, and more"
-            className="createrequest-box"
-            maxlength="100"
-          />
-          <p className="request-label">type of listing:</p>
-          <select
-            prompt={values.type}
-            onChange={handleTypeChange}
-            name="type"
-            className="createrequest-box"
-            style={{ backgroundColor: "var(--blue)" }}
-          >
-            <option value="select"></option>
-            <option value="sell">sell</option>
-            <option value="trade">trade</option>
-            <option value="lend">lend</option>
-          </select>
-          <button
-            type="submit"
-            className="createrequest-submit"
-            value="Submit"
-            style={{ backgroundColor: "var(--green)" }}
-            onClick={handleSubmit}
-          >
-            submit
-          </button>
-          <Modal className="modal2" isOpen={PopUp} ariaHideApp={false}>
-            <div>
-              <button className="modal-close" onClick={handleClose}>
-                ✘
-              </button>
-              <br />
-              <div className="modal-content" style={{ fontWeight: "bold" }}>please complete all fields!</div>
-              <br />
-              <br />
-            </div>
-          </Modal>
-        </form>
+    <div>
+      <NavBar/>
+      <div style={{ padding: "0px 50px" }}>
+        <p className="page-title">
+          add to
+          <br />
+          inventory
+        </p>
+        <div className="createrequest-container">
+          <p className="request-label">select an item below:</p>
+          <form>
+            <select
+              prompt={values.item}
+              onChange={handleItemChange}
+              name="item"
+              className="createrequest-box"
+              style={{ backgroundColor: "var(--purple)" }}
+            >
+              {itemOptions.map((option) => (
+                <option key={option} value={option}>
+                  {option}
+                </option>
+              ))}
+            </select>
+            {/* only shows this box if other is selected */}
+            {values.item === "other" && (
+              <>
+                <p className="request-label">or enter your own item:</p>
+                <input
+                  prompt={values.enterItem}
+                  onChange={handleEnterItemChange}
+                  type="text"
+                  placeholder="a succulent"
+                  className="createrequest-box"
+                  maxlength="30"
+                />
+              </>
+            )}
+            <p className="request-label">add a brief description:</p>
+            <input
+              prompt={values.description}
+              onChange={handleDescriptionChange}
+              type="text"
+              placeholder="include specifications such as number, size, and more"
+              className="createrequest-box"
+              maxlength="100"
+            />
+            <p className="request-label">type of listing:</p>
+            <select
+              prompt={values.type}
+              onChange={handleTypeChange}
+              name="type"
+              className="createrequest-box"
+              style={{ backgroundColor: "var(--blue)" }}
+            >
+              <option value="select"></option>
+              <option value="sell">sell</option>
+              <option value="trade">trade</option>
+              <option value="lend">lend</option>
+            </select>
+            <button
+              type="submit"
+              className="createrequest-submit"
+              value="Submit"
+              style={{ backgroundColor: "var(--green)" }}
+              onClick={handleSubmit}
+            >
+              submit
+            </button>
+            <Modal className="modal2" isOpen={PopUp} ariaHideApp={false}>
+              <div>
+                <button className="modal-close" onClick={handleClose}>
+                  ✘
+                </button>
+                <br />
+                <div className="modal-content" style={{ fontWeight: "bold" }}>please complete all fields!</div>
+                <br />
+                <br />
+              </div>
+            </Modal>
+          </form>
+        </div>
       </div>
     </div>
   );

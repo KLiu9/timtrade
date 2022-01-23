@@ -11,34 +11,36 @@ import "./NavBar.css";
 
 const NavBar = () => {
   return (
-    <nav className="NavBar-container">
-      <div className="NavBar-linkContainer NavBar-align">
-        <Link to="/" className="NavBar-link">
-          <img className="img-size" src={homimg} />
-          <div>home</div>
-        </Link>
+    // window.location.pathname === "/" ? (<></>) : (
+      <nav className="NavBar-container">
+        <div className="NavBar-linkContainer NavBar-align">
+          <Link to="/" className="NavBar-link">
+            <img className="img-size" src={homimg} />
+            <div>home</div>
+          </Link>
 
-        <Link to="/account/" className="NavBar-link">
-          <img className="img-size" src={accimg} />
-          <div>account</div>
-        </Link>
+          <Link to="/account/" className="NavBar-link">
+            <img className="img-size" src={accimg} />
+            <div>account</div>
+          </Link>
 
-        <Link to="/requests/" className="NavBar-link">
-          <img className="img-size" src={reqimg} />
-          <div>requests</div>
-        </Link>
+          <Link to="/requests/" className="NavBar-link">
+            <img className="img-size" src={reqimg} />
+            <div>requests</div>
+          </Link>
 
-        <Link to="/explore/" className="NavBar-link">
-          <img className="img-size" src={expimg} />
-          <div>explore</div>
-        </Link>
+          <Link to="/explore/" className="NavBar-link">
+            <img className="img-size" src={expimg} />
+            <div>explore</div>
+          </Link>
 
-        <Link to="/fulfill/" className="NavBar-link">
-          <img className="img-size" src={fulimg} />
-          <div>fulfill</div>
-        </Link>
-      </div>
-    </nav>
+          <Link to="/fulfill/" className="NavBar-link">
+            <img className="img-size" src={fulimg} />
+            <div>fulfill</div>
+          </Link>
+        </div>
+      </nav>
+    // )
   );
 };
 

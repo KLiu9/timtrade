@@ -5,15 +5,16 @@
   margin-bottom: 50px;
   border-radius: 30px;
   border-width: 0.5px;
-  max-width: 100%;
   float: left;
   position: relative;
   column-gap: 3%;
   overflow-y: auto;
   text-align: center;
+  /* height: auto; */
   width: 95%;
 
   display: grid;
+  /* grid-template-columns: repeat(auto-fit, 270px); */
   grid-template-columns: repeat(4, 1fr);
   row-gap: 2%;
   grid-auto-rows: 350px;
@@ -35,10 +36,6 @@
   border-radius: 8px;
   background-color: #c4c4c4;
 }
-.fulfill-container::-webkit-scrollbar-thumb {
-  border-radius: 8px;
-  background-color: #c4c4c4;
-}
 
 .fulfill-item-box {
   font-size: 20px;
@@ -47,9 +44,9 @@
   line-height: 29px;
   letter-spacing: 0em;
   text-align: center;
-  height: auto;
+  height: 355px;
   border-radius: 43px;
-  width: 90%;
+  width: 270px;
   max-width: 100%;
   padding: 20px;
   overflow-y: auto;
@@ -100,4 +97,16 @@
   font-size: 14px;
   line-height: 17px;
   background-color: white;
+}
+
+.fulfill-resolve {
+  height: 29px;
+  width: 140px;
+  border-radius: 24px;
+  font-size: 14px;
+  line-height: 17px;
+  border: none;
+  box-shadow: 1px 1px black;
+  font-weight: bold;
+  align-self: flex-end;
 }
