@@ -24,33 +24,20 @@ const CreateRequest = (props) => {
   }
 
   const [user, setUser] = useState();
+  const [allUserInfo, setAllUserInfo] = useState(true);
   const [values, setValues] = useState(initialValues);
   const [PopUp, setPopUp] = useState(false);
+
   const handleClose = () => setPopUp(false);
   const handleOpen = () => setPopUp(true);
+
   useEffect(() => {
     get("/api/user", { userid: props.userId }).then((userObj) => {
       setUser(userObj);
     });
+    setAllUserInfo(!user || !user.username || !user.kerb || !user.contactMethod1 || !user.contactDetails1 ||
+      !user.contactMethod2 || !user.contactDetails2 || !user.location);
   }, []);
-
-  // ensures user has entered all info in before accessing page
-  if (
-    !user ||
-    !user.username ||
-    !user.kerb ||
-    !user.contactMethod1 ||
-    !user.contactDetails1 ||
-    !user.contactMethod2 ||
-    !user.contactDetails2 ||
-    !user.location
-  ) {
-    return (
-      <div className="requests-container requests-item">
-        enter all account info before creating requests!
-      </div>
-    );
-  }
 
   const handleItemChange = (event) => {
     const prompt = event.target.value;
@@ -78,7 +65,6 @@ const CreateRequest = (props) => {
   };
 
   const handleSubmit = (event) => {
-    console.log(values);
     if (
       values.item !== "" &&
       !(values.item === "other" && values.enterItem === "") &&
@@ -102,110 +88,118 @@ const CreateRequest = (props) => {
     }
   };
 
-  const itemOptions = ["", "batteries", "tape", "mug", "chair", "other"];
+  const itemOptions = ["", "batteries", "tape", "mug", "chair", "fridge", "hair ties", "rice cooker", "kettle", 
+  "tide pods", "laundry detergent", "shampoo", "soap", "toothpaste", "other"];
+  
   return (
-    <div>
-      <NavBar/>
-      <div style={{ padding: "0px 50px" }}>
-        <div className="page-title">
-          create a<br />
-          request
-          {/* help w formatting image */}
-          {/* <img className="fillerimg-size" src={fillerimg} /> */}
-        </div>
-        <div className="createrequest-container">
-          <p className="request-label">select an item below:</p>
-          <form>
-            <select
-              prompt={values.item}
-              onChange={handleItemChange}
-              name="item"
-              className="createrequest-box"
-              style={{ backgroundColor: "var(--purple)" }}
-            >
-              {itemOptions.map((option) => (
-                <option key={option} value={option}>
-                  {option}
-                </option>
-              ))}
-            </select>
-            {/* only shows this box if other is selected */}
-            {values.item === "other" && (
-              <>
-                <p className="request-label">or enter your own item:</p>
-                <input
-                  prompt={values.enterItem}
-                  onChange={handleEnterItemChange}
-                  type="text"
-                  placeholder="a succulent"
-                  className="createrequest-box"
-                  maxlength="30"
-                />
-              </>
-            )}
-            <p className="request-label">add a brief description:</p>
-            <input
-              prompt={values.description}
-              onChange={handleDescriptionChange}
-              type="text"
-              placeholder="include specifications such as number, size, and more"
-              className="createrequest-box"
-              maxlength="100"
-            />
-            <p className="request-label">type of request:</p>
-            <select
-              prompt={values.type}
-              onChange={handleTypeChange}
-              name="type"
-              className="createrequest-box"
-              style={{ backgroundColor: "var(--blue)" }}
-            >
-              <option value="select"></option>
-              <option value="buy">buy</option>
-              <option value="trade">trade</option>
-              <option value="borrow">borrow</option>
-            </select>
-            <p className="request-label">time needed by: </p>
-            <select
-              prompt={values.time}
-              name="time"
-              className="createrequest-box"
-              style={{ backgroundColor: "var(--yellow)" }}
-              onChange={handleTimeChange}
-            >
-              <option value="select"></option>
-              <option value="hour">within 1 hour</option>
-              <option value="day">within 1 day</option>
-              <option value="week">within 1 week</option>
-              <option value="weeks">within 2 weeks</option>
-              <option value="month">within 1 month</option>
-            </select>
-            <button
-              type="submit"
-              className="createrequest-submit"
-              value="Submit"
-              style={{ backgroundColor: "var(--green)" }}
-              onClick={handleSubmit}
-            >
-              submit
-            </button>
-            <Modal className="modal2" isOpen={PopUp} ariaHideApp={false}>
-              <div>
-                <button className="modal-close" onClick={handleClose}>
-                  ✘
-                </button>
-                <br />
-                <div className="modal-content" style={{ fontWeight: "bold" }}>
-                  please complete all fields!
+    allUserInfo ? (
+      <div>
+        <NavBar/>
+        <div style={{ padding: "0px 50px" }}>
+          <div className="page-title">
+            create a<br />
+            request
+            {/* help w formatting image */}
+            <img className="fillerimg-size" src={fillerimg} />
+          </div>
+          <div className="createrequest-container">
+            <p className="request-label">select an item below:</p>
+            <form>
+              <select
+                prompt={values.item}
+                onChange={handleItemChange}
+                name="item"
+                className="createrequest-box"
+                style={{ backgroundColor: "var(--purple)" }}
+              >
+                {itemOptions.map((option) => (
+                  <option key={option} value={option}>
+                    {option}
+                  </option>
+                ))}
+              </select>
+              {/* only shows this box if other is selected */}
+              {values.item === "other" && (
+                <>
+                  <p className="request-label">or enter your own item:</p>
+                  <input
+                    prompt={values.enterItem}
+                    onChange={handleEnterItemChange}
+                    type="text"
+                    placeholder="a succulent"
+                    className="createrequest-box"
+                    maxLength="30"
+                  />
+                </>
+              )}
+              <p className="request-label">add a brief description:</p>
+              <input
+                prompt={values.description}
+                onChange={handleDescriptionChange}
+                type="text"
+                placeholder="include specifications such as number, size, and more"
+                className="createrequest-box"
+                maxLength="100"
+              />
+              <p className="request-label">type of request:</p>
+              <select
+                prompt={values.type}
+                onChange={handleTypeChange}
+                name="type"
+                className="createrequest-box"
+                style={{ backgroundColor: "var(--blue)" }}
+              >
+                <option value="select"></option>
+                <option value="buy">buy</option>
+                <option value="trade">trade</option>
+                <option value="borrow">borrow</option>
+              </select>
+              <p className="request-label">time needed by: </p>
+              <select
+                prompt={values.time}
+                name="time"
+                className="createrequest-box"
+                style={{ backgroundColor: "var(--yellow)" }}
+                onChange={handleTimeChange}
+              >
+                <option value="select"></option>
+                <option value="hour">within 1 hour</option>
+                <option value="day">within 1 day</option>
+                <option value="week">within 1 week</option>
+                <option value="weeks">within 2 weeks</option>
+                <option value="month">within 1 month</option>
+              </select>
+              <button
+                type="submit"
+                className="createrequest-submit"
+                value="Submit"
+                style={{ backgroundColor: "var(--green)" }}
+                onClick={handleSubmit}
+              >
+                submit
+              </button>
+              <Modal className="modal2" isOpen={PopUp} ariaHideApp={false}>
+                <div>
+                  <button className="modal-close" onClick={handleClose}>
+                    ✘
+                  </button>
+                  <br />
+                  <div className="modal-content" style={{ fontWeight: "bold" }}>
+                    please complete all fields!
+                  </div>
+                  <br />
+                  <br />
                 </div>
-                <br />
-                <br />
-              </div>
-            </Modal>
-          </form>
+              </Modal>
+            </form>
+          </div>
         </div>
       </div>
-    </div>
+    ) : (
+      <div className="requests-container requests-item">
+        enter all account info before creating requests!
+      </div>
+    )
   );
 };
 

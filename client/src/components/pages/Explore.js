@@ -147,7 +147,9 @@ const Explore = (props) => {
   }
 
   const [user, setUser] = useState();
+  const [allUserInfo, setAllUserInfo] = useState(true);
   const [listings, setListings] = useState([]);
+  
   useEffect(() => {
     get("/api/user", { userid: props.userId }).then((userObj) => {
       setUser(userObj);
@@ -155,25 +157,9 @@ const Explore = (props) => {
         setListings(itemObjs);
       });
     });
+    setAllUserInfo(!user || !user.username || !user.kerb || !user.contactMethod1 || !user.contactDetails1 ||
+      !user.contactMethod2 || !user.contactDetails2 || !user.location);
   }, []);
-
-  // ensures user has entered all info in before accessing page
-  if (
-    !user ||
-    !user.username ||
-    !user.kerb ||
-    !user.contactMethod1 ||
-    !user.contactDetails1 ||
-    !user.contactMethod2 ||
-    !user.contactDetails2 ||
-    !user.location
-  ) {
-    return (
-      <div className="requests-container requests-item">
-        enter all account info before exploring items!
-      </div>
-    );
-  }
 
   const { search } = window.location;
   const query = new URLSearchParams(search).get("s");
@@ -229,13 +215,19 @@ const Explore = (props) => {
   }
 
   return (
-    <>
-      <NavBar/>
-      <div style={{ padding: "0px 50px", marginLeft: "1%" }}>
-        <SearchBar action="/explore/" />
-        <div className="fulfill-container">{listingsList}</div>
+    allUserInfo ? (
+      <>
+        <NavBar/>
+        <div style={{ padding: "0px 50px", marginLeft: "1%" }}>
+          <SearchBar action="/explore/" />
+          <div className="fulfill-container">{listingsList}</div>
+        </div>
+      </>
+    ) : (
+      <div className="requests-container requests-item">
+        enter all account info before exploring items!
       </div>
-    </>
+    )
   );
 };
 

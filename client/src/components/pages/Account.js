@@ -266,7 +266,7 @@ const Account = (props) => {
               add to inventory
             </button>
           </div>
-          <div className="accountinfo-container" style={{ marginTop: "20px", paddingLeft: "0px" }}>
+          <div className="accountinfo-container" style={{ marginTop: "20px", paddingLeft: "0px", paddingRight: "25px" }}>
             <div
               className="inventory-container"
             >

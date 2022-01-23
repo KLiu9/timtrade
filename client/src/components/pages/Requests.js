@@ -21,44 +21,44 @@ const Requests = (props) => {
   }
 
   const [user, setUser] = useState();
+  const [allUserInfo, setAllUserInfo] = useState(true);
   useEffect(() => {
     get("/api/user", { userid: props.userId }).then((userObj) => {
       setUser(userObj);
     });
+    // ensures user has entered all info in before accessing page
+    setAllUserInfo(!user || !user.username || !user.kerb || !user.contactMethod1 || !user.contactDetails1 ||
+      !user.contactMethod2 || !user.contactDetails2 || !user.location);
   }, []);
-    
-  // ensures user has entered all info in before accessing page
-  if (!user || !user.username || !user.kerb || !user.contactMethod1 || !user.contactDetails1 ||
-    !user.contactMethod2 || !user.contactDetails2 || !user.location) {
-      return (
-        <div className="requests-container requests-item">
-          enter all account info before requesting items!
-        </div>
-      );
-    };
   
   return (
-    <div>
-      <NavBar/>
-      <div className="requests-container">
-        <div className="create-request">
-          <Link to="/requests/create/" className="requests-item">
-            <img className="req-img-size" src={createreqimg} />
-          </Link>
-          <Link to="/requests/create/" className="requests-item">
-            <img className="req-words-size flex-item" src={createreqwords} />
-          </Link>
-        </div>
-        <div className="request-match">
-          <Link to="/requests/match/" className="requests-item">
-            <img className="req-img-size2" src={reqmatchimg} />
-          </Link>
-          <Link to="/requests/match/" className="requests-item">
-            <img className="req-words-size2 flex-item" src={reqmatchwords} />
-          </Link>
+    allUserInfo ? (
+      <div>
+        <NavBar/>
+        <div className="requests-container">
+          <div className="create-request">
+            <Link to="/requests/create/" className="requests-item">
+              <img className="req-img-size" src={createreqimg} />
+            </Link>
+            <Link to="/requests/create/" className="requests-item">
+              <img className="req-words-size flex-item" src={createreqwords} />
+            </Link>
+          </div>
+          <div className="request-match">
+            <Link to="/requests/match/" className="requests-item">
+              <img className="req-img-size2" src={reqmatchimg} />
+            </Link>
+            <Link to="/requests/match/" className="requests-item">
+              <img className="req-words-size2 flex-item" src={reqmatchwords} />
+            </Link>
+          </div>
         </div>
       </div>
-    </div>
+    ) : (
+      <div className="requests-container requests-item">
+        enter all account info before requesting items!
+      </div>
+    )
   );
 };
 

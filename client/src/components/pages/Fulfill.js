@@ -44,7 +44,6 @@ function Box(props) {
     }
   };
 
-  //console.log("hihi", reqCreator);
   i = (i + 1) % colors.length;
   let number = "1";
   if (props.time === "weeks") {
@@ -211,6 +210,7 @@ const Fulfill = (props) => {
   }
 
   const [user, setUser] = useState();
+  const [allUserInfo, setAllUserInfo] = useState(true);
   const [requests, setRequests] = useState([]);
 
   useEffect(() => {
@@ -220,25 +220,14 @@ const Fulfill = (props) => {
         setRequests(requestObjs);
       });
     });
-  }, [requests]);
-
-  // ensures user has entered all info in before accessing page
-  if (
-    !user ||
-    !user.username ||
-    !user.kerb ||
-    !user.contactMethod1 ||
-    !user.contactDetails1 ||
-    !user.contactMethod2 ||
-    !user.contactDetails2 ||
-    !user.location
-  ) {
-    return (
-      <div className="requests-container requests-item">
-        enter all account info before fulfilling requests!
-      </div>
-    );
-  }
+    // if (!user || !user.username || !user.kerb || !user.contactMethod1 || !user.contactDetails1 ||
+    // !user.contactMethod2 || !user.contactDetails2 || !user.location) {
+    //   setAllUserInfo(false);
+    // }
+    setAllUserInfo(!user || !user.username || !user.kerb || !user.contactMethod1 || !user.contactDetails1 ||
+      !user.contactMethod2 || !user.contactDetails2 || !user.location);
+    // console.log(user);
+  }, []);
 
   const { search } = window.location;
   const query = new URLSearchParams(search).get("s");
@@ -299,13 +288,19 @@ const Fulfill = (props) => {
   }
 
   return (
-    <>
-      <NavBar/>
-      <div style={{ padding: "0px 50px", marginLeft: "1%" }}>
-        <SearchBar action={"/fulfill/"} />
-        <div className="fulfill-container">{requestsList}</div>
+    allUserInfo ? (
+      <>
+        <NavBar/>
+        <div style={{ padding: "0px 50px", marginLeft: "1%" }}>
+          <SearchBar action={"/fulfill/"} />
+          <div className="fulfill-container">{requestsList}</div>
+        </div>
+      </>
+    ) : (
+      <div className="requests-container requests-item">
+        enter all account info before fulfilling requests!
       </div>
-    </>
+    )
   );
 };
 
