@@ -6,6 +6,7 @@ const itemSchema = new mongoose.Schema({
   description: String,
   type: String,
   // upload feature
+  claimed: Array,
 });
 
 module.exports = mongoose.model("item", itemSchema);

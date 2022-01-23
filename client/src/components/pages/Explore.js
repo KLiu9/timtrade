@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { get } from "../../utilities";
+import { get, post } from "../../utilities";
 import Modal from "react-modal";
 
 import NavBar from "../modules/NavBar.js";
@@ -14,22 +14,35 @@ let i = 0;
 function Box(props) {
   const [reqCreator, setReqCreator] = useState();
   const [PopUp, setPopUp] = useState(false);
+  const [PopUpFulfill, setPopUpFulfill] = useState(false);
+  const [PopUpFulfillOwn, setPopUpFulfillOwn] = useState(false);
 
   const handleClose = () => setPopUp(false);
   const handleOpen = () => setPopUp(true);
+  const handleCloseFulfill = () => setPopUpFulfill(false);
   useEffect(() => {
     get("/api/user", { userid: props.creator }).then((userObj) => {
       setReqCreator(userObj);
     });
   }, []);
+  const handleCloseFulfillOwn = () => setPopUpFulfillOwn(false);
 
-  // const handleFulfill = (event) => {
-  //   event.preventDefault();
-  //   const body = { reqId: props.reqId, creatorId: props.userId };
-  //   post("/api/updateRequest", body).then((result) => {
-  //     console.log("result", result);
-  //   });
-  // };
+  const handleClaim = (event) => {
+    event.preventDefault();
+    if (props.userId === reqCreator._id) {
+      setPopUpFulfillOwn(true);
+    } else {
+      setPopUpFulfill(true);
+      const body = { reqId: props.reqId, creatorId: props.userId };
+      post("/api/updateListing", body).then((result) => {
+        console.log("result", result);
+      });
+      /*const body = { _id: props.userId};
+    post("/api/updateUserInfo", body).then((result) => {
+      console.log("result", result);
+    });*/
+    }
+  };
 
   //console.log("hihi", reqCreator);
   i = (i + 1) % colors.length;
@@ -91,18 +104,20 @@ function Box(props) {
                     <p className="modal-title" style={{ textDecoration: "underline" }}>
                       {"@" + reqCreator.username}
                     </p>
-                    <p><b>
-                      {" "}
-                      rating:{" "}
-                      {reqCreator.ratings.length === 0
-                        ? "no ratings yet!"
-                        : (
-                            reqCreator.ratings.reduce((a, b) => a + b, 0) /
-                            reqCreator.ratings.length
-                          )
-                            .toFixed(1)
-                            .toString() + "/5.0"}{" "}
-                    </b></p>
+                    <p>
+                      <b>
+                        {" "}
+                        rating:{" "}
+                        {reqCreator.ratings.length === 0
+                          ? "no ratings yet!"
+                          : (
+                              reqCreator.ratings.reduce((a, b) => a + b, 0) /
+                              reqCreator.ratings.length
+                            )
+                              .toFixed(1)
+                              .toString() + "/5.0"}{" "}
+                      </b>
+                    </p>
                     <p>
                       {" "}
                       name: <i>{reqCreator.name}</i>
@@ -131,10 +146,50 @@ function Box(props) {
             type="resolve"
             className="requestmatch-resolve"
             value="Resolve"
-            // onClick={handleFulfill}
+            onClick={handleClaim}
           >
             claim
           </button>
+          <Modal className="modal2" isOpen={PopUpFulfill} ariaHideApp={false}>
+            <div
+              style={{ backgroundColor: colors[props.index % colors.length], borderRadius: "24px" }}
+            >
+              <button className="modal-close" onClick={handleCloseFulfill}>
+                ✘
+              </button>
+              <div className="modal-content">
+                {reqCreator && (
+                  <div>
+                    <p className="modal-title">claimed</p>
+                    <p>
+                      {
+                        "thank you for claiming @" +
+                          reqCreator.username +
+                          "'s listing!" /** add more here? */
+                      }
+                    </p>
+                    <br />
+                  </div>
+                )}
+              </div>
+            </div>
+          </Modal>
+          <Modal className="modal" isOpen={PopUpFulfillOwn} ariaHideApp={false}>
+            <div
+              style={{ backgroundColor: colors[props.index % colors.length], borderRadius: "24px" }}
+            >
+              <button className="modal-close" onClick={handleCloseFulfillOwn}>
+                ✘
+              </button>
+              <div className="modal-content">
+                <p className="modal-title">oops! </p>
+                <div style={{ paddingLeft: "5%", paddingRight: "5%" }}>
+                  you can't claim your own listing! to delete your listing, go to the account page.
+                </div>
+                <br />
+              </div>
+            </div>
+          </Modal>
         </div>
       </div>
     </div>
@@ -217,20 +272,30 @@ const Explore = (props) => {
           description={itemObj.description}
           type={itemObj.type}
           index={i}
-          // reqId={requestObj._id}
+          reqId={itemObj._id}
           userId={props.userId}
         />
       ));
     } else {
-      listingsList = <div style={{ paddingLeft: "10px", textAlign: "left", fontStyle: "italic" }}><br/>no listings!</div>;
+      listingsList = (
+        <div style={{ paddingLeft: "10px", textAlign: "left", fontStyle: "italic" }}>
+          <br />
+          no listings!
+        </div>
+      );
     }
   } else {
-    listingsList = <div style={{ paddingLeft: "10px", textAlign: "left", fontStyle: "italic" }}><br/>no listings!</div>;
+    listingsList = (
+      <div style={{ paddingLeft: "10px", textAlign: "left", fontStyle: "italic" }}>
+        <br />
+        no listings!
+      </div>
+    );
   }
 
   return (
     <>
-      <NavBar/>
+      <NavBar />
       <div style={{ padding: "0px 50px", marginLeft: "1%" }}>
         <SearchBar action="/explore/" />
         <div className="fulfill-container">{listingsList}</div>

@@ -167,12 +167,36 @@ router.post("/updateRequest", (req, res) => {
   });
 });
 
+router.post("/updateListing", (req, res) => {
+  Item.findById(req.body.reqId).then((result) => {
+    // console.log("before:", result);
+    if (!result.claimed.includes(req.body.creatorId)) {
+      result.claimed.push(req.body.creatorId);
+    }
+    // console.log("after:", result);
+    result.save().then((updatedReq) => res.send(updatedReq));
+  });
+});
+
 router.post("/unfulfill", (req, res) => {
   Request.findById(req.body.reqId).then((result) => {
     // console.log("before:", result);
     for (let i = 0; i < result.fulfilled.length; i++) {
       if (result.fulfilled[i] === req.body.fulfillerId) {
         result.fulfilled.splice(i, 1);
+      }
+    }
+    // console.log("after:", result);
+    result.save().then((updatedReq) => res.send(updatedReq));
+  });
+});
+
+router.post("/unclaim", (req, res) => {
+  Item.findById(req.body.reqId).then((result) => {
+    console.log("before:", result);
+    for (let i = 0; i < result.claimed.length; i++) {
+      if (result.claimed[i] === req.body.fulfillerId) {
+        result.claimed.splice(i, 1);
       }
     }
     // console.log("after:", result);

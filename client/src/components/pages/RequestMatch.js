@@ -35,15 +35,6 @@ function Box(props) {
   const handleUserClose = () => {
     setUserPopUp(false);
   };
-  const handleUserOpen = (event) => {
-    event.preventDefault();
-    const prompt = event.target.value;
-    console.log("fulfillvalues", fulfillValues);
-    console.log(fulfillValues.fulfiller[0]);
-    setFulfillValues({ ...fulfillValues, fulfiller: prompt });
-    console.log("new", fulfillValues);
-    setUserPopUp(true);
-  };
 
   const handleClick = (obj) => () => {
     setUserClicked(obj);
@@ -443,7 +434,9 @@ function Box(props) {
                                   ✘
                                 </button>
                                 <br />
-                                <div className="modal-content">please fill in all the boxes!</div>
+                                <div className="modal-content" style={{ fontWeight: "bold" }}>
+                                  please complete all fields!
+                                </div>
                                 <br />
                                 <br />
                               </div>
@@ -767,12 +760,17 @@ const RequestMatch = (props) => {
       />
     ));
   } else {
-    fulfillsList2 = <div style={{ paddingLeft: "10px", fontStyle: "italic" }}><br/>you have not fulfilled any requests!</div>;
+    fulfillsList2 = (
+      <div style={{ paddingLeft: "10px", fontStyle: "italic" }}>
+        <br />
+        you have not fulfilled any requests!
+      </div>
+    );
   }
 
   return (
     <>
-      <NavBar/>
+      <NavBar />
       <div style={{ padding: "0px 50px" }}>
         <p className="page-title" style={{ marginTop: "-0.1%", marginBottom: "-0.1%" }}>
           request matches
