@@ -10,7 +10,7 @@
 .NavBar-linkContainer {
   display: flex;
   margin-left: auto;
-  justify-content: flex-end;
+  /* justify-content: flex-end; */
 }
 
 .NavBar-link,
@@ -35,6 +35,12 @@
 
 .NavBar-align {
   text-align: center;
+}
+
+.homeimg-size {
+  /* width: 55px;
+  height: 55px; */
+  height: 55px;
 }
 
 .img-size {

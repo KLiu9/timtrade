@@ -14,8 +14,12 @@ const EditAccount = (props) => {
   const [user, setUser] = useState();
   const [allUsers, setAllUsers] = useState([]);
   const [PopUp, setPopUp] = useState(false);
+  const [kerbPopUp, setKerbPopUp] = useState(false);
   const handleClose = () => setPopUp(false);
   const handleOpen = () => setPopUp(true);
+  
+  const handleKerbClose = () => setKerbPopUp(false);
+  const handleKerbOpen = () => setKerbPopUp(true);
 
   useEffect(() => {
     if (props.userId !== undefined) {
@@ -65,16 +69,19 @@ const EditAccount = (props) => {
 
   const handleAccountSubmit = (event) => {
     event.preventDefault();
-    let count = 0;
+    let count = 0, count2 = 0;
     for (let i = 0; i < allUsers.length; i++) {
       if (allUsers[i].username === user.username && allUsers[i]._id !== props.userId) {
         count += 1;
+      } else if (allUsers[i].kerb === user.kerb && allUsers[i]._id != props.userId) {
+        count2 += 1;
       }
     }
     console.log("user", user);
     if (count >= 1) {
-      console.log("username taken");
       handleOpen();
+    } else if (count2 >= 1) {
+      handleKerbOpen();
     } else {
       const body = { _id: props.userId, content: user };
       post("/api/updateUserInfo", body).then((result) => {
@@ -84,11 +91,7 @@ const EditAccount = (props) => {
     }
   };
 
-  // let id = user._id;
-  // console.log(user);
   user.name = user.name.toLowerCase();
-  // const body = { _id: props.userId, content: user };
-  // post("/api/updateUserInfo", body);
   return (
     <div>
       <NavBar/>
@@ -112,7 +115,7 @@ const EditAccount = (props) => {
                   placeholder={user.username !== "" ? user.username : "bobaconnoisseur"}
                   type="text"
                   className="editprofile-box"
-                  maxlength="20"
+                  maxLength="20"
                 ></input>
               </div>
 
@@ -124,7 +127,7 @@ const EditAccount = (props) => {
                   placeholder={user.kerb !== "" ? user.kerb : "beavertim"}
                   type="text"
                   className="editprofile-box"
-                  maxlength="8"
+                  maxLength="8"
                 />
               </div>
 
@@ -178,7 +181,7 @@ const EditAccount = (props) => {
                       type="text"
                       placeholder={"555-555-5555"}
                       className="editprofile-box"
-                      maxlength="12"
+                      maxLength="12"
                     />
                   </div>
                 </>
@@ -194,7 +197,7 @@ const EditAccount = (props) => {
                       type="text"
                       placeholder={"timbeaver"}
                       className="editprofile-box"
-                      maxlength="30"
+                      maxLength="30"
                     />
                   </div>
                 </>
@@ -210,7 +213,7 @@ const EditAccount = (props) => {
                       type="text"
                       placeholder={"timbeaver@mit.edu"}
                       className="editprofile-box"
-                      maxlength="64"
+                      maxLength="64"
                     />
                   </div>
                 </>
@@ -226,7 +229,7 @@ const EditAccount = (props) => {
                       type="text"
                       placeholder={"tim beaver"}
                       className="editprofile-box"
-                      maxlength="50"
+                      maxLength="50"
                     />
                   </div>
                 </>
@@ -282,7 +285,7 @@ const EditAccount = (props) => {
                       type="text"
                       placeholder={"555-555-5555"}
                       className="editprofile-box"
-                      maxlength="12"
+                      maxLength="12"
                     />
                   </div>
                 </>
@@ -298,7 +301,7 @@ const EditAccount = (props) => {
                       type="text"
                       placeholder={"@timbeaver"}
                       className="editprofile-box"
-                      maxlength="30"
+                      maxLength="30"
                     />
                   </div>
                 </>
@@ -314,7 +317,7 @@ const EditAccount = (props) => {
                       type="text"
                       placeholder={"timbeaver@mit.edu"}
                       className="editprofile-box"
-                      maxlength="64"
+                      maxLength="64"
                     />
                   </div>
                 </>
@@ -330,7 +333,7 @@ const EditAccount = (props) => {
                       type="text"
                       placeholder={"@timbeaver"}
                       className="editprofile-box"
-                      maxlength="50"
+                      maxLength="50"
                     />
                   </div>
                 </>
@@ -363,6 +366,18 @@ const EditAccount = (props) => {
                 <div className="modal-content">
                   <br />
                   the username @{user.username} is taken - please enter another!
+                  <br />
+                  <br />
+                  <br />
+                </div>
+              </Modal>
+              <Modal className="modal2" isOpen={kerbPopUp} ariaHideApp={false}>
+                <button className="modal-close" onClick={handleKerbClose}>
+                  ✘
+                </button>
+                <div className="modal-content">
+                  <br />
+                  the kerb @{user.kerb} is taken - please enter another!
                   <br />
                   <br />
                   <br />

@@ -679,6 +679,7 @@ const RequestMatch = (props) => {
   }
 
   const [user, setUser] = useState();
+  const [allUserInfo, setAllUserInfo] = useState(true);
   const [requests, setRequests] = useState([]);
   const [allRequests, setAllRequests] = useState([]);
 
@@ -692,25 +693,10 @@ const RequestMatch = (props) => {
         setAllRequests(requestObjs);
       });
     });
+    // FIGURE OUT WHY THIS DOESNT WORK WHEN [] IS NOT THE SECOND PARAMETER OF USEEFFECT
+    // setAllUserInfo(!user || !user.username || !user.kerb || !user.contactMethod1 || !user.contactDetails1 ||
+    //   !user.contactMethod2 || !user.contactDetails2 || !user.location);
   }, [props.userId, requests]);
-
-  // ensures user has entered all info in before accessing page
-  if (
-    !user ||
-    !user.username ||
-    !user.kerb ||
-    !user.contactMethod1 ||
-    !user.contactDetails1 ||
-    !user.contactMethod2 ||
-    !user.contactDetails2 ||
-    !user.location
-  ) {
-    return (
-      <div className="requests-container requests-item">
-        enter all account info before viewing matches!
-      </div>
-    );
-  }
 
   let requestsList = null;
   const hasRequests = requests.length !== 0;
@@ -768,11 +754,11 @@ const RequestMatch = (props) => {
     );
   }
 
-  return (
+  return allUserInfo ? (
     <>
       <NavBar />
       <div style={{ padding: "0px 50px" }}>
-        <p className="page-title" style={{ marginTop: "-0.1%", marginBottom: "-0.1%" }}>
+        <p className="requestmatch-title" style={{ marginTop: "-0.1%", marginBottom: "-0.1%" }}>
           request matches
         </p>
         <div></div>
@@ -784,6 +770,10 @@ const RequestMatch = (props) => {
         <div className="requestmatch-container">{fulfillsList2}</div>
       </div>
     </>
+  ) : (
+    <div className="requests-container requests-item">
+      enter all account info before viewing matches!
+    </div>
   );
 };
 

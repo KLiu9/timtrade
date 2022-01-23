@@ -93,7 +93,7 @@ const Home = (props) => {
             <img className="icon-size" src={reqt} />
           </div>
         </Link>
-        <Link to="/explore/" className="NavBar-link" onMouseEnter={()=>{setFulIcon(true)}} onMouseLeave={()=>{setFulIcon(false)}}>
+        <Link to="/fulfill/" className="NavBar-link" onMouseEnter={()=>{setFulIcon(true)}} onMouseLeave={()=>{setFulIcon(false)}}>
           <div className="image-container">
             <img className="icon-size" src={fulIcon ? ful2 : ful1} />
             <img className="icon-size" src={fult} style={{marginTop: "-2vh"}}/>
