@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import Modal from "react-modal";
 import { navigate } from "@reach/router";
 import { get, post } from "../../utilities";
+import StarRating from "./StarRating.js";
 
 import NavBar from "../modules/NavBar.js";
 import NavBarLogo from "../modules/NavBarLogo.js";
@@ -15,6 +16,7 @@ import battery from "../../../dist/itemimages/battery.png";
 import tape from "../../../dist/itemimages/tape.png";
 import mug from "../../../dist/itemimages/mug.png";
 import hairties from "../../../dist/itemimages/hairties.png";
+import stars from "../../../dist/images/stars.png";
 
 let colors = ["var(--purple)", "var(--blue)", "var(--yellow)", "var(--green)"];
 let i = 0;
@@ -145,7 +147,6 @@ function Box(props) {
     );
   }
 
-
   // i = (i + 1) % colors.length;
   return (
     <div
@@ -160,8 +161,10 @@ function Box(props) {
       <div className="fulfill-item-box-inner">
         <div className="fulfill-item-box-front">
           {/* front side */}
-          <div><b>item:</b> {props.item} <br /></div>
-          <img src={props.image} style={{width: "auto", height: "auto"}}/>
+          <div>
+            <b>item:</b> {props.item} <br />
+          </div>
+          <img src={props.image} style={{ width: "auto", height: "auto" }} />
           <br />
           <div>
             {!props.claimed || props.claimed.length === 0 ? (
@@ -476,6 +479,7 @@ function FulfillBox(props) {
   };
   const handleRatingClose = () => {
     setRatingPopUp(false);
+    setRating("");
   };
 
   const handleFillBoxesClose = () => {
@@ -495,7 +499,7 @@ function FulfillBox(props) {
     event.preventDefault();
     const body = { reqId: props.reqId, fulfillerId: props.userId };
     post("/api/unclaim", body).then((result) => {
-      console.log("result", result);
+      //console.log("result", result);
     });
   };
 
@@ -506,6 +510,13 @@ function FulfillBox(props) {
   const handleRatingChange = (event) => {
     const prompt = event.target.value;
     setRating(prompt);
+  };
+
+  const handleStarRating = (StarRatingData) => {
+    //const prompt = event.target.value;
+    //console.log("hi", starRating);
+    setRating(StarRatingData);
+    //console.log("rating", rating);
   };
 
   const handleSubmitRating = (event) => {
@@ -540,7 +551,7 @@ function FulfillBox(props) {
             type: props.type,
           };
           post("/api/deleteItem", body).then((item) => {
-            console.log("item", item);
+            //console.log("item", item);
           });
         }
         //handleRatingClose();
@@ -665,7 +676,7 @@ function FulfillBox(props) {
                 <form>
                   please rate your experience with{" "}
                   {itemCreator && <> {"@" + itemCreator.username} </>}:
-                  <select
+                  {/*<select
                     prompt={rating}
                     onChange={handleRatingChange}
                     name="rating"
@@ -682,7 +693,8 @@ function FulfillBox(props) {
                     <option value={3}>3</option>
                     <option value={2}>2</option>
                     <option value={1}>1</option>
-                  </select>
+                  </select>*/}
+                  <StarRating handleStarRating={handleStarRating} />
                   <button
                     type="submit"
                     className="createrequest-submit"
@@ -825,7 +837,7 @@ const Account = (props) => {
         userId={props.userId}
         index={i}
         claimed={itemObj.claimed}
-        image={(itemObj.name in imagedict) ? imagedict[itemObj.name] : imagedict["beaver"]}
+        image={itemObj.name in imagedict ? imagedict[itemObj.name] : imagedict["beaver"]}
       />
     ));
   } else {
@@ -865,6 +877,12 @@ const Account = (props) => {
     );
   }
 
+  let ratingPercent;
+  if (user.ratings.length !== 0) {
+    ratingPercent = (user.ratings.reduce((a, b) => a + b, 0) / user.ratings.length) * 20;
+    //console.log("hi", ratingPercent);
+  }
+
   user.name = user.name.toLowerCase();
   return (
     <div>
@@ -880,12 +898,22 @@ const Account = (props) => {
             <div className="email-title">{user.email}</div>
             <div className="email-title" style={{ textDecoration: "none" }}>
               {" "}
-              rating:{" "}
-              {user.ratings.length === 0
+              {/*user.ratings.length === 0
                 ? "no ratings yet!"
                 : (user.ratings.reduce((a, b) => a + b, 0) / user.ratings.length)
                     .toFixed(1)
-                    .toString() + "/5.0"}{" "}
+              .toString() + "/5.0"*/}{" "}
+              {user.ratings.length === 0 ? (
+                "no ratings yet!"
+              ) : (
+                <div className="containerdiv">
+                  <div
+                    id="innerdiv1"
+                    className="innerdiv1"
+                    style={{ width: ratingPercent + "%" }}
+                  ></div>
+                </div>
+              )}
             </div>
             <button
               type="submit"

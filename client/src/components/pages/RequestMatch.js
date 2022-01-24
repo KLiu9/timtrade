@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { get, post } from "../../utilities";
 import { navigate } from "@reach/router";
 import Modal from "react-modal";
+import StarRating from "./StarRating.js";
 
 import NavBar from "../modules/NavBar.js";
 import NavBarLogo from "../modules/NavBarLogo.js";
@@ -27,6 +28,7 @@ function Box(props) {
   const [confirmationPopUp, setConfirmationPopUp] = useState(false);
   const [fillBoxesPopUp, setFillBoxesPopUp] = useState(false);
   const [userClicked, setUserClicked] = useState();
+  const [starRating, setStarRating] = useState(0);
 
   const handleClose = () => setPopUp(false);
   const handleOpen = () => {
@@ -47,6 +49,7 @@ function Box(props) {
   };
   const handleRatingClose = () => {
     setRatingPopUp(false);
+    setFulfillValues(initialFulfillValues);
   };
 
   const handleConfPopUpClose = () => {
@@ -145,7 +148,7 @@ function Box(props) {
             type: props.type,
           };
           post("/api/deleterequest", body).then((request) => {
-            console.log("request", request);
+            //console.log("request", request);
           });
         }
         //handleRatingClose();
@@ -162,12 +165,20 @@ function Box(props) {
     const prompt = event.target.value;
     setFulfillValues({ ...fulfillValues, fulfiller: prompt });
     //setFulfiller(prompt);
-    console.log("values", fulfillValues);
+    //console.log("values", fulfillValues);
   };
 
   const handleRatingChange = (event) => {
     const prompt = event.target.value;
     setFulfillValues({ ...fulfillValues, rating: prompt });
+    //console.log("values", fulfillValues);
+  };
+
+  const handleStarRating = (StarRatingData) => {
+    //const prompt = event.target.value;
+    setStarRating(StarRatingData);
+    //console.log("hi", starRating);
+    setFulfillValues({ ...fulfillValues, rating: StarRatingData });
     console.log("values", fulfillValues);
   };
 
@@ -198,7 +209,10 @@ function Box(props) {
   }
   let tradeInfo = props.type + " within " + number + " " + props.time;
   return (
-    <div className="fulfill-item-box" style={{ backgroundColor: colors[props.index % colors.length] }}>
+    <div
+      className="fulfill-item-box"
+      style={{ backgroundColor: colors[props.index % colors.length] }}
+    >
       <div className="fulfill-item-box-inner">
         <div className="fulfill-item-box-front">
           <b>item:</b> {props.item} <br />
@@ -390,7 +404,7 @@ function Box(props) {
                               ))}
                             </select>
                             please rate your experience with this user:
-                            <select
+                            {/*<select
                               prompt={fulfillValues.rating}
                               onChange={handleRatingChange}
                               name="rating"
@@ -407,7 +421,8 @@ function Box(props) {
                               <option value={3}>3</option>
                               <option value={2}>2</option>
                               <option value={1}>1</option>
-                            </select>
+                            </select>*/}
+                            <StarRating handleStarRating={handleStarRating} />
                             <button
                               type="submit"
                               className="createrequest-submit"
@@ -525,7 +540,7 @@ function FulfillBox(props) {
     event.preventDefault();
     const body = { reqId: props.reqId, fulfillerId: props.userId };
     post("/api/unfulfill", body).then((result) => {
-      console.log("result", result);
+      //console.log("result", result);
     });
   };
 
@@ -673,10 +688,8 @@ const RequestMatch = (props) => {
   if (!props.userId) {
     return (
       <>
-        <NavBarLogo/>
-        <div className="requests-container requests-item">
-          log in to view your request matches!
-        </div>
+        <NavBarLogo />
+        <div className="requests-container requests-item">log in to view your request matches!</div>
       </>
     );
   }

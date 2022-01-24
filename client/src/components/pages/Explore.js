@@ -25,7 +25,7 @@ function Box(props) {
     setPopUpFulfill(false);
     const body = { reqId: props.reqId, creatorId: props.userId };
     post("/api/updateListing", body).then((result) => {
-      console.log("result", result);
+      //console.log("result", result);
     });
   };
   useEffect(() => {

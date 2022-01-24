@@ -17,6 +17,8 @@ function Box(props) {
   const [PopUp, setPopUp] = useState(false);
   const [PopUpFulfill, setPopUpFulfill] = useState(false);
   const [PopUpFulfillOwn, setPopUpFulfillOwn] = useState(false);
+  const [thisRequest, setThisRequest] = useState();
+  const [PopUpAlrFulfilled, setPopUpAlrFulfilled] = useState(false);
 
   const handleClose = () => setPopUp(false);
   const handleOpen = () => setPopUp(true);
@@ -25,18 +27,24 @@ function Box(props) {
     get("/api/user", { userid: props.creator }).then((userObj) => {
       setReqCreator(userObj);
     });
-  }, []);
+    get("/api/thisrequest", { reqId: props.reqId }).then((reqObj) => {
+      setThisRequest(reqObj);
+    });
+  }, [thisRequest]);
   const handleCloseFulfillOwn = () => setPopUpFulfillOwn(false);
+  const handleCloseAlrFulfilled = () => setPopUpAlrFulfilled(false);
 
   const handleFulfill = (event) => {
     event.preventDefault();
     if (props.userId === reqCreator._id) {
       setPopUpFulfillOwn(true);
+    } else if (thisRequest.fulfilled.includes(props.userId)) {
+      setPopUpAlrFulfilled(true);
     } else {
       setPopUpFulfill(true);
       const body = { reqId: props.reqId, creatorId: props.userId };
       post("/api/updateRequest", body).then((result) => {
-        console.log("result", result);
+        //console.log("result", result);
       });
       /*const body = { _id: props.userId};
     post("/api/updateUserInfo", body).then((result) => {
@@ -110,18 +118,20 @@ function Box(props) {
                     <p className="modal-title" style={{ textDecoration: "underline" }}>
                       {"@" + reqCreator.username}
                     </p>
-                    <p><b>
-                      {" "}
-                      rating:{" "}
-                      {reqCreator.ratings.length === 0
-                        ? "no ratings yet!"
-                        : (
-                            reqCreator.ratings.reduce((a, b) => a + b, 0) /
-                            reqCreator.ratings.length
-                          )
-                            .toFixed(1)
-                            .toString() + "/5.0"}{" "}
-                    </b></p>
+                    <p>
+                      <b>
+                        {" "}
+                        rating:{" "}
+                        {reqCreator.ratings.length === 0
+                          ? "no ratings yet!"
+                          : (
+                              reqCreator.ratings.reduce((a, b) => a + b, 0) /
+                              reqCreator.ratings.length
+                            )
+                              .toFixed(1)
+                              .toString() + "/5.0"}{" "}
+                      </b>
+                    </p>
                     <p>
                       {" "}
                       name: <i>{reqCreator.name}</i>
@@ -172,7 +182,7 @@ function Box(props) {
                           "'s request!" /** add more here? */
                       }
                     </p>
-                    <br/>
+                    <br />
                   </div>
                 )}
               </div>
@@ -187,9 +197,25 @@ function Box(props) {
               </button>
               <div className="modal-content">
                 <p className="modal-title">oops! </p>
-                <div style={{ paddingLeft: "5%", paddingRight: "5%"}}>
+                <div style={{ paddingLeft: "5%", paddingRight: "5%" }}>
                   you can't fulfill your own request! to delete your request, go to the request
                   matches page.
+                </div>
+                <br />
+              </div>
+            </div>
+          </Modal>
+          <Modal className="modal" isOpen={PopUpAlrFulfilled} ariaHideApp={false}>
+            <div
+              style={{ backgroundColor: colors[props.index % colors.length], borderRadius: "24px" }}
+            >
+              <button className="modal-close" onClick={handleCloseAlrFulfilled}>
+                ✘
+              </button>
+              <div className="modal-content">
+                <p className="modal-title">already fulfilled! </p>
+                <div style={{ paddingLeft: "5%", paddingRight: "5%" }}>
+                  see the requests you've fulfilled on the request matches page.
                 </div>
                 <br />
               </div>
@@ -205,7 +231,7 @@ const Fulfill = (props) => {
   if (!props.userId) {
     return (
       <>
-        <NavBarLogo/>
+        <NavBarLogo />
         <div className="requests-container requests-item">
           log in to help out and fulfill requests!
         </div>
@@ -228,8 +254,16 @@ const Fulfill = (props) => {
     // !user.contactMethod2 || !user.contactDetails2 || !user.location) {
     //   setAllUserInfo(false);
     // }
-    setAllUserInfo(!user || !user.username || !user.kerb || !user.contactMethod1 || !user.contactDetails1 ||
-      !user.contactMethod2 || !user.contactDetails2 || !user.location);
+    setAllUserInfo(
+      !user ||
+        !user.username ||
+        !user.kerb ||
+        !user.contactMethod1 ||
+        !user.contactDetails1 ||
+        !user.contactMethod2 ||
+        !user.contactDetails2 ||
+        !user.location
+    );
     // console.log(user);
   }, []);
 
@@ -285,29 +319,37 @@ const Fulfill = (props) => {
         />
       ));
     } else {
-      requestsList = <div style={{ paddingLeft: "15px", textAlign: "left", fontStyle: "italic" }}><br/>no requests!</div>;
+      requestsList = (
+        <div style={{ paddingLeft: "15px", textAlign: "left", fontStyle: "italic" }}>
+          <br />
+          no requests!
+        </div>
+      );
     }
   } else {
-    requestsList = <div style={{ paddingLeft: "10px", textAlign: "left", fontStyle: "italic" }}><br/>no requests!</div>;
+    requestsList = (
+      <div style={{ paddingLeft: "10px", textAlign: "left", fontStyle: "italic" }}>
+        <br />
+        no requests!
+      </div>
+    );
   }
 
-  return (
-    allUserInfo ? (
-      <>
-        <NavBar/>
-        <div style={{ padding: "0px 50px", marginLeft: "1%" }}>
-          <p className="requestmatch-title" style={{ marginTop: "-0.1%", marginBottom: "-0.1%" }}>
-            fulfill
-          </p>
-          <SearchBar action={"/fulfill/"} />
-          <div className="fulfill-container">{requestsList}</div>
-        </div>
-      </>
-    ) : (
-      <div className="requests-container requests-item">
-        enter all account info before fulfilling requests!
+  return allUserInfo ? (
+    <>
+      <NavBar />
+      <div style={{ padding: "0px 50px", marginLeft: "1%" }}>
+        <p className="requestmatch-title" style={{ marginTop: "-0.1%", marginBottom: "-0.1%" }}>
+          fulfill
+        </p>
+        <SearchBar action={"/fulfill/"} />
+        <div className="fulfill-container">{requestsList}</div>
       </div>
-    )
+    </>
+  ) : (
+    <div className="requests-container requests-item">
+      enter all account info before fulfilling requests!
+    </div>
   );
 };
 
