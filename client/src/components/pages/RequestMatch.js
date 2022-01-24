@@ -10,7 +10,7 @@ import NavBarLogo from "../modules/NavBarLogo.js";
 import "../../utilities.css";
 import "./RequestMatch.css";
 
-let colors = ["var(--purple)", "var(--blue)", "var(--yellow)", "var(--green)"];
+let colors = ["var(--purple)", "var(--green)", "var(--yellow)", "var(--blue)"];
 let j = 0;
 
 const initialFulfillValues = {
@@ -428,7 +428,7 @@ function Box(props) {
                               className="createrequest-submit"
                               value="Submit"
                               style={{
-                                backgroundColor: "var(--green)",
+                                backgroundColor: "var(--oldgreen)",
                                 marginRight: "5%",
                                 marginBottom: "3%",
                               }}

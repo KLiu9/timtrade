@@ -9,7 +9,7 @@ import SearchBar from "../modules/SearchBar.js";
 import "../../utilities.css";
 import "./Fulfill.css";
 
-let colors = ["var(--purple)", "var(--blue)", "var(--yellow)", "var(--green)"];
+let colors = ["var(--purple)", "var(--green)", "var(--yellow)", "var(--blue)"];
 let i = 0;
 
 function Box(props) {
@@ -70,7 +70,7 @@ function Box(props) {
           <b>item:</b> {props.item} <br />
           <br />
           <br />
-          <b style={{ textDecoration: "underline"}}>
+          <b style={{ textDecoration: "underline" }}>
             {!reqCreator ? "" : "@" + reqCreator.username}
           </b>
           <br />

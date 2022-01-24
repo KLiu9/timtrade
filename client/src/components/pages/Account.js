@@ -25,7 +25,8 @@ import ImageDict from "../modules/ImageDict.js";
 // import detergent from "../../../dist/itemimages/detergent.png"
 import stars from "../../../dist/images/stars.png";
 
-let colors = ["var(--purple)", "var(--blue)", "var(--yellow)", "var(--green)"];
+//let colors = ["var(--purple)", "var(--blue)", "var(--yellow)", "var(--green)"];
+let colors = ["var(--purple)", "var(--green)", "var(--yellow)", "var(--blue)"];
 let i = 0;
 
 function Box(props) {
@@ -707,7 +708,7 @@ function FulfillBox(props) {
                     className="createrequest-submit"
                     value="Submit"
                     style={{
-                      backgroundColor: "var(--green)",
+                      backgroundColor: "var(--oldgreen)",
                       marginRight: "5%",
                       marginBottom: "3%",
                     }}
