@@ -89,7 +89,7 @@ const EditAccount = (props) => {
         count2 += 1;
       }
     }
-    console.log("user", user);
+    // console.log("user", user);
     if (count >= 1) {
       handleOpen();
     } else if (count2 >= 1) {

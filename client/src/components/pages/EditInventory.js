@@ -155,6 +155,9 @@ const EditInventory = (props) => {
                 <option value="trade">trade</option>
                 <option value="lend">lend</option>
               </select>
+              {/* <p for="file" className="request-label">upload an image (optional):</p>
+              <input type="file" id="file" accept="image/*" style={{paddingLeft: "5%"}}/>
+              <button onClick={handleUpload}>Upload</button> <br/> */}
               <button
                 type="submit"
                 className="createrequest-submit"
