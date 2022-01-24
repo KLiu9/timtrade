@@ -179,7 +179,7 @@ const EditInventory = (props) => {
               type="submit"
               className="createrequest-submit"
               value="Submit"
-              style={{ backgroundColor: "var(--green)" }}
+              style={{ backgroundColor: "var(--oldgreen)" }}
               onClick={handleSubmit}
             >
               submit

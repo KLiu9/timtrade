@@ -182,7 +182,15 @@ function Box(props) {
             ) : (
               <>
                 <b>
-                  claimed by <u>{"@" + claimer.username}</u>!
+                  claimed
+                  {!claimer.username ? (
+                    "!"
+                  ) : (
+                    <>
+                      {" "}
+                      by <u>{"@" + claimer.username}</u>!
+                    </>
+                  )}
                 </b>
               </>
             )}
@@ -816,7 +824,7 @@ const Account = (props) => {
     return <div style={{ paddingLeft: "8%", paddingTop: "8%" }}>loading...</div>;
   }
 
-  // const imageDict = {"batteries": battery, "tape": tape, "mug": mug, "chair": chair, "fridge": fridge, "hair ties": hairties, 
+  // const imageDict = {"batteries": battery, "tape": tape, "mug": mug, "chair": chair, "fridge": fridge, "hair ties": hairties,
   // "rice cooker": ricecooker, "tide pods": bath, "laundry detergent": detergent, "shampoo": bath, "soap": soap, "beaver": beaver};
 
   let listingsList = null;
