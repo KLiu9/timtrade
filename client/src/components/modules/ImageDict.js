@@ -5,15 +5,14 @@ import chair from "../../../dist/itemimages/chair.png";
 import fridge from "../../../dist/itemimages/fridge.png";
 import hairties from "../../../dist/itemimages/hairties.png";
 import ricecooker from "../../../dist/itemimages/ricecooker.png";
-import kettle from "../../../dist/itemimages/kettle.png";
-import laundrydetergent from "../../../dist/itemimages/laundrydetergent.png";
-import shampoo from "../../../dist/itemimages/battery.png";
-import soap from "../../../dist/itemimages/battery.png";
-import toothpaste from "../../../dist/itemimages/battery.png";
+// import kettle from "../../../dist/itemimages/kettle.png";
+import detergent from "../../../dist/itemimages/detergent.png";
+import soap from "../../../dist/itemimages/soap.png";
+import bath from "../../../dist/itemimages/bath.png"
+// import toothpaste from "../../../dist/itemimages/toothpaste.png";
 import beaver from "../../../dist/itemimages/favicon2.png";
 
 const imageDict = {"batteries": battery, "tape": tape, "mug": mug, "chair": chair, "fridge": fridge, "hair ties": hairties, 
-"rice cooker": ricecooker, "kettle": kettle, "laundry detergent": laundrydetergent, "shampoo": shampoo,
-"soap": soap, "toothpaste": toothpaste, "beaver": beaver},;
+"rice cooker": ricecooker, "laundry detergent": detergent, "shampoo": bath, "soap": soap, "beaver": beaver};
 
 export default imageDict;

@@ -11,11 +11,18 @@ import "../../utilities.css";
 import "./CreateRequest.css";
 import "./Account.css";
 import "./Fulfill.css";
-import beaver from "../../../dist/itemimages/favicon2.png";
-import battery from "../../../dist/itemimages/battery.png";
-import tape from "../../../dist/itemimages/tape.png";
-import mug from "../../../dist/itemimages/mug.png";
-import hairties from "../../../dist/itemimages/hairties.png";
+import ImageDict from "../modules/ImageDict.js";
+// import beaver from "../../../dist/itemimages/favicon2.png";
+// import battery from "../../../dist/itemimages/battery.png";
+// import tape from "../../../dist/itemimages/tape.png";
+// import mug from "../../../dist/itemimages/mug.png";
+// import hairties from "../../../dist/itemimages/hairties.png";
+// import fridge from "../../../dist/itemimages/fridge.png";
+// import chair from "../../../dist/itemimages/chair.png";
+// import bath from "../../../dist/itemimages/bath.png";
+// import ricecooker from "../../../dist/itemimages/ricecooker.png";
+// import soap from "../../../dist/itemimages/soap.png";
+// import detergent from "../../../dist/itemimages/detergent.png"
 import stars from "../../../dist/images/stars.png";
 
 let colors = ["var(--purple)", "var(--blue)", "var(--yellow)", "var(--green)"];
@@ -808,10 +815,8 @@ const Account = (props) => {
     return <div style={{ paddingLeft: "8%", paddingTop: "8%" }}>loading...</div>;
   }
 
-  const imagedict = {"batteries": battery, "tape": tape, "mug": mug, "hair ties": hairties, "beaver": beaver};
-  // "chair": chair, "fridge": fridge,
-  // "rice cooker": ricecooker, "kettle": kettle, "tide pods": tidepods, "laundry detergent": laundrydetergent, "shampoo": shampoo,
-  // "soap": soap, "toothpaste": toothpaste, "other": other};
+  // const imageDict = {"batteries": battery, "tape": tape, "mug": mug, "chair": chair, "fridge": fridge, "hair ties": hairties, 
+  // "rice cooker": ricecooker, "tide pods": bath, "laundry detergent": detergent, "shampoo": bath, "soap": soap, "beaver": beaver};
 
   let listingsList = null;
   const hasListings = listings.length !== 0;
@@ -837,7 +842,7 @@ const Account = (props) => {
         userId={props.userId}
         index={i}
         claimed={itemObj.claimed}
-        image={itemObj.name in imagedict ? imagedict[itemObj.name] : imagedict["beaver"]}
+        image={itemObj.name in ImageDict ? ImageDict[itemObj.name] : ImageDict["beaver"]}
       />
     ));
   } else {
