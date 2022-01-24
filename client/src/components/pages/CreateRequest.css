@@ -41,6 +41,7 @@
   text-align: center;
   font-weight: 700;
   box-shadow: 1px 1px var(--darkgreen);
+  background-color: #bddbab;
 }
 
 .createrequest-submit:hover {
