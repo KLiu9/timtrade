@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { get, post } from "../../utilities";
 import Modal from "react-modal";
+import { navigate } from "@reach/router";
 
 import NavBar from "../modules/NavBar.js";
 import NavBarLogo from "../modules/NavBarLogo.js";
@@ -20,7 +21,13 @@ function Box(props) {
 
   const handleClose = () => setPopUp(false);
   const handleOpen = () => setPopUp(true);
-  const handleCloseFulfill = () => setPopUpFulfill(false);
+  const handleCloseFulfill = () => {
+    setPopUpFulfill(false);
+    const body = { reqId: props.reqId, creatorId: props.userId };
+    post("/api/updateListing", body).then((result) => {
+      console.log("result", result);
+    });
+  };
   useEffect(() => {
     get("/api/user", { userid: props.creator }).then((userObj) => {
       setReqCreator(userObj);
@@ -34,14 +41,10 @@ function Box(props) {
       setPopUpFulfillOwn(true);
     } else {
       setPopUpFulfill(true);
-      const body = { reqId: props.reqId, creatorId: props.userId };
+      /*const body = { reqId: props.reqId, creatorId: props.userId };
       post("/api/updateListing", body).then((result) => {
         console.log("result", result);
-      });
-      /*const body = { _id: props.userId};
-    post("/api/updateUserInfo", body).then((result) => {
-      console.log("result", result);
-    });*/
+      });*/
     }
   };
 
@@ -201,10 +204,8 @@ const Explore = (props) => {
   if (!props.userId) {
     return (
       <>
-        <NavBarLogo/>
-        <div className="requests-container requests-item">
-          log in to explore items!
-        </div>
+        <NavBarLogo />
+        <div className="requests-container requests-item">log in to explore items!</div>
       </>
     );
   }
@@ -212,6 +213,7 @@ const Explore = (props) => {
   const [user, setUser] = useState();
   const [allUserInfo, setAllUserInfo] = useState(true);
   const [listings, setListings] = useState([]);
+  const [unclaimedListings, setUnclaimedListings] = useState([]);
 
   useEffect(() => {
     get("/api/user", { userid: props.userId }).then((userObj) => {
@@ -219,8 +221,8 @@ const Explore = (props) => {
       get("/api/allListings", {}).then((itemObjs) => {
         setListings(itemObjs);
       });
-    });
-    setAllUserInfo(
+    }); /**HI WHY DOESN'T THIS WORK ANYMORE IF YOU ADD A PARAMETER INSTEAD OF [] */
+    /*setAllUserInfo(
       !user ||
         !user.username ||
         !user.kerb ||
@@ -229,8 +231,13 @@ const Explore = (props) => {
         !user.contactMethod2 ||
         !user.contactDetails2 ||
         !user.location
-    );
-  }, []);
+    ); */ get(
+      "/api/unclaimedListings",
+      {}
+    ).then((itemObjs) => {
+      setUnclaimedListings(itemObjs);
+    });
+  }, [unclaimedListings]);
 
   const { search } = window.location;
   const query = new URLSearchParams(search).get("s");
@@ -250,10 +257,10 @@ const Explore = (props) => {
   };
 
   let listingsList = null;
-  const hasListings = listings.length !== 0;
+  const hasListings = unclaimedListings.length !== 0;
   if (hasListings) {
     const timeOrder = ["hour", "day", "week", "weeks", "month"];
-    listings.sort(function (a, b) {
+    unclaimedListings.sort(function (a, b) {
       let time1 = timeOrder.findIndex((time) => time === a.time);
       let time2 = timeOrder.findIndex((time) => time === b.time);
       if (time1 < time2) {
@@ -264,7 +271,7 @@ const Explore = (props) => {
       }
       return 0;
     });
-    const filteredItems = filterItems(listings, query);
+    const filteredItems = filterItems(unclaimedListings, query);
     if (filteredItems.length !== 0) {
       listingsList = filteredItems.map((itemObj, i) => (
         <Box

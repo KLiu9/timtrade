@@ -59,6 +59,12 @@ router.get("/allListings", (req, res) => {
   });
 });
 
+router.get("/unclaimedListings", (req, res) => {
+  Item.find({ claimed: [] }).then((items) => {
+    res.send(items);
+  });
+});
+
 router.get("/user", (req, res) => {
   User.findById(req.query.userid).then((user) => {
     res.send(user);
