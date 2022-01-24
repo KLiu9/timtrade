@@ -121,3 +121,14 @@
   -moz-box-sizing: border-box;
   box-sizing: border-box;
 }
+
+.containerdiv {
+  background-image: url("../../../dist/images/stars.png");
+  background-size: 170px;
+  width: 170px;
+  height: 50px;
+}
+.innerdiv1 {
+  background: rgba(255, 255, 255, 0.5);
+  height: 50px;
+}

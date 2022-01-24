@@ -10,15 +10,12 @@ import "../../utilities.css";
 import "./Account.css";
 import "./EditAccount.css";
 
-
 const EditAccount = (props) => {
   if (!props.userId) {
     return (
       <>
-        <NavBarLogo/>
-        <div className="requests-container requests-item">
-          log in to edit your account!
-        </div>
+        <NavBarLogo />
+        <div className="requests-container requests-item">log in to edit your account!</div>
       </>
     );
   }
@@ -29,7 +26,7 @@ const EditAccount = (props) => {
   const [kerbPopUp, setKerbPopUp] = useState(false);
   const handleClose = () => setPopUp(false);
   const handleOpen = () => setPopUp(true);
-  
+
   const handleKerbClose = () => setKerbPopUp(false);
   const handleKerbOpen = () => setKerbPopUp(true);
 
@@ -81,7 +78,8 @@ const EditAccount = (props) => {
 
   const handleAccountSubmit = (event) => {
     event.preventDefault();
-    let count = 0, count2 = 0;
+    let count = 0,
+      count2 = 0;
     for (let i = 0; i < allUsers.length; i++) {
       if (allUsers[i].username === user.username && allUsers[i]._id !== props.userId) {
         count += 1;
@@ -89,7 +87,7 @@ const EditAccount = (props) => {
         count2 += 1;
       }
     }
-    console.log("user", user);
+    //console.log("user", user);
     if (count >= 1) {
       handleOpen();
     } else if (count2 >= 1) {
@@ -106,7 +104,7 @@ const EditAccount = (props) => {
   user.name = user.name.toLowerCase();
   return (
     <div>
-      <NavBar/>
+      <NavBar />
       <div className="editaccount-container" style={{ padding: "0px 50px" }}>
         <div>
           <div className="user-box">
