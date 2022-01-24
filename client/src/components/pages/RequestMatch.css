@@ -15,7 +15,8 @@
   column-width: 250px;
   column-gap: 20px;
   overflow-x: scroll;
-  overscroll-behavior: contain;
+  overscroll-behavior-x: contain;
+  overscroll-behavior-y: auto;
 }
 
 .requestmatch-container::-webkit-scrollbar {

@@ -70,13 +70,13 @@ function Box(props) {
           <b>item:</b> {props.item} <br />
           <br />
           <br />
-          <b style={{ textDecoration: "underline" }}>
+          <b style={{ textDecoration: "underline"}}>
             {!reqCreator ? "" : "@" + reqCreator.username}
           </b>
           <br />
           <br />
           <br />
-          {tradeInfo}
+          <div>{tradeInfo}</div>
           <br />
           {/*<button
             type="resolve"

@@ -10,7 +10,10 @@ import "../../utilities.css";
 import "./CreateRequest.css";
 import "./Account.css";
 import "./Fulfill.css";
-//import beaverimg from "../../../dist/images/beaver icon.png";
+import beaver from "../../../dist/itemimages/favicon2.png";
+import battery from "../../../dist/itemimages/battery.png";
+import tape from "../../../dist/itemimages/tape.png";
+import mug from "../../../dist/itemimages/mug.png";
 
 let colors = ["var(--purple)", "var(--blue)", "var(--yellow)", "var(--green)"];
 let i = 0;
@@ -141,7 +144,8 @@ function Box(props) {
     );
   }
 
-  i = (i + 1) % colors.length;
+
+  // i = (i + 1) % colors.length;
   return (
     <div
       className="fulfill-item-box"
@@ -155,26 +159,22 @@ function Box(props) {
       <div className="fulfill-item-box-inner">
         <div className="fulfill-item-box-front">
           {/* front side */}
-          <b>item:</b> {props.item} <br />
+          <div><b>item:</b> {props.item} <br /></div>
+          <img src={props.image} style={{width: "auto", height: "auto"}}/>
           <br />
-          <br />
-          <br />
-          {/*<img className="img-size2" src={beaverimg}></img>*/}
-          {!props.claimed || props.claimed.length === 0 ? (
-            <>
-              <b>waiting to be claimed...</b>
-            </>
-          ) : (
-            <>
-              <b>
-                claimed by <u>{"@" + claimer.username}</u>!
-              </b>
-            </>
-          )}
-          <br />
-          <br />
-          <br />
-          <br />
+          <div>
+            {!props.claimed || props.claimed.length === 0 ? (
+              <>
+                <b>waiting to be claimed...</b>
+              </>
+            ) : (
+              <>
+                <b>
+                  claimed by <u>{"@" + claimer.username}</u>!
+                </b>
+              </>
+            )}
+          </div>
         </div>
         <div className="fulfill-item-box-back">
           {/* back side */}
@@ -552,7 +552,7 @@ function FulfillBox(props) {
     }
   };
 
-  //i = (i + 1) % colors.length;
+  i = (i + 1) % colors.length;
   return (
     <div
       className="fulfill-item-box"
@@ -788,7 +788,6 @@ const Account = (props) => {
     });
     get("/api/allListings", {}).then((listObjs) => {
       setAllListings(listObjs);
-      //console.log("listings", allListings);
     });
   }, [listings]);
 
@@ -796,10 +795,25 @@ const Account = (props) => {
     return <div style={{ paddingLeft: "8%", paddingTop: "8%" }}>loading...</div>;
   }
 
+  const imagedict = {"batteries": battery, "tape": tape, "mug": mug, "beaver": beaver};
+  // "chair": chair, "fridge": fridge, "hair ties": hairties, 
+  // "rice cooker": ricecooker, "kettle": kettle, "tide pods": tidepods, "laundry detergent": laundrydetergent, "shampoo": shampoo,
+  // "soap": soap, "toothpaste": toothpaste, "other": other};
+
   let listingsList = null;
   const hasListings = listings.length !== 0;
   if (hasListings) {
-    // console.log(listings.length);
+    listings.sort(function (a, b) {
+      let status1 = a.claimed.length ? 1 : 0;
+      let status2 = b.claimed.length ? 1 : 0;
+      if (status1 > status2) {
+        return -1;
+      }
+      if (status1 < status2) {
+        return 1;
+      }
+      return 0;
+    });
     listingsList = listings.map((itemObj, i) => (
       <Box
         key={`Box_${itemObj._id}`}
@@ -810,6 +824,7 @@ const Account = (props) => {
         userId={props.userId}
         index={i}
         claimed={itemObj.claimed}
+        image={(itemObj.name in imagedict) ? imagedict[itemObj.name] : imagedict["beaver"]}
       />
     ));
   } else {
@@ -938,7 +953,7 @@ const Account = (props) => {
             <div className="inventory-container">{listingsList}</div>
           </div>
         </div>
-        <div style={{ paddingTop: "35%" }}>
+        <div style={{ paddingTop: "30%" }}>
           <div className="user-box">
             <div className="user-title">claimed items</div>
           </div>
