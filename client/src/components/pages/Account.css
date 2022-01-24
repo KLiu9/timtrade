@@ -107,7 +107,8 @@
   column-gap: 0px;
   /* row-gap: 20px; */
   overflow-x: scroll;
-  overscroll-behavior: contain;
+  overscroll-behavior-x: contain;
+  overscroll-behavior-y: auto;
   margin-right: 0px;
   margin-top: 10px;
   height: 350px;

@@ -704,6 +704,17 @@ const RequestMatch = (props) => {
   let requestsList = null;
   const hasRequests = requests.length !== 0;
   if (hasRequests) {
+    requests.sort(function (a, b) {
+      let status1 = a.fulfilled.length ? 1 : 0;
+      let status2 = b.fulfilled.length ? 1 : 0;
+      if (status1 > status2) {
+        return -1;
+      }
+      if (status1 < status2) {
+        return 1;
+      }
+      return 0;
+    });
     requestsList = requests.map((requestObj, i) => (
       <Box
         key={`Box_${requestObj._id}`}

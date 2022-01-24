@@ -1,7 +1,7 @@
 import React from "react";
 import NavBar from "../modules/NavBar.js";
 import notfound from "../../../dist/images/404.png";
-import beaver from "../../../dist/images/404 beaver.png";
+import beaver from "../../../dist/images/404beaver.png";
 
 const NotFound = () => {
   return (
@@ -9,11 +9,11 @@ const NotFound = () => {
       <NavBar />
       <div className="u-margin">
         <center>
-          <img src={notfound} width="600" height="auto" class="center"></img>
+          <img src={notfound} width="35%" height="35%" class="center"></img>
         </center>
         <br />
         <center>
-          <img src={beaver} width="600" height="auto"></img>
+          <img src={beaver} width="35%" height="35%"></img>
         </center>
         <p>
           <i>
