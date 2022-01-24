@@ -3,6 +3,7 @@ import { get, post } from "../../utilities";
 import Modal from "react-modal";
 
 import NavBar from "../modules/NavBar.js";
+import NavBarLogo from "../modules/NavBarLogo.js";
 import SearchBar from "../modules/SearchBar.js";
 
 import "../../utilities.css";
@@ -203,9 +204,12 @@ function Box(props) {
 const Fulfill = (props) => {
   if (!props.userId) {
     return (
-      <div className="requests-container requests-item">
-        log in to help out and fulfill requests!
-      </div>
+      <>
+        <NavBarLogo/>
+        <div className="requests-container requests-item">
+          log in to help out and fulfill requests!
+        </div>
+      </>
     );
   }
 

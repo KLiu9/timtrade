@@ -13,7 +13,7 @@ const NavBar = () => {
   return (
     <nav className="NavBar-container">
       <div className="NavBar-linkContainer NavBar-align">
-        <Link to="/" className="NavBar-link" style={{justifyContent: "flex-start", paddingLeft: "45%"}}>
+        <Link to="/" className="NavBar-link" style={{justifyContent: "flex-start", paddingLeft: "44%"}}>
           <span>
             <img className="homeimg-size" src={homimg} />
           </span>

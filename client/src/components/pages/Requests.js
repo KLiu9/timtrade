@@ -3,6 +3,7 @@ import { Link } from "@reach/router";
 import { get } from "../../utilities";
 
 import NavBar from "../modules/NavBar.js";
+import NavBarLogo from "../modules/NavBarLogo.js";
 import createreqimg from "../../../dist/images/createrequest.png";
 import reqmatchimg from "../../../dist/images/requestmatch2.png";
 import reqmatchwords from "../../../dist/images/requestmatchwords.png";
@@ -14,9 +15,12 @@ import "./Requests.css";
 const Requests = (props) => {
   if (!props.userId) {
     return (
-      <div className="requests-container requests-item">
-        log in to request items or view matches!
-      </div>
+      <>
+        <NavBarLogo/>
+        <div className="requests-container requests-item">
+          log in to create and view requests!
+        </div>
+      </>
     );
   }
 

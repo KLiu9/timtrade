@@ -4,6 +4,7 @@ import { get, post } from "../../utilities";
 import Modal from "react-modal";
 
 import NavBar from "../modules/NavBar.js";
+import NavBarLogo from "../modules/NavBarLogo.js";
 
 import "../../utilities.css";
 import "./CreateRequest.css";
@@ -18,7 +19,14 @@ const initialValues = {
 
 const EditInventory = (props) => {
   if (!props.userId) {
-    return <div className="requests-container requests-item">log in to create a request!</div>;
+    return (
+      <>
+        <NavBarLogo/>
+        <div className="requests-container requests-item">
+          log in to add to your inventory!
+        </div>
+      </>
+    );
   }
 
   const [user, setUser] = useState();
@@ -36,24 +44,6 @@ const EditInventory = (props) => {
     setAllUserInfo(!user || !user.username || !user.kerb || !user.contactMethod1 || !user.contactDetails1 ||
       !user.contactMethod2 || !user.contactDetails2 || !user.location);
   }, []);
-
-  // ensures user has entered all info in before accessing page
-  // if (
-  //   !user ||
-  //   !user.username ||
-  //   !user.kerb ||
-  //   !user.contactMethod1 ||
-  //   !user.contactDetails1 ||
-  //   !user.contactMethod2 ||
-  //   !user.contactDetails2 ||
-  //   !user.location
-  // ) {
-  //   return (
-  //     <div className="requests-container requests-item">
-  //       enter all account info before listing items!
-  //     </div>
-  //   );
-  // }
 
   const handleItemChange = (event) => {
     const prompt = event.target.value;

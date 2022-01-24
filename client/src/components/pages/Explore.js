@@ -3,6 +3,7 @@ import { get } from "../../utilities";
 import Modal from "react-modal";
 
 import NavBar from "../modules/NavBar.js";
+import NavBarLogo from "../modules/NavBarLogo.js";
 import SearchBar from "../modules/SearchBar.js";
 
 import "../../utilities.css";
@@ -143,7 +144,14 @@ function Box(props) {
 
 const Explore = (props) => {
   if (!props.userId) {
-    return <div className="requests-container requests-item">log in to explore items!</div>;
+    return (
+      <>
+        <NavBarLogo/>
+        <div className="requests-container requests-item">
+          log in to explore items!
+        </div>
+      </>
+    );
   }
 
   const [user, setUser] = useState();

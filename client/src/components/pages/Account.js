@@ -2,7 +2,9 @@ import React, { useState, useEffect } from "react";
 import Modal from "react-modal";
 import { navigate } from "@reach/router";
 import { get, post } from "../../utilities";
+
 import NavBar from "../modules/NavBar.js";
+import NavBarLogo from "../modules/NavBarLogo.js";
 
 import "../../utilities.css";
 import "./CreateRequest.css";
@@ -149,7 +151,14 @@ function Box(props) {
 
 const Account = (props) => {
   if (!props.userId) {
-    return <div className="requests-container requests-item">log in to access your account!</div>;
+    return (
+      <>
+        <NavBarLogo/>
+        <div className="requests-container requests-item">
+          log in to access your account!
+        </div>
+      </>
+    );
   }
 
   const [user, setUser] = useState();
@@ -165,7 +174,7 @@ const Account = (props) => {
   }, [listings]);
 
   if (!user) {
-    return <div>loading...</div>;
+    return <div style={{paddingLeft: "8%", paddingTop: "8%"}}>loading...</div>;
   }
 
   let listingsList = null;

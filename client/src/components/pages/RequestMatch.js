@@ -4,6 +4,7 @@ import { navigate } from "@reach/router";
 import Modal from "react-modal";
 
 import NavBar from "../modules/NavBar.js";
+import NavBarLogo from "../modules/NavBarLogo.js";
 
 import "../../utilities.css";
 import "./RequestMatch.css";
@@ -117,7 +118,7 @@ function Box(props) {
         type: props.type,
       };
       post("/api/deleterequest", body).then((request) => {
-        console.log("request", request);
+        // console.log("request", request);
       });
     }
   };
@@ -206,10 +207,7 @@ function Box(props) {
   }
   let tradeInfo = props.type + " within " + number + " " + props.time;
   return (
-    <div
-      className="fulfill-item-box"
-      style={{ backgroundColor: colors[props.index % colors.length] }}
-    >
+    <div className="fulfill-item-box" style={{ backgroundColor: colors[props.index % colors.length] }}>
       <div className="fulfill-item-box-inner">
         <div className="fulfill-item-box-front">
           <b>item:</b> {props.item} <br />
@@ -681,7 +679,12 @@ function FulfillBox(props) {
 const RequestMatch = (props) => {
   if (!props.userId) {
     return (
-      <div className="requests-container requests-item">log in to view your request matches!</div>
+      <>
+        <NavBarLogo/>
+        <div className="requests-container requests-item">
+          log in to view your request matches!
+        </div>
+      </>
     );
   }
 

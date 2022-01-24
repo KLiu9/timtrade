@@ -4,6 +4,7 @@ import { get, post } from "../../utilities";
 import Modal from "react-modal";
 
 import NavBar from "../modules/NavBar.js";
+import NavBarLogo from "../modules/NavBarLogo.js";
 
 import "../../utilities.css";
 import "./Account.css";
@@ -11,6 +12,17 @@ import "./EditAccount.css";
 
 
 const EditAccount = (props) => {
+  if (!props.userId) {
+    return (
+      <>
+        <NavBarLogo/>
+        <div className="requests-container requests-item">
+          log in to edit your account!
+        </div>
+      </>
+    );
+  }
+
   const [user, setUser] = useState();
   const [allUsers, setAllUsers] = useState([]);
   const [PopUp, setPopUp] = useState(false);

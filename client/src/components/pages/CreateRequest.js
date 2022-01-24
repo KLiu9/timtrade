@@ -4,6 +4,7 @@ import { get, post } from "../../utilities";
 import Modal from "react-modal";
 
 import NavBar from "../modules/NavBar.js";
+import NavBarLogo from "../modules/NavBarLogo.js";
 
 import "../../utilities.css";
 import "./CreateRequest.css";
@@ -20,7 +21,14 @@ const initialValues = {
 
 const CreateRequest = (props) => {
   if (!props.userId) {
-    return <div className="requests-container requests-item">log in to create a request!</div>;
+    return (
+      <>
+        <NavBarLogo/>
+        <div className="requests-container requests-item">
+          log in to create a request!
+        </div>
+      </>
+    );
   }
 
   const [user, setUser] = useState();
