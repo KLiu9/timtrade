@@ -2,10 +2,11 @@ import React, { useState, useEffect } from "react";
 import { get, post } from "../../utilities";
 import { navigate } from "@reach/router";
 import Modal from "react-modal";
-import StarRating from "./StarRating.js";
+import StarRating from "../modules/StarRating.js";
 
 import NavBar from "../modules/NavBar.js";
 import NavBarLogo from "../modules/NavBarLogo.js";
+import ImageDict from "../modules/ImageDict.js";
 
 import "../../utilities.css";
 import "./RequestMatch.css";
@@ -165,19 +166,16 @@ function Box(props) {
     const prompt = event.target.value;
     setFulfillValues({ ...fulfillValues, fulfiller: prompt });
     //setFulfiller(prompt);
-    //console.log("values", fulfillValues);
   };
 
   const handleRatingChange = (event) => {
     const prompt = event.target.value;
     setFulfillValues({ ...fulfillValues, rating: prompt });
-    //console.log("values", fulfillValues);
   };
 
   const handleStarRating = (StarRatingData) => {
     //const prompt = event.target.value;
     setStarRating(StarRatingData);
-    //console.log("hi", starRating);
     setFulfillValues({ ...fulfillValues, rating: StarRatingData });
     console.log("values", fulfillValues);
   };
@@ -200,7 +198,6 @@ function Box(props) {
       </button>
     </>
   ));
-  //console.log(fulfillerUsernames);
   j = (j + 1) % colors.length;
 
   let number = "1";
@@ -216,7 +213,7 @@ function Box(props) {
       <div className="fulfill-item-box-inner">
         <div className="fulfill-item-box-front">
           <b>item:</b> {props.item} <br />
-          <br />
+          <img src={props.image} style={{ width: "auto", height: "auto" }} />
           <br />
           {!props.fulfilled || props.fulfilled.length === 0 ? (
             <>
@@ -227,8 +224,6 @@ function Box(props) {
               <b>your request has been fulfilled!</b>
             </>
           )}
-          <br />
-          <br />
           <br />
           {tradeInfo}
         </div>
@@ -563,13 +558,11 @@ function FulfillBox(props) {
         <div className="fulfill-item-box-front">
           {/* front side */}
           <b>item:</b> {props.item} <br />
-          <br />
+          <img src={props.image} style={{ width: "auto", height: "auto" }} />
           <br />
           <b style={{ textDecoration: "underline" }}>
             {!reqCreator ? "" : "@" + reqCreator.username}
           </b>
-          <br />
-          <br />
           <br />
           {tradeInfo}
           <br />
@@ -739,6 +732,7 @@ const RequestMatch = (props) => {
         userId={props.userId}
         index={i}
         fulfilled={requestObj.fulfilled}
+        image={requestObj.name in ImageDict ? ImageDict[requestObj.name] : ImageDict["beaver"]}
       />
     ));
   } else {
@@ -770,6 +764,7 @@ const RequestMatch = (props) => {
         description={requestObj.description}
         reqId={requestObj._id}
         userId={props.userId}
+        image={requestObj.name in ImageDict ? ImageDict[requestObj.name] : ImageDict["beaver"]}
       />
     ));
   } else {

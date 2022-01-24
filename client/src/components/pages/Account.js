@@ -2,41 +2,21 @@ import React, { useState, useEffect } from "react";
 import Modal from "react-modal";
 import { navigate } from "@reach/router";
 import { get, post } from "../../utilities";
-import StarRating from "./StarRating.js";
 
+import StarRating from "../modules/StarRating.js";
 import NavBar from "../modules/NavBar.js";
 import NavBarLogo from "../modules/NavBarLogo.js";
+import ImageDict from "../modules/ImageDict.js";
 
 import "../../utilities.css";
 import "./CreateRequest.css";
 import "./Account.css";
 import "./Fulfill.css";
-import ImageDict from "../modules/ImageDict.js";
-// import beaver from "../../../dist/itemimages/favicon2.png";
-// import battery from "../../../dist/itemimages/battery.png";
-// import tape from "../../../dist/itemimages/tape.png";
-// import mug from "../../../dist/itemimages/mug.png";
-// import hairties from "../../../dist/itemimages/hairties.png";
-// import fridge from "../../../dist/itemimages/fridge.png";
-// import chair from "../../../dist/itemimages/chair.png";
-// import bath from "../../../dist/itemimages/bath.png";
-// import ricecooker from "../../../dist/itemimages/ricecooker.png";
-// import soap from "../../../dist/itemimages/soap.png";
-// import detergent from "../../../dist/itemimages/detergent.png"
-import stars from "../../../dist/images/stars.png";
 
-//let colors = ["var(--purple)", "var(--blue)", "var(--yellow)", "var(--green)"];
 let colors = ["var(--purple)", "var(--green)", "var(--yellow)", "var(--blue)"];
 let i = 0;
 
 function Box(props) {
-  // const [reqCreator, setReqCreator] = useState();
-
-  // useEffect(() => {
-  //   get("/api/user", { userid: props.creator }).then((userObj) => {
-  //     setReqCreator(userObj);
-  //   });
-  // }, []);
 
   const [items, setItems] = useState([]);
   const [confirmationPopUp, setConfirmationPopUp] = useState(false);
@@ -48,7 +28,6 @@ function Box(props) {
   const handleClose = () => setPopUp(false);
   const handleOpen = () => {
     setPopUp(true);
-    //console.log("opened first");
   };
   const handleClick = (obj) => () => {
     setUserClicked(obj);
@@ -107,9 +86,7 @@ function Box(props) {
         description: props.description,
         type: props.type,
       };
-      post("/api/deleteItem", body).then((item) => {
-        // console.log("item", item);
-      });
+      post("/api/deleteItem", body);
     }
   };
 
@@ -155,7 +132,6 @@ function Box(props) {
     );
   }
 
-  // i = (i + 1) % colors.length;
   return (
     <div
       className="fulfill-item-box"
@@ -203,15 +179,6 @@ function Box(props) {
           <b>type:</b> {props.type} <br />
           <br />
           <br />
-          {/* <button
-            className="requestmatch-resolve"
-            style={{ backgroundColor: "var(--white)", fontWeight: "bold", width: "auto" }}
-            onClick={handleOpen}
-          >
-            {!reqCreator ? "" : "@" + reqCreator.username}
-          </button>
-          <br />
-          <br /> */}
           {!props.claimed || props.claimed.length === 0 ? (
             <>
               <b>waiting to be claimed...</b>
@@ -359,114 +326,6 @@ function Box(props) {
                   </div>
                 </div>
               </Modal>
-              {/*<Modal className="modal" isOpen={PopUp} ariaHideApp={false}>
-                <div
-                  style={{
-                    backgroundColor: colors[props.index % colors.length],
-                    borderRadius: "24px",
-                  }}
-                >
-                  <button className="modal-close" onClick={handleClose}>
-                    ✘
-                  </button>
-                  <div className="modal-content" style={{ fontStyle: "italic" }}>
-                    {claimerUsernames}
-                    <br />
-                    <Modal className="modal" isOpen={userPopUp} ariaHideApp={false}>
-                      <div
-                        style={{
-                          backgroundColor: colors[props.index % colors.length],
-                          borderRadius: "24px",
-                        }}
-                      >
-                        <button className="modal-close" onClick={handleUserClose}>
-                          ✘
-                        </button>
-                        <div className="modal-content">
-                          {userClicked && (
-                            <div>
-                              <p className="modal-title">{"@" + userClicked.username}</p>
-                              <p>
-                                <b>
-                                  {" "}
-                                  rating:{" "}
-                                  {userClicked.ratings.length === 0
-                                    ? "no ratings yet!"
-                                    : (
-                                        userClicked.ratings.reduce((a, b) => a + b, 0) /
-                                        userClicked.ratings.length
-                                      )
-                                        .toFixed(1)
-                                        .toString() + "/5.0"}{" "}
-                                </b>
-                              </p>
-                              <p>
-                                {" "}
-                                name: <i>{userClicked.name}</i>
-                              </p>
-                              <p>
-                                {userClicked.contactMethod1}: <i>{userClicked.contactDetails1}</i>
-                              </p>
-                              <p>
-                                {" "}
-                                {userClicked.contactMethod2}: <i>{userClicked.contactDetails2}</i>
-                              </p>
-                              <p>
-                                {" "}
-                                location: <i>{userClicked.location}</i>
-                              </p>
-                              <br />
-                            </div>
-                          )}
-                        </div>
-                      </div>
-                    </Modal>
-                    <br />
-                    <br />
-                    <button
-                      type="resolve"
-                      className="requestmatch-resolve"
-                      value="Resolve"
-                      onClick={handleDelete}
-                    >
-                      delete
-                    </button>
-                    <Modal className="modal3" isOpen={confirmationPopUp} ariaHideApp={false}>
-                      <div
-                        style={{
-                          backgroundColor: colors[props.index % colors.length],
-                          borderRadius: "24px",
-                        }}
-                      >
-                        <button className="modal-close" onClick={handleConfPopUpClose}>
-                          ✘
-                        </button>
-                        <br />
-                        <br />
-                        <div className="modal-content">
-                          are you sure you want to delete your listing?
-                          <br />
-                          <br />
-                          <button
-                            type="resolve"
-                            className="requestmatch-resolve"
-                            value="Resolve"
-                            style={{
-                              backgroundColor: "#E5E5E5",
-                            }}
-                            onClick={handleResolve}
-                          >
-                            delete
-                          </button>
-                          <br />
-                          <br />
-                        </div>
-                      </div>
-                    </Modal>
-                  </div>
-                  <br />
-                </div>
-              </Modal>*/}
             </>
           )}
         </div>
@@ -514,9 +373,7 @@ function FulfillBox(props) {
   const handleUnfulfill = (event) => {
     event.preventDefault();
     const body = { reqId: props.reqId, fulfillerId: props.userId };
-    post("/api/unclaim", body).then((result) => {
-      //console.log("result", result);
-    });
+    post("/api/unclaim", body);
   };
 
   const handleDelete = () => {
@@ -529,15 +386,11 @@ function FulfillBox(props) {
   };
 
   const handleStarRating = (StarRatingData) => {
-    //const prompt = event.target.value;
-    //console.log("hi", starRating);
     setRating(StarRatingData);
-    //console.log("rating", rating);
   };
 
   const handleSubmitRating = (event) => {
     //event.preventDefault();
-    //console.log("handlesubmitrating");
     if (rating !== "") {
       event.preventDefault();
       const body = { userid: itemCreator._id, newrating: parseInt(rating) };
@@ -558,7 +411,6 @@ function FulfillBox(props) {
         }
 
         if (i < items.length) {
-          //console.log("in if statement");
           items.splice(i, 1);
           const body = {
             creator: props.creator,
@@ -566,9 +418,7 @@ function FulfillBox(props) {
             description: props.description,
             type: props.type,
           };
-          post("/api/deleteItem", body).then((item) => {
-            //console.log("item", item);
-          });
+          post("/api/deleteItem", body);
         }
         //handleRatingClose();
         //handleUserClose();
@@ -595,15 +445,12 @@ function FulfillBox(props) {
         <div className="fulfill-item-box-front">
           {/* front side */}
           <b>item:</b> {props.item} <br />
-          <br />
+          <img src={props.image} style={{ width: "auto", height: "auto" }} />
           <br />
           <b style={{ textDecoration: "underline" }}>
             {!itemCreator ? "" : "@" + itemCreator.username}
           </b>
-          <br />
-          <br />
-          <br />
-          <br />
+          <br/>
           {props.type}
           <br />
         </div>
@@ -612,7 +459,6 @@ function FulfillBox(props) {
           <b>item:</b> {props.item} <br />
           <b>description:</b> {props.description} <br />
           <br />
-          {/* <b>{props.creator}</b> */}
           <br />
           <button
             className="requestmatch-resolve"
@@ -821,11 +667,9 @@ const Account = (props) => {
   }, [listings]);
 
   if (!user) {
-    return <div style={{ paddingLeft: "8%", paddingTop: "8%" }}>loading...</div>;
+    // return <div style={{ paddingLeft: "8%", paddingTop: "8%" }}>loading...</div>;
+    return <div className="loader"></div>;
   }
-
-  // const imageDict = {"batteries": battery, "tape": tape, "mug": mug, "chair": chair, "fridge": fridge, "hair ties": hairties,
-  // "rice cooker": ricecooker, "tide pods": bath, "laundry detergent": detergent, "shampoo": bath, "soap": soap, "beaver": beaver};
 
   let listingsList = null;
   const hasListings = listings.length !== 0;
@@ -880,6 +724,7 @@ const Account = (props) => {
         description={listObj.description}
         reqId={listObj._id}
         userId={props.userId}
+        image={listObj.name in ImageDict ? ImageDict[listObj.name] : ImageDict["beaver"]}
       />
     ));
   } else {
@@ -894,7 +739,6 @@ const Account = (props) => {
   let ratingPercent;
   if (user.ratings.length !== 0) {
     ratingPercent = (user.ratings.reduce((a, b) => a + b, 0) / user.ratings.length) * 20;
-    //console.log("hi", ratingPercent);
   }
 
   user.name = user.name.toLowerCase();

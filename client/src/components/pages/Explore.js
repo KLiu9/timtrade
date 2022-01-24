@@ -6,6 +6,7 @@ import { navigate } from "@reach/router";
 import NavBar from "../modules/NavBar.js";
 import NavBarLogo from "../modules/NavBarLogo.js";
 import SearchBar from "../modules/SearchBar.js";
+import ImageDict from "../modules/ImageDict.js";
 
 import "../../utilities.css";
 import "./Fulfill.css";
@@ -59,15 +60,14 @@ function Box(props) {
         <div className="fulfill-item-box-front">
           {/* front side */}
           <b>item:</b> {props.item} <br />
-          <br />
+          <img src={props.image} style={{ width: "auto", height: "auto" }} />
           <br />
           <b style={{ textDecoration: "underline" }}>
-            {!reqCreator ? "" : "@" + reqCreator.username}
+            {!reqCreator ? "" : "@" + reqCreator.username} 
           </b>
-          <br />
-          <br />
-          <br />
-          {props.type}
+          <br/>
+          wants to {props.type}
+          {/* {props.type} */}
           <br />
           {/*<button
             type="resolve"
@@ -283,6 +283,7 @@ const Explore = (props) => {
           index={i}
           reqId={itemObj._id}
           userId={props.userId}
+          image={itemObj.name in ImageDict ? ImageDict[itemObj.name] : ImageDict["beaver"]}
         />
       ));
     } else {

@@ -38,7 +38,8 @@ const EditAccount = (props) => {
   }, [props.userId]);
 
   if (!user) {
-    return <div className="u-margin">loading...</div>;
+    // return <div className="u-margin">loading...</div>;
+    return <div className="loader"></div>;
   }
 
   const handleUsernameChange = (event) => {
@@ -100,6 +101,11 @@ const EditAccount = (props) => {
     }
   };
 
+  let ratingPercent;
+  if (user.ratings.length !== 0) {
+    ratingPercent = (user.ratings.reduce((a, b) => a + b, 0) / user.ratings.length) * 20;
+  }
+
   user.name = user.name.toLowerCase();
   return (
     <div>
@@ -113,6 +119,19 @@ const EditAccount = (props) => {
                 : "@" + user.username}
             </div>
             <div className="email-title">{user.email}</div>
+            <div className="email-title" style={{ textDecoration: "none" }}>
+              {user.ratings.length === 0 ? (
+                "no ratings yet!"
+              ) : (
+                <div className="containerdiv">
+                  <div
+                    id="innerdiv1"
+                    className="innerdiv1"
+                    style={{ width: ratingPercent + "%" }}
+                  ></div>
+                </div>
+              )}
+            </div>
           </div>
           <form>
             <div className="accountinfo-container">

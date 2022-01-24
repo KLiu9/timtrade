@@ -5,6 +5,7 @@ import Modal from "react-modal";
 import NavBar from "../modules/NavBar.js";
 import NavBarLogo from "../modules/NavBarLogo.js";
 import SearchBar from "../modules/SearchBar.js";
+import ImageDict from "../modules/ImageDict.js";
 
 import "../../utilities.css";
 import "./Fulfill.css";
@@ -68,34 +69,21 @@ function Box(props) {
         <div className="fulfill-item-box-front">
           {/* front side */}
           <b>item:</b> {props.item} <br />
-          <br />
+          <img src={props.image} style={{ width: "auto", height: "auto" }} />
           <br />
           <b style={{ textDecoration: "underline" }}>
             {!reqCreator ? "" : "@" + reqCreator.username}
           </b>
           <br />
+          wants to {tradeInfo}
+          {/* <div>{tradeInfo}</div> */}
           <br />
-          <br />
-          <div>{tradeInfo}</div>
-          <br />
-          {/*<button
-            type="resolve"
-            className="requestmatch-resolve"
-            value="Resolve"
-            style={{
-              backgroundColor: "#E5E5E5",
-            }}
-            // onClick={handleLearn}
-          >
-            learn more
-          </button>*/}
         </div>
         <div className="fulfill-item-box-back">
           {/* back side */}
           <b>item:</b> {props.item} <br />
           <b>description:</b> {props.description} <br />
           <br />
-          {/* <b>{props.creator}</b> */}
           <br />
           <br />
           <button
@@ -316,6 +304,7 @@ const Fulfill = (props) => {
           index={i}
           reqId={requestObj._id}
           userId={props.userId}
+          image={requestObj.name in ImageDict ? ImageDict[requestObj.name] : ImageDict["beaver"]}
         />
       ));
     } else {
