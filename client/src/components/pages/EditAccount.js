@@ -87,7 +87,11 @@ const EditAccount = (props) => {
         count2 += 1;
       }
     }
+<<<<<<< HEAD
+    // console.log("user", user);
+=======
     //console.log("user", user);
+>>>>>>> aa498fb27027fde8679dac4ecbd00c12bb3d20d9
     if (count >= 1) {
       handleOpen();
     } else if (count2 >= 1) {

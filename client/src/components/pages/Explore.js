@@ -286,19 +286,11 @@ const Explore = (props) => {
         />
       ));
     } else {
-      listingsList = (
-        <div style={{ paddingLeft: "10px", textAlign: "left", fontStyle: "italic" }}>
-          <br />
-          no listings!
-        </div>
+      listingsList = (<div style={{ paddingLeft: "10px", textAlign: "left", fontStyle: "italic" }}><br />no listings!</div>
       );
     }
   } else {
-    listingsList = (
-      <div style={{ paddingLeft: "10px", textAlign: "left", fontStyle: "italic" }}>
-        <br />
-        no listings!
-      </div>
+    listingsList = (<div style={{ paddingLeft: "10px", textAlign: "left", fontStyle: "italic" }}><br />no listings!</div>
     );
   }
 

@@ -15,6 +15,7 @@ import beaver from "../../../dist/itemimages/favicon2.png";
 import battery from "../../../dist/itemimages/battery.png";
 import tape from "../../../dist/itemimages/tape.png";
 import mug from "../../../dist/itemimages/mug.png";
+import hairties from "../../../dist/itemimages/hairties.png";
 import stars from "../../../dist/images/stars.png";
 
 //let colors = ["var(--purple)", "var(--blue)", "var(--yellow)", "var(--green)"];
@@ -808,8 +809,8 @@ const Account = (props) => {
     return <div style={{ paddingLeft: "8%", paddingTop: "8%" }}>loading...</div>;
   }
 
-  const imagedict = { batteries: battery, tape: tape, mug: mug, beaver: beaver };
-  // "chair": chair, "fridge": fridge, "hair ties": hairties,
+  const imagedict = {"batteries": battery, "tape": tape, "mug": mug, "hair ties": hairties, "beaver": beaver};
+  // "chair": chair, "fridge": fridge,
   // "rice cooker": ricecooker, "kettle": kettle, "tide pods": tidepods, "laundry detergent": laundrydetergent, "shampoo": shampoo,
   // "soap": soap, "toothpaste": toothpaste, "other": other};
 
