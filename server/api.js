@@ -41,6 +41,12 @@ router.get("/requests", (req, res) => {
   });
 });
 
+router.get("/thisrequest", (req, res) => {
+  Request.findById(req.query.reqId).then((request) => {
+    res.send(request);
+  });
+});
+
 router.get("/allrequests", (req, res) => {
   Request.find({}).then((requests) => {
     res.send(requests);
@@ -199,7 +205,7 @@ router.post("/unfulfill", (req, res) => {
 
 router.post("/unclaim", (req, res) => {
   Item.findById(req.body.reqId).then((result) => {
-    console.log("before:", result);
+    //console.log("before:", result);
     for (let i = 0; i < result.claimed.length; i++) {
       if (result.claimed[i] === req.body.fulfillerId) {
         result.claimed.splice(i, 1);

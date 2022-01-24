@@ -145,7 +145,7 @@ function Box(props) {
             type: props.type,
           };
           post("/api/deleterequest", body).then((request) => {
-            console.log("request", request);
+            //console.log("request", request);
           });
         }
         //handleRatingClose();
@@ -162,13 +162,13 @@ function Box(props) {
     const prompt = event.target.value;
     setFulfillValues({ ...fulfillValues, fulfiller: prompt });
     //setFulfiller(prompt);
-    console.log("values", fulfillValues);
+    //console.log("values", fulfillValues);
   };
 
   const handleRatingChange = (event) => {
     const prompt = event.target.value;
     setFulfillValues({ ...fulfillValues, rating: prompt });
-    console.log("values", fulfillValues);
+    //console.log("values", fulfillValues);
   };
 
   fulfillerUsernames = fulfillers.map((x) => (
@@ -198,7 +198,10 @@ function Box(props) {
   }
   let tradeInfo = props.type + " within " + number + " " + props.time;
   return (
-    <div className="fulfill-item-box" style={{ backgroundColor: colors[props.index % colors.length] }}>
+    <div
+      className="fulfill-item-box"
+      style={{ backgroundColor: colors[props.index % colors.length] }}
+    >
       <div className="fulfill-item-box-inner">
         <div className="fulfill-item-box-front">
           <b>item:</b> {props.item} <br />
@@ -525,7 +528,7 @@ function FulfillBox(props) {
     event.preventDefault();
     const body = { reqId: props.reqId, fulfillerId: props.userId };
     post("/api/unfulfill", body).then((result) => {
-      console.log("result", result);
+      //console.log("result", result);
     });
   };
 
@@ -673,10 +676,8 @@ const RequestMatch = (props) => {
   if (!props.userId) {
     return (
       <>
-        <NavBarLogo/>
-        <div className="requests-container requests-item">
-          log in to view your request matches!
-        </div>
+        <NavBarLogo />
+        <div className="requests-container requests-item">log in to view your request matches!</div>
       </>
     );
   }

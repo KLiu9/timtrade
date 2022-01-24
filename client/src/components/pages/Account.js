@@ -494,7 +494,7 @@ function FulfillBox(props) {
     event.preventDefault();
     const body = { reqId: props.reqId, fulfillerId: props.userId };
     post("/api/unclaim", body).then((result) => {
-      console.log("result", result);
+      //console.log("result", result);
     });
   };
 
@@ -539,7 +539,7 @@ function FulfillBox(props) {
             type: props.type,
           };
           post("/api/deleteItem", body).then((item) => {
-            console.log("item", item);
+            //console.log("item", item);
           });
         }
         //handleRatingClose();
