@@ -38,8 +38,12 @@ const EditAccount = (props) => {
   }, [props.userId]);
 
   if (!user) {
-    // return <div className="u-margin">loading...</div>;
-    return <div className="loader"></div>;
+    return (
+      <>
+        <NavBarLogo/>
+        <div className="loader"></div>
+      </>
+    );
   }
 
   const handleUsernameChange = (event) => {

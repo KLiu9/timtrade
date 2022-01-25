@@ -58,43 +58,39 @@ function Box(props) {
     >
       <div className="fulfill-item-box-inner">
         <div className="fulfill-item-box-front">
-          {/* front side */}
-          <b>item:</b> {props.item} <br />
-          <img src={props.image} style={{ width: "auto", height: "auto" }} />
-          <br />
-          <b style={{ textDecoration: "underline" }}>
-            {!reqCreator ? "" : "@" + reqCreator.username} 
-          </b>
-          <br/>
-          wants to {props.type}
-          {/* {props.type} */}
-          <br />
-          {/*<button
-            type="resolve"
-            className="requestmatch-resolve"
-            value="Resolve"
-            style={{
-              backgroundColor: "#E5E5E5",
-            }}
-            // onClick={handleLearn}
-          >
-            learn more
-          </button>*/}
+          <div style={{ height: "50px" }}><b>item:</b> {props.item} </div>
+          <img src={props.image} style={{ width: "auto", height: "150px" }} />
+          <div>
+            <b style={{ textDecoration: "underline" }}>
+              {!reqCreator ? "@..." : "@" + reqCreator.username} 
+            </b>
+            <p>wants to {props.type}</p>
+          </div>
         </div>
         <div className="fulfill-item-box-back">
           {/* back side */}
-          <b>item:</b> {props.item} <br />
-          <b>description:</b> {props.description} <br />
-          <br />
-          <br />
-          <br />
-          <button
-            className="requestmatch-resolve"
-            style={{ backgroundColor: "var(--white)", fontWeight: "bold", width: "auto" }}
-            onClick={handleOpen}
-          >
-            {!reqCreator ? "" : "@" + reqCreator.username}
-          </button>
+          <div>
+            <b>item:</b> {props.item} <br />
+            <b>description:</b> {props.description} <br />
+          </div>
+          <div>
+            <button
+              className="requestmatch-resolve"
+              style={{ backgroundColor: "var(--white)", fontWeight: "bold", marginBottom: "15px" }}
+              onClick={handleOpen}
+            >
+              {!reqCreator ? "" : "@" + reqCreator.username}
+            </button>
+            <button
+              type="resolve"
+              className="requestmatch-resolve"
+              value="Resolve"
+              onClick={handleClaim}
+              style={{marginBottom: "10px"}}
+            >
+              claim
+            </button>
+          </div>
           <Modal className="modal" isOpen={PopUp} ariaHideApp={false}>
             <div
               style={{ backgroundColor: colors[props.index % colors.length], borderRadius: "24px" }}
@@ -144,16 +140,6 @@ function Box(props) {
               </div>
             </div>
           </Modal>
-          <br />
-          <br />
-          <button
-            type="resolve"
-            className="requestmatch-resolve"
-            value="Resolve"
-            onClick={handleClaim}
-          >
-            claim
-          </button>
           <Modal className="modal2" isOpen={PopUpFulfill} ariaHideApp={false}>
             <div
               style={{ backgroundColor: colors[props.index % colors.length], borderRadius: "24px" }}
@@ -211,33 +197,49 @@ const Explore = (props) => {
   }
 
   const [user, setUser] = useState();
-  const [allUserInfo, setAllUserInfo] = useState(true);
+  const [fetched, setFetched] = useState(false);
   const [listings, setListings] = useState([]);
   const [unclaimedListings, setUnclaimedListings] = useState([]);
 
   useEffect(() => {
     get("/api/user", { userid: props.userId }).then((userObj) => {
       setUser(userObj);
+      setFetched(true);
       get("/api/allListings", {}).then((itemObjs) => {
         setListings(itemObjs);
       });
-    }); /**HI WHY DOESN'T THIS WORK ANYMORE IF YOU ADD A PARAMETER INSTEAD OF [] */
-    /*setAllUserInfo(
-      !user ||
-        !user.username ||
-        !user.kerb ||
-        !user.contactMethod1 ||
-        !user.contactDetails1 ||
-        !user.contactMethod2 ||
-        !user.contactDetails2 ||
-        !user.location
-    ); */ get(
-      "/api/unclaimedListings",
-      {}
-    ).then((itemObjs) => {
+    }); 
+    get("/api/unclaimedListings", {}).then((itemObjs) => {
       setUnclaimedListings(itemObjs);
     });
   }, [unclaimedListings]);
+
+  if ( !fetched ) {
+    return (
+      <>
+        <NavBarLogo/>
+        <div className="loader"></div>
+      </>
+    );
+  }
+
+  if (!user || 
+    !user.username ||
+    !user.kerb ||
+    !user.contactMethod1 ||
+    !user.contactDetails1 ||
+    !user.contactMethod2 ||
+    !user.contactDetails2 ||
+    !user.location) {
+      return (
+        <>
+          <NavBarLogo/>
+          <div className="requests-container requests-item">
+            enter all account info before exploring items!
+          </div>
+        </>
+    );
+  };
 
   const { search } = window.location;
   const query = new URLSearchParams(search).get("s");
@@ -295,7 +297,7 @@ const Explore = (props) => {
     );
   }
 
-  return allUserInfo ? (
+  return (
     <>
       <NavBar />
       <div style={{ padding: "0px 50px", marginLeft: "1%" }}>
@@ -306,10 +308,6 @@ const Explore = (props) => {
         <div className="fulfill-container">{listingsList}</div>
       </div>
     </>
-  ) : (
-    <div className="requests-container requests-item">
-      enter all account info before exploring items!
-    </div>
   );
 };
 

@@ -23,25 +23,41 @@ const Requests = (props) => {
   }
 
   const [user, setUser] = useState();
-  const [allUserInfo, setAllUserInfo] = useState(true);
+  const [fetched, setFetched] = useState(false);
   useEffect(() => {
     get("/api/user", { userid: props.userId }).then((userObj) => {
       setUser(userObj);
+      setFetched(true);
     });
-    // ensures user has entered all info in before accessing page
-    setAllUserInfo(
-      !user ||
-        !user.username ||
-        !user.kerb ||
-        !user.contactMethod1 ||
-        !user.contactDetails1 ||
-        !user.contactMethod2 ||
-        !user.contactDetails2 ||
-        !user.location
-    );
   }, []);
 
-  return allUserInfo ? (
+  if ( !fetched ) {
+    return (
+      <>
+        <NavBarLogo/>
+        <div className="loader"></div>
+      </>
+    );
+  }
+
+  if (!user || !user.username ||
+    !user.kerb ||
+    !user.contactMethod1 ||
+    !user.contactDetails1 ||
+    !user.contactMethod2 ||
+    !user.contactDetails2 ||
+    !user.location) {
+      return (
+        <>
+          <NavBarLogo/>
+          <div className="requests-container requests-item">
+            enter all account info before requesting items!
+          </div>
+        </>
+    );
+  };
+
+  return (
     <div>
       <NavBar />
       <div className="requests-container" style={{ marginTop: "-3%" }}>
@@ -62,10 +78,6 @@ const Requests = (props) => {
           </Link>
         </div>
       </div>
-    </div>
-  ) : (
-    <div className="requests-container requests-item">
-      enter all account info before requesting items!
     </div>
   );
 };

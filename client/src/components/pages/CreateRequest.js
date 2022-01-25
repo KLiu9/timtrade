@@ -30,7 +30,7 @@ const CreateRequest = (props) => {
   }
 
   const [user, setUser] = useState();
-  const [allUserInfo, setAllUserInfo] = useState(true);
+  const [fetched, setFetched] = useState(false);
   const [values, setValues] = useState(initialValues);
   const [PopUp, setPopUp] = useState(false);
 
@@ -40,18 +40,45 @@ const CreateRequest = (props) => {
   useEffect(() => {
     get("/api/user", { userid: props.userId }).then((userObj) => {
       setUser(userObj);
+      setFetched(true);
     });
-    setAllUserInfo(
-      !user ||
-        !user.username ||
-        !user.kerb ||
-        !user.contactMethod1 ||
-        !user.contactDetails1 ||
-        !user.contactMethod2 ||
-        !user.contactDetails2 ||
-        !user.location
-    );
+    // setAllUserInfo(
+    //   !user ||
+    //     !user.username ||
+    //     !user.kerb ||
+    //     !user.contactMethod1 ||
+    //     !user.contactDetails1 ||
+    //     !user.contactMethod2 ||
+    //     !user.contactDetails2 ||
+    //     !user.location
+    // );
   }, []);
+
+  if ( !fetched ) {
+    return (
+      <>
+        <NavBarLogo/>
+        <div className="loader"></div>
+      </>
+    );
+  }
+
+  if (!user || !user.username ||
+    !user.kerb ||
+    !user.contactMethod1 ||
+    !user.contactDetails1 ||
+    !user.contactMethod2 ||
+    !user.contactDetails2 ||
+    !user.location) {
+      return (
+        <>
+          <NavBarLogo/>
+          <div className="requests-container requests-item">
+            enter all account info before creating requests!
+          </div>
+        </>
+    );
+  };
 
   const handleItemChange = (event) => {
     const prompt = event.target.value;
@@ -120,7 +147,7 @@ const CreateRequest = (props) => {
     "other",
   ];
 
-  return allUserInfo ? (
+  return (
     <div>
       <NavBar />
       <div>
@@ -224,10 +251,6 @@ const CreateRequest = (props) => {
           </form>
         </div>
       </div>
-    </div>
-  ) : (
-    <div className="requests-container requests-item">
-      enter all account info before creating requests!
     </div>
   );
 };

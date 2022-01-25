@@ -8,7 +8,7 @@ const NotFound = () => {
     <div>
       <NavBar />
       <div className="u-margin" style={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center"}}>
-          <img src={notfound} width="35%" height="35%" class="center" />
+          <img src={notfound} width="35%" height="35%" className="center" />
           <img src={beaver} width="35%" height="35%"/>
           <p style={{ fontStyle: "italic" }}> the page you requested couldn't be found.</p>
       </div>

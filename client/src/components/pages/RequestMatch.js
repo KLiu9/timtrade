@@ -212,32 +212,24 @@ function Box(props) {
     >
       <div className="fulfill-item-box-inner">
         <div className="fulfill-item-box-front">
-          <b>item:</b> {props.item} <br />
-          <img src={props.image} style={{ width: "auto", height: "auto" }} />
-          <br />
-          {!props.fulfilled || props.fulfilled.length === 0 ? (
-            <>
+          <div style={{height: "60px"}}><b>item:</b> {props.item}</div>
+          <img src={props.image} style={{ width: "auto", height: "150px" }} />
+          <div style={{height: "30px"}}>
+            {!props.fulfilled || props.fulfilled.length === 0 ? (
               <b>waiting to be fulfilled...</b>
-            </>
-          ) : (
-            <>
+            ) : (
               <b>your request has been fulfilled!</b>
-            </>
-          )}
-          <br />
-          {tradeInfo}
+            )}
+          </div>
+          <div>{tradeInfo}</div>
         </div>
         <div className="fulfill-item-box-back">
-          <b>item:</b> {props.item} <br />
-          <b>description:</b> {props.description} <br />
-          <br />
-          <br />
+          <div>
+            <b>item:</b> {props.item} <br />
+            <b>description:</b> {props.description} <br />
+          </div>
           {!props.fulfilled || props.fulfilled.length === 0 ? (
             <>
-              <b>waiting to be fulfilled...</b>
-              <br />
-              <br />
-              <br />
               <button
                 type="resolve"
                 className="requestmatch-resolve"
@@ -534,16 +526,13 @@ function FulfillBox(props) {
   const handleUnfulfill = (event) => {
     event.preventDefault();
     const body = { reqId: props.reqId, fulfillerId: props.userId };
-    post("/api/unfulfill", body).then((result) => {
-      //console.log("result", result);
-    });
+    post("/api/unfulfill", body);
   };
 
   const handleDelete = () => {
     setConfirmationPopUp(true);
   };
 
-  //i = (i + 1) % colors.length;
   let number = "1";
   if (props.time === "weeks") {
     number = "2";
@@ -557,31 +546,33 @@ function FulfillBox(props) {
       <div className="fulfill-item-box-inner">
         <div className="fulfill-item-box-front">
           {/* front side */}
-          <b>item:</b> {props.item} <br />
+          <div><b>item:</b> {props.item}</div>
           <img src={props.image} style={{ width: "auto", height: "auto" }} />
-          <br />
           <b style={{ textDecoration: "underline" }}>
             {!reqCreator ? "" : "@" + reqCreator.username}
           </b>
-          <br />
-          {tradeInfo}
-          <br />
+          <div>{tradeInfo}</div>
         </div>
         <div className="fulfill-item-box-back">
           {/* back side */}
-          <b>item:</b> {props.item} <br />
-          <b>description:</b> {props.description} <br />
-          <br />
-          {/* <b>{props.creator}</b> */}
-          <br />
-          <br />
-          <button
-            className="requestmatch-resolve"
-            style={{ backgroundColor: "var(--white)", fontWeight: "bold", width: "auto" }}
-            onClick={handleOpen}
-          >
-            {!reqCreator ? "" : "@" + reqCreator.username}
-          </button>
+          <div><b>item:</b> {props.item} <br />
+          <b>description:</b> {props.description}</div>
+          <div>
+            <button
+              className="requestmatch-resolve"
+              style={{ backgroundColor: "var(--white)", fontWeight: "bold", marginBottom: "15px" }}
+              onClick={handleOpen}>
+              {!reqCreator ? "" : "@" + reqCreator.username}
+            </button>
+            <button
+              type="resolve"
+              className="requestmatch-resolve"
+              value="Resolve"
+              onClick={handleDelete}
+              style={{marginBottom: "10px"}}>
+              unfulfill
+            </button>
+          </div>
           <Modal className="modal" isOpen={PopUp} ariaHideApp={false}>
             <div
               style={{ backgroundColor: colors[props.index % colors.length], borderRadius: "24px" }}
@@ -629,16 +620,6 @@ function FulfillBox(props) {
               <br />
             </div>
           </Modal>
-          <br />
-          <br />
-          <button
-            type="resolve"
-            className="requestmatch-resolve"
-            value="Resolve"
-            onClick={handleDelete}
-          >
-            unfulfill
-          </button>
           <Modal className="modal3" isOpen={confirmationPopUp} ariaHideApp={false}>
             <div
               style={{
@@ -688,13 +669,14 @@ const RequestMatch = (props) => {
   }
 
   const [user, setUser] = useState();
-  const [allUserInfo, setAllUserInfo] = useState(true);
+  const [fetched, setFetched] = useState(false);
   const [requests, setRequests] = useState([]);
   const [allRequests, setAllRequests] = useState([]);
 
   useEffect(() => {
     get("/api/user", { userid: props.userId }).then((userObj) => {
       setUser(userObj);
+      setFetched(true);
       get("/api/requests", { creator: props.userId }).then((requestObjs) => {
         setRequests(requestObjs);
       });
@@ -702,10 +684,33 @@ const RequestMatch = (props) => {
         setAllRequests(requestObjs);
       });
     });
-    // FIGURE OUT WHY THIS DOESNT WORK WHEN [] IS NOT THE SECOND PARAMETER OF USEEFFECT
-    // setAllUserInfo(!user || !user.username || !user.kerb || !user.contactMethod1 || !user.contactDetails1 ||
-    //   !user.contactMethod2 || !user.contactDetails2 || !user.location);
   }, [props.userId, requests]);
+
+  if ( !fetched ) {
+    return (
+      <>
+        <NavBarLogo/>
+        <div className="loader"></div>
+      </>
+    );
+  }
+
+  if (!user || !user.username ||
+    !user.kerb ||
+    !user.contactMethod1 ||
+    !user.contactDetails1 ||
+    !user.contactMethod2 ||
+    !user.contactDetails2 ||
+    !user.location) {
+      return (
+        <>
+          <NavBarLogo/>
+          <div className="requests-container requests-item">
+            enter all account info before viewing matches!
+          </div>
+        </>
+    );
+  };
 
   let requestsList = null;
   const hasRequests = requests.length !== 0;
@@ -776,7 +781,7 @@ const RequestMatch = (props) => {
     );
   }
 
-  return allUserInfo ? (
+  return (
     <>
       <NavBar />
       <div style={{ padding: "0px 50px" }}>
@@ -792,10 +797,6 @@ const RequestMatch = (props) => {
         <div className="requestmatch-container">{fulfillsList2}</div>
       </div>
     </>
-  ) : (
-    <div className="requests-container requests-item">
-      enter all account info before viewing matches!
-    </div>
   );
 };
 
