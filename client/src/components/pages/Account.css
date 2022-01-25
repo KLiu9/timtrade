@@ -142,8 +142,8 @@
   height: 40px;
   /* -webkit-animation: spin 2s linear infinite; */
   animation: spin 1s linear infinite;
-  margin-left: 50%;
-  margin-top: 10%;
+  margin-left: 48%;
+  margin-top: 7%;
 }
 
 @keyframes spin {
@@ -153,4 +153,11 @@
   100% {
     transform: rotate(360deg);
   }
+}
+
+.loginimg-size {
+  width: 50%;
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
 }

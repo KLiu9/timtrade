@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { navigate } from "@reach/router";
 import { get, post } from "../../utilities";
 import Modal from "react-modal";
+import login from "../../../dist/images/login.png";
 
 import NavBar from "../modules/NavBar.js";
 import NavBarLogo from "../modules/NavBarLogo.js";
@@ -15,7 +16,12 @@ const EditAccount = (props) => {
     return (
       <>
         <NavBarLogo />
-        <div className="requests-container requests-item">log in to edit your account!</div>
+        <div className="requests-container requests-item">
+          <div className="flex-item" style={{ display: "block", textAlign: "center" }}>
+            <img className="loginimg-size" src={login} />
+            to edit your account!
+          </div>
+        </div>
       </>
     );
   }
@@ -38,8 +44,12 @@ const EditAccount = (props) => {
   }, [props.userId]);
 
   if (!user) {
-    // return <div className="u-margin">loading...</div>;
-    return <div className="loader"></div>;
+    return (
+      <>
+        <NavBarLogo />
+        <div className="loader"></div>
+      </>
+    );
   }
 
   const handleUsernameChange = (event) => {

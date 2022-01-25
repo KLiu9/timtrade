@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { navigate } from "@reach/router";
 import { get, post } from "../../utilities";
 import Modal from "react-modal";
+import login from "../../../dist/images/login.png";
 
 import NavBar from "../modules/NavBar.js";
 import NavBarLogo from "../modules/NavBarLogo.js";
@@ -22,13 +23,18 @@ const EditInventory = (props) => {
     return (
       <>
         <NavBarLogo />
-        <div className="requests-container requests-item">log in to add to your inventory!</div>
+        <div className="requests-container requests-item">
+          <div className="flex-item" style={{ display: "block", textAlign: "center" }}>
+            <img className="loginimg-size" src={login} />
+            to add to your inventory!
+          </div>
+        </div>
       </>
     );
   }
 
   const [user, setUser] = useState();
-  const [allUserInfo, setAllUserInfo] = useState(true);
+  const [fetched, setFetched] = useState(false);
   const [values, setValues] = useState(initialValues);
   const [PopUp, setPopUp] = useState(false);
 
@@ -38,18 +44,48 @@ const EditInventory = (props) => {
   useEffect(() => {
     get("/api/user", { userid: props.userId }).then((userObj) => {
       setUser(userObj);
+      setFetched(true);
     });
-    setAllUserInfo(
-      !user ||
-        !user.username ||
-        !user.kerb ||
-        !user.contactMethod1 ||
-        !user.contactDetails1 ||
-        !user.contactMethod2 ||
-        !user.contactDetails2 ||
-        !user.location
-    );
+    // setAllUserInfo(
+    //   !user ||
+    //     !user.username ||
+    //     !user.kerb ||
+    //     !user.contactMethod1 ||
+    //     !user.contactDetails1 ||
+    //     !user.contactMethod2 ||
+    //     !user.contactDetails2 ||
+    //     !user.location
+    // );
   }, []);
+
+  if (!fetched) {
+    return (
+      <>
+        <NavBarLogo />
+        <div className="loader"></div>
+      </>
+    );
+  }
+
+  if (
+    !user ||
+    !user.username ||
+    !user.kerb ||
+    !user.contactMethod1 ||
+    !user.contactDetails1 ||
+    !user.contactMethod2 ||
+    !user.contactDetails2 ||
+    !user.location
+  ) {
+    return (
+      <>
+        <NavBarLogo />
+        <div className="requests-container requests-item">
+          enter all account info before listing items!
+        </div>
+      </>
+    );
+  }
 
   const handleItemChange = (event) => {
     const prompt = event.target.value;
@@ -114,7 +150,7 @@ const EditInventory = (props) => {
     "other",
   ];
 
-  return allUserInfo ? (
+  return (
     <div>
       <NavBar />
       <div style={{ padding: "0px 50px" }}>
@@ -158,7 +194,7 @@ const EditInventory = (props) => {
               prompt={values.description}
               onChange={handleDescriptionChange}
               type="text"
-              placeholder="include specifications such as number, size, and more"
+              placeholder="include specifications such as pricing (if applicable), number, size, and more"
               className="createrequest-box"
               maxLength="100"
             />
@@ -200,10 +236,6 @@ const EditInventory = (props) => {
           </form>
         </div>
       </div>
-    </div>
-  ) : (
-    <div className="requests-container requests-item">
-      enter all account info before listing items!
     </div>
   );
 };

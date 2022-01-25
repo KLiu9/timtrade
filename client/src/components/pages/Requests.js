@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "@reach/router";
 import { get } from "../../utilities";
+import login from "../../../dist/images/login.png";
 
 import NavBar from "../modules/NavBar.js";
 import NavBarLogo from "../modules/NavBarLogo.js";
@@ -17,31 +18,55 @@ const Requests = (props) => {
     return (
       <>
         <NavBarLogo />
-        <div className="requests-container requests-item">log in to create and view requests!</div>
+        <div className="requests-container requests-item">
+          <div className="flex-item" style={{ display: "block", textAlign: "center" }}>
+            <img className="loginimg-size" src={login} />
+            to create and view requests!
+          </div>
+        </div>
       </>
     );
   }
 
   const [user, setUser] = useState();
-  const [allUserInfo, setAllUserInfo] = useState(true);
+  const [fetched, setFetched] = useState(false);
   useEffect(() => {
     get("/api/user", { userid: props.userId }).then((userObj) => {
       setUser(userObj);
+      setFetched(true);
     });
-    // ensures user has entered all info in before accessing page
-    setAllUserInfo(
-      !user ||
-        !user.username ||
-        !user.kerb ||
-        !user.contactMethod1 ||
-        !user.contactDetails1 ||
-        !user.contactMethod2 ||
-        !user.contactDetails2 ||
-        !user.location
-    );
   }, []);
 
-  return allUserInfo ? (
+  if (!fetched) {
+    return (
+      <>
+        <NavBarLogo />
+        <div className="loader"></div>
+      </>
+    );
+  }
+
+  if (
+    !user ||
+    !user.username ||
+    !user.kerb ||
+    !user.contactMethod1 ||
+    !user.contactDetails1 ||
+    !user.contactMethod2 ||
+    !user.contactDetails2 ||
+    !user.location
+  ) {
+    return (
+      <>
+        <NavBarLogo />
+        <div className="requests-container requests-item">
+          enter all account info before requesting items!
+        </div>
+      </>
+    );
+  }
+
+  return (
     <div>
       <NavBar />
       <div className="requests-container" style={{ marginTop: "-3%" }}>
@@ -62,10 +87,6 @@ const Requests = (props) => {
           </Link>
         </div>
       </div>
-    </div>
-  ) : (
-    <div className="requests-container requests-item">
-      enter all account info before requesting items!
     </div>
   );
 };

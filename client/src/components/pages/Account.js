@@ -7,6 +7,7 @@ import StarRating from "../modules/StarRating.js";
 import NavBar from "../modules/NavBar.js";
 import NavBarLogo from "../modules/NavBarLogo.js";
 import ImageDict from "../modules/ImageDict.js";
+import login from "../../../dist/images/login.png";
 
 import "../../utilities.css";
 import "./CreateRequest.css";
@@ -144,12 +145,12 @@ function Box(props) {
       <div className="fulfill-item-box-inner">
         <div className="fulfill-item-box-front">
           {/* front side */}
-          <div>
+          <div style={{ height: "50px" }}>
             <b>item:</b> {props.item} <br />
           </div>
-          <img src={props.image} style={{ width: "auto", height: "auto" }} />
+          <img src={props.image} style={{ width: "auto" }} />
           <br />
-          <div>
+          <div style={{ marginBottom: "20px" }}>
             {!props.claimed || props.claimed.length === 0 ? (
               <>
                 <b>waiting to be claimed...</b>
@@ -173,24 +174,24 @@ function Box(props) {
         </div>
         <div className="fulfill-item-box-back">
           {/* back side */}
-          <b>item:</b> {props.item} <br />
-          <b>description:</b> {props.description} <br />
-          <b>type:</b> {props.type} <br />
-          <br />
-          <br />
+          <div>
+            <b>item:</b> {props.item} <br />
+            <b>description:</b> {props.description} <br />
+            <b>type:</b> {props.type}
+          </div>
           {!props.claimed || props.claimed.length === 0 ? (
             <>
-              <b>waiting to be claimed...</b>
-              <br />
-              <br />
-              <button
-                type="resolve"
-                className="requestmatch-resolve"
-                value="Resolve"
-                onClick={handleDelete}
-              >
-                delete
-              </button>
+              <div>
+                <button
+                  type="resolve"
+                  className="requestmatch-resolve"
+                  value="Resolve"
+                  onClick={handleDelete}
+                  style={{ marginBottom: "10px" }}
+                >
+                  delete
+                </button>
+              </div>
               <Modal className="modal3" isOpen={confirmationPopUp} ariaHideApp={false}>
                 <div
                   style={{
@@ -226,13 +227,28 @@ function Box(props) {
             </>
           ) : (
             <>
-              <button
-                className="requestmatch-resolve"
-                style={{ backgroundColor: "var(--white)", fontWeight: "bold", width: "auto" }}
-                onClick={handleOpen}
-              >
-                {"@" + claimer.username}
-              </button>
+              <div>
+                <button
+                  className="requestmatch-resolve"
+                  style={{
+                    backgroundColor: "var(--white)",
+                    fontWeight: "bold",
+                    marginBottom: "15px",
+                  }}
+                  onClick={handleOpen}
+                >
+                  {"@" + claimer.username}
+                </button>
+                <button
+                  type="resolve"
+                  className="requestmatch-resolve"
+                  value="Resolve"
+                  onClick={handleDelete}
+                  style={{ marginBottom: "10px" }}
+                >
+                  delete
+                </button>
+              </div>
               <Modal className="modal" isOpen={PopUp} ariaHideApp={false}>
                 <div
                   style={{
@@ -283,16 +299,6 @@ function Box(props) {
                   </div>
                 </div>
               </Modal>
-              <br />
-              <br />
-              <button
-                type="resolve"
-                className="requestmatch-resolve"
-                value="Resolve"
-                onClick={handleDelete}
-              >
-                delete
-              </button>
               <Modal className="modal3" isOpen={confirmationPopUp} ariaHideApp={false}>
                 <div
                   style={{
@@ -443,29 +449,56 @@ function FulfillBox(props) {
       <div className="fulfill-item-box-inner">
         <div className="fulfill-item-box-front">
           {/* front side */}
-          <b>item:</b> {props.item} <br />
+          <div style={{ height: "40px" }}>
+            <b>item:</b> {props.item}
+          </div>
           <img src={props.image} style={{ width: "auto", height: "auto" }} />
-          <br />
-          <b style={{ textDecoration: "underline" }}>
-            {!itemCreator ? "" : "@" + itemCreator.username}
-          </b>
-          <br />
-          {props.type}
-          <br />
+          <div>
+            <b style={{ textDecoration: "underline" }}>
+              {!itemCreator ? "" : "@" + itemCreator.username}
+            </b>
+            <div>{props.type}</div>
+          </div>
         </div>
         <div className="fulfill-item-box-back">
           {/* back side */}
-          <b>item:</b> {props.item} <br />
-          <b>description:</b> {props.description} <br />
-          <br />
-          <br />
-          <button
-            className="requestmatch-resolve"
-            style={{ backgroundColor: "var(--white)", fontWeight: "bold", width: "auto" }}
-            onClick={handleOpen}
-          >
-            {!itemCreator ? "" : "@" + itemCreator.username}
-          </button>
+          <div>
+            <b>item:</b> {props.item} <br />
+            <b>description:</b> {props.description}
+          </div>
+          <div>
+            <button
+              className="requestmatch-resolve"
+              style={{
+                backgroundColor: "var(--white)",
+                fontWeight: "bold",
+                width: "auto",
+                marginBottom: "10px",
+              }}
+              onClick={handleOpen}
+            >
+              {!itemCreator ? "" : "@" + itemCreator.username}
+            </button>
+            <br />
+            <button
+              type="resolve"
+              className="requestmatch-resolve"
+              value="Resolve"
+              onClick={handleRatingOpen}
+              style={{ marginBottom: "10px" }}
+            >
+              resolve
+            </button>
+            <button
+              type="resolve"
+              className="requestmatch-resolve"
+              value="Resolve"
+              onClick={handleDelete}
+              style={{ marginBottom: "10px" }}
+            >
+              unclaim
+            </button>
+          </div>
           <Modal className="modal" isOpen={PopUp} ariaHideApp={false}>
             <div
               style={{ backgroundColor: colors[props.index % colors.length], borderRadius: "24px" }}
@@ -513,16 +546,6 @@ function FulfillBox(props) {
               <br />
             </div>
           </Modal>
-          <br />
-          <br />
-          <button
-            type="resolve"
-            className="requestmatch-resolve"
-            value="Resolve"
-            onClick={handleRatingOpen}
-          >
-            resolve
-          </button>
           <Modal className="modal" isOpen={ratingPopUp} ariaHideApp={false}>
             <div
               style={{
@@ -537,24 +560,6 @@ function FulfillBox(props) {
                 <form>
                   please rate your experience with{" "}
                   {itemCreator && <> {"@" + itemCreator.username} </>}:
-                  {/*<select
-                    prompt={rating}
-                    onChange={handleRatingChange}
-                    name="rating"
-                    className="createrequest-box"
-                    style={{
-                      backgroundColor: "var(--grey)",
-                      marginRight: "5%",
-                      marginTop: "2%",
-                    }}
-                  >
-                    <option value=""></option>
-                    <option value={5}>5</option>
-                    <option value={4}>4</option>
-                    <option value={3}>3</option>
-                    <option value={2}>2</option>
-                    <option value={1}>1</option>
-                  </select>*/}
                   <StarRating handleStarRating={handleStarRating} />
                   <button
                     type="submit"
@@ -592,15 +597,6 @@ function FulfillBox(props) {
               </div>
             </div>
           </Modal>
-          <br />
-          <button
-            type="resolve"
-            className="requestmatch-resolve"
-            value="Resolve"
-            onClick={handleDelete}
-          >
-            unclaim
-          </button>
           <Modal className="modal3" isOpen={confirmationPopUp} ariaHideApp={false}>
             <div
               style={{
@@ -644,7 +640,12 @@ const Account = (props) => {
     return (
       <>
         <NavBarLogo />
-        <div className="requests-container requests-item">log in to access your account!</div>
+        <div className="requests-container requests-item">
+          <div className="flex-item" style={{ display: "block", textAlign: "center" }}>
+            <img className="loginimg-size" src={login} />
+            to access your account!
+          </div>
+        </div>
       </>
     );
   }
@@ -666,8 +667,12 @@ const Account = (props) => {
   }, [listings]);
 
   if (!user) {
-    // return <div style={{ paddingLeft: "8%", paddingTop: "8%" }}>loading...</div>;
-    return <div className="loader"></div>;
+    return (
+      <>
+        <NavBarLogo />
+        <div className="loader"></div>
+      </>
+    );
   }
 
   let listingsList = null;
