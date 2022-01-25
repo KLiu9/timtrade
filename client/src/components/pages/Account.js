@@ -775,13 +775,15 @@ const Account = (props) => {
               ></input>
             </div>
             <div className="spacing">
-              <div className="accountinfo-label" style={{paddingBottom: "3%"}}>location:</div>
+              <div className="accountinfo-label" style={{ paddingBottom: "3%" }}>
+                location:
+              </div>
               <input placeholder={user.location} className="accountinfo-box" readOnly></input>
             </div>
           </div>
         </div>
         {/* INVENTORY SECTION */}
-        <div style={{ paddingTop: "25%" }}>
+        <div className="myinventory">
           <div className="user-box">
             <div className="user-title">my inventory</div>
             <button
@@ -798,7 +800,7 @@ const Account = (props) => {
             <div className="inventory-container">{listingsList}</div>
           </div>
         </div>
-        <div style={{ paddingTop: "30%" }}>
+        <div className="claimeditems">
           <div className="user-box">
             <div className="user-title">claimed items</div>
           </div>

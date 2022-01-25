@@ -47,6 +47,12 @@ router.get("/thisrequest", (req, res) => {
   });
 });
 
+router.get("/thislisting", (req, res) => {
+  Item.findById(req.query.listId).then((listing) => {
+    res.send(listing);
+  });
+});
+
 router.get("/allrequests", (req, res) => {
   Request.find({}).then((requests) => {
     res.send(requests);
