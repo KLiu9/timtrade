@@ -805,11 +805,10 @@ const RequestMatch = (props) => {
         <p className="requestmatch-title" style={{ marginTop: "-0.1%", marginBottom: "-0.1%" }}>
           request matches
         </p>
-        <div></div>
-        <br />
-        <br></br>
+        <br /><br />
         <p className="requestmatch-subtitle2">items you requested</p>
         <div className="requestmatch-container">{requestsList}</div>
+        
         <p className="requestmatch-subtitle">items you fulfilled</p>
         <div className="requestmatch-container">{fulfillsList2}</div>
       </div>

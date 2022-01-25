@@ -1,5 +1,5 @@
 .requestmatch-container {
-  padding: var(--m) var(--m) 0;
+  padding: var(--m) var(--m) var(--s) var(--m);
   background-color: var(--bg);
   line-height: 22px;
   text-align: left;
