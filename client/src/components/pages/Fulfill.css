@@ -7,7 +7,7 @@
   border-width: 0.5px;
   float: left;
   position: relative;
-  column-gap: 3%;
+  column-gap: 10px;
   overflow-y: auto;
   text-align: center;
   width: 95%;
@@ -17,19 +17,19 @@
   grid-auto-rows: 350px;
 }
 
-@media only screen and (min-width: 550px) {
+@media only screen and (min-width: 650px) {
   .fulfill-container {
     grid-template-columns: repeat(2, 1fr);
   }
 }
 
-@media only screen and (min-width: 800px) {
+@media only screen and (min-width: 950px) {
   .fulfill-container {
     grid-template-columns: repeat(3, 1fr);
   }
 }
 
-@media only screen and (min-width: 1200px) {
+@media only screen and (min-width: 1250px) {
   .fulfill-container {
     grid-template-columns: repeat(4, 1fr);
   }
