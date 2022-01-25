@@ -21,7 +21,6 @@ const initialFulfillValues = {
 };
 
 function Box(props) {
-  const [requests, setRequests] = useState([]);
   const [PopUp, setPopUp] = useState(false);
   const [fulfillers, setFulfillers] = useState([]);
   const [userPopUp, setUserPopUp] = useState(false);
@@ -65,9 +64,6 @@ function Box(props) {
 
   let fulfillerUsernames = [];
   useEffect(() => {
-    get("/api/requests", { creator: props.userId }).then((requestObjs) => {
-      setRequests(requestObjs);
-    });
     if (props.fulfilled && props.fulfilled.length !== 0) {
       for (let ind = 0; ind < props.fulfilled.length; ind++) {
         get("/api/user", { userid: props.fulfilled[ind] }).then((userObj) => {
@@ -85,32 +81,14 @@ function Box(props) {
   const handleResolve = (event) => {
     //this fn actually handles delete, not resolve
     event.preventDefault();
-
-    let done = false;
-    let i = 0;
-    while (!done && i < requests.length) {
-      if (
-        requests[i].name === props.item &&
-        requests[i].description === props.description &&
-        requests[i].type === props.type
-      ) {
-        done = true;
-      } else {
-        i++;
-      }
-    }
-
-    if (i < requests.length) {
-      requests.splice(i, 1);
-      const body = {
-        creator: props.creator,
-        name: props.item,
-        description: props.description,
-        time: props.time,
-        type: props.type,
-      };
-      post("/api/deleterequest", body);
-    }
+    const body = {
+      creator: props.creator,
+      name: props.item,
+      description: props.description,
+      time: props.time,
+      type: props.type,
+    };
+    post("/api/deleterequest", body);
   };
 
   const handleSubmitRating = (event) => {
@@ -119,31 +97,14 @@ function Box(props) {
       const body = { userid: fulfillValues.fulfiller, newrating: parseInt(fulfillValues.rating) };
       post("/api/updateRating", body).then((result) => {
         setFulfillValues(initialFulfillValues);
-        let done = false;
-        let i = 0;
-        while (!done && i < requests.length) {
-          if (
-            requests[i].name === props.item &&
-            requests[i].description === props.description &&
-            requests[i].type === props.type
-          ) {
-            done = true;
-          } else {
-            i++;
-          }
-        }
-
-        if (i < requests.length) {
-          requests.splice(i, 1);
-          const body = {
-            creator: props.creator,
-            name: props.item,
-            description: props.description,
-            time: props.time,
-            type: props.type,
-          };
-          post("/api/deleterequest", body);
-        }
+        const body = {
+          creator: props.creator,
+          name: props.item,
+          description: props.description,
+          time: props.time,
+          type: props.type,
+        };
+        post("/api/deleterequest", body);
         navigate("/requests/match");
       });
     } else {
@@ -160,7 +121,6 @@ function Box(props) {
   const handleStarRating = (StarRatingData) => {
     setStarRating(StarRatingData);
     setFulfillValues({ ...fulfillValues, rating: StarRatingData });
-    console.log("values", fulfillValues);
   };
 
   fulfillerUsernames = fulfillers.map((x) => (
