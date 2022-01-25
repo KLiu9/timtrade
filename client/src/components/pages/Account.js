@@ -625,7 +625,6 @@ const Account = (props) => {
     });*/
     get("/api/listingsByClaimer", { claimer: props.userId }).then((itemObjs) => {
       setClaimedListings(itemObjs);
-      //console.log(testListings);
     });
   }, [listings]);
 
@@ -737,6 +736,7 @@ const Account = (props) => {
               className="edit-profile"
               value="Submit"
               onClick={() => navigate("/account/edit/")}
+              style={{ backgroundColor: "var(--green)", boxShadow: "1px 1px var(--darkgreen)" }}
             >
               edit profile
             </button>
@@ -744,7 +744,7 @@ const Account = (props) => {
           <div className="accountinfo-container">
             <div className="spacing">
               <div className="accountinfo-label">username:</div>
-              <input placeholder={user.username} className="accountinfo-box" readOnly></input>
+              <input placeholder={user.username} className="accountinfo-box" readOnly />
             </div>
             <div className="spacing">
               <div className="accountinfo-label">kerb:</div>
@@ -755,28 +755,28 @@ const Account = (props) => {
               <input placeholder={user.contactMethod1} className="accountinfo-box" readOnly />
             </div>
             <div className="spacing">
-              <div className="accountinfo-label">details:</div>
+              <div className="accountinfo-label">{user.contactMethod1 ? (user.contactMethod1 + ":") : "details:"}</div>
               <input
                 placeholder={user.contactDetails1}
                 className="accountinfo-box"
                 readOnly
-              ></input>
+              />
             </div>
             <div className="spacing">
               <div className="accountinfo-label">alternative contact:</div>
-              <input placeholder={user.contactMethod2} className="accountinfo-box" readOnly></input>
+              <input placeholder={user.contactMethod2} className="accountinfo-box" readOnly />
             </div>
             <div className="spacing">
-              <div className="accountinfo-label">details:</div>
+              <div className="accountinfo-label">{user.contactMethod2 ? (user.contactMethod2 + ":") : "details:"}</div>
               <input
                 placeholder={user.contactDetails2}
                 className="accountinfo-box"
                 readOnly
-              ></input>
+              />
             </div>
             <div className="spacing">
               <div className="accountinfo-label" style={{paddingBottom: "3%"}}>location:</div>
-              <input placeholder={user.location} className="accountinfo-box" readOnly></input>
+              <input placeholder={user.location} className="accountinfo-box" readOnly />
             </div>
           </div>
         </div>
