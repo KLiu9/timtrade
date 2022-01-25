@@ -742,7 +742,7 @@ const Account = (props) => {
 
   let ratingPercent;
   if (user.ratings.length !== 0) {
-    ratingPercent = (user.ratings.reduce((a, b) => a + b, 0) / user.ratings.length) * 20;
+    ratingPercent = 100 - (user.ratings.reduce((a, b) => a + b, 0) / user.ratings.length) * 20;
   }
 
   user.name = user.name.toLowerCase();
