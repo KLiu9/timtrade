@@ -223,7 +223,7 @@ const Fulfill = (props) => {
         <div className="requests-container requests-item">
           <div className="flex-item" style={{ display: "block", textAlign: "center" }}>
             <img className="loginimg-size" src={login} />
-            to help out and fulfill requests!
+            log in to help out and fulfill requests!
           </div>
         </div>
       </>

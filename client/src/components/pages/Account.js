@@ -643,7 +643,7 @@ const Account = (props) => {
         <div className="requests-container requests-item">
           <div className="flex-item" style={{ display: "block", textAlign: "center" }}>
             <img className="loginimg-size" src={login} />
-            to access your account!
+            log in to access your account!
           </div>
         </div>
       </>

@@ -21,7 +21,7 @@ const Requests = (props) => {
         <div className="requests-container requests-item">
           <div className="flex-item" style={{ display: "block", textAlign: "center" }}>
             <img className="loginimg-size" src={login} />
-            to create and view requests!
+            log in to create and view requests!
           </div>
         </div>
       </>

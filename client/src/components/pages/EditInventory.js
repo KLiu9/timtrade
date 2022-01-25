@@ -26,7 +26,7 @@ const EditInventory = (props) => {
         <div className="requests-container requests-item">
           <div className="flex-item" style={{ display: "block", textAlign: "center" }}>
             <img className="loginimg-size" src={login} />
-            to add to your inventory!
+            log in to add to your inventory!
           </div>
         </div>
       </>

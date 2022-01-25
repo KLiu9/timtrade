@@ -19,7 +19,7 @@ const EditAccount = (props) => {
         <div className="requests-container requests-item">
           <div className="flex-item" style={{ display: "block", textAlign: "center" }}>
             <img className="loginimg-size" src={login} />
-            to edit your account!
+            log in to edit your account!
           </div>
         </div>
       </>
@@ -113,7 +113,7 @@ const EditAccount = (props) => {
 
   let ratingPercent;
   if (user.ratings.length !== 0) {
-    ratingPercent = (user.ratings.reduce((a, b) => a + b, 0) / user.ratings.length) * 20;
+    ratingPercent = 100 - (user.ratings.reduce((a, b) => a + b, 0) / user.ratings.length) * 20;
   }
 
   user.name = user.name.toLowerCase();
