@@ -756,7 +756,7 @@ const RequestMatch = (props) => {
     fulfillsList2 = (
       <div style={{ paddingLeft: "10px", fontStyle: "italic" }}>
         <br />
-        you have not fulfilled any requests!
+        no fulfilled requests!
       </div>
     );
   }
@@ -768,10 +768,11 @@ const RequestMatch = (props) => {
         <p className="requestmatch-title" style={{ marginTop: "-0.1%", marginBottom: "-0.1%" }}>
           request matches
         </p>
-        <br /><br />
+        <br />
+        <br />
         <p className="requestmatch-subtitle2">items you requested</p>
         <div className="requestmatch-container">{requestsList}</div>
-        
+
         <p className="requestmatch-subtitle">items you fulfilled</p>
         <div className="requestmatch-container">{fulfillsList2}</div>
       </div>

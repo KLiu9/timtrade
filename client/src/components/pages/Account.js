@@ -57,10 +57,13 @@ function Box(props) {
   return (
     <div
       className="fulfill-item-box"
-      style={{ backgroundColor: colors[props.index % colors.length],
+      style={{
+        backgroundColor: colors[props.index % colors.length],
         marginRight: "40px",
         marginLeft: "40px",
-        height: "300px" }}>
+        height: "300px",
+      }}
+    >
       <div className="fulfill-item-box-inner">
         <div className="fulfill-item-box-front">
           {/* front side */}
@@ -106,13 +109,18 @@ function Box(props) {
                   className="requestmatch-resolve"
                   value="Resolve"
                   onClick={handleDelete}
-                  style={{ marginBottom: "10px" }}>
+                  style={{ marginBottom: "10px" }}
+                >
                   delete
                 </button>
               </div>
               <Modal className="modal3" isOpen={confirmationPopUp} ariaHideApp={false}>
                 <div
-                  style={{ backgroundColor: colors[props.index % colors.length], borderRadius: "24px" }}>
+                  style={{
+                    backgroundColor: colors[props.index % colors.length],
+                    borderRadius: "24px",
+                  }}
+                >
                   <button className="modal-close" onClick={handleConfPopUpClose}>
                     ✘
                   </button>
@@ -127,7 +135,8 @@ function Box(props) {
                       className="requestmatch-resolve"
                       value="Resolve"
                       style={{ backgroundColor: "#E5E5E5" }}
-                      onClick={handleResolve}>
+                      onClick={handleResolve}
+                    >
                       delete
                     </button>
                     <br />
@@ -144,8 +153,10 @@ function Box(props) {
                   style={{
                     backgroundColor: "var(--white)",
                     fontWeight: "bold",
-                    marginBottom: "15px"}}
-                  onClick={handleOpen}>
+                    marginBottom: "15px",
+                  }}
+                  onClick={handleOpen}
+                >
                   {"@" + claimer.username}
                 </button>
                 <button
@@ -153,12 +164,18 @@ function Box(props) {
                   className="requestmatch-resolve"
                   value="Resolve"
                   onClick={handleDelete}
-                  style={{ marginBottom: "10px" }}>
+                  style={{ marginBottom: "10px" }}
+                >
                   delete
                 </button>
               </div>
               <Modal className="modal" isOpen={PopUp} ariaHideApp={false}>
-                <div style={{ backgroundColor: colors[props.index % colors.length], borderRadius: "24px" }}>
+                <div
+                  style={{
+                    backgroundColor: colors[props.index % colors.length],
+                    borderRadius: "24px",
+                  }}
+                >
                   <button className="modal-close" onClick={handleClose}>
                     ✘
                   </button>
@@ -204,7 +221,11 @@ function Box(props) {
               </Modal>
               <Modal className="modal3" isOpen={confirmationPopUp} ariaHideApp={false}>
                 <div
-                  style={{ backgroundColor: colors[props.index % colors.length], borderRadius: "24px" }}>
+                  style={{
+                    backgroundColor: colors[props.index % colors.length],
+                    borderRadius: "24px",
+                  }}
+                >
                   <button className="modal-close" onClick={handleConfPopUpClose}>
                     ✘
                   </button>
@@ -219,7 +240,8 @@ function Box(props) {
                       className="requestmatch-resolve"
                       value="Resolve"
                       style={{ backgroundColor: "#E5E5E5" }}
-                      onClick={handleResolve}>
+                      onClick={handleResolve}
+                    >
                       delete
                     </button>
                     <br />
@@ -236,7 +258,6 @@ function Box(props) {
 }
 
 function FulfillBox(props) {
-
   const [itemCreator, setItemCreator] = useState();
   const [PopUp, setPopUp] = useState(false);
   const [confirmationPopUp, setConfirmationPopUp] = useState(false);
@@ -312,7 +333,8 @@ function FulfillBox(props) {
         marginRight: "40px",
         marginLeft: "40px",
         height: "300px",
-      }}>
+      }}
+    >
       <div className="fulfill-item-box-inner">
         <div className="fulfill-item-box-front">
           {/* front side */}
@@ -342,7 +364,8 @@ function FulfillBox(props) {
                 width: "auto",
                 marginBottom: "10px",
               }}
-              onClick={handleOpen}>
+              onClick={handleOpen}
+            >
               {!itemCreator ? "" : "@" + itemCreator.username}
             </button>
             <br />
@@ -351,7 +374,8 @@ function FulfillBox(props) {
               className="requestmatch-resolve"
               value="Resolve"
               onClick={handleRatingOpen}
-              style={{ marginBottom: "10px" }}>
+              style={{ marginBottom: "10px" }}
+            >
               resolve
             </button>
             <button
@@ -359,12 +383,15 @@ function FulfillBox(props) {
               className="requestmatch-resolve"
               value="Resolve"
               onClick={handleDelete}
-              style={{ marginBottom: "10px" }}>
+              style={{ marginBottom: "10px" }}
+            >
               unclaim
             </button>
           </div>
           <Modal className="modal" isOpen={PopUp} ariaHideApp={false}>
-            <div style={{ backgroundColor: colors[props.index % colors.length], borderRadius: "24px" }}>
+            <div
+              style={{ backgroundColor: colors[props.index % colors.length], borderRadius: "24px" }}
+            >
               <button className="modal-close" onClick={handleClose}>
                 ✘
               </button>
@@ -409,7 +436,9 @@ function FulfillBox(props) {
             </div>
           </Modal>
           <Modal className="modal" isOpen={ratingPopUp} ariaHideApp={false}>
-            <div style={{ backgroundColor: colors[props.index % colors.length], borderRadius: "24px" }}>
+            <div
+              style={{ backgroundColor: colors[props.index % colors.length], borderRadius: "24px" }}
+            >
               <button className="modal-close" onClick={handleRatingClose}>
                 ✘
               </button>
@@ -422,14 +451,22 @@ function FulfillBox(props) {
                     type="submit"
                     className="createrequest-submit"
                     value="Submit"
-                    style={{ backgroundColor: "var(--oldgreen)",
+                    style={{
+                      backgroundColor: "var(--oldgreen)",
                       marginRight: "5%",
-                      marginBottom: "3%" }}
-                    onClick={handleSubmitRating}>
+                      marginBottom: "3%",
+                    }}
+                    onClick={handleSubmitRating}
+                  >
                     submit feedback
                   </button>
                   <Modal className="modal" isOpen={fillBoxesPopUp} ariaHideApp={false}>
-                    <div style={{ backgroundColor: colors[props.index % colors.length], borderRadius: "24px" }}>
+                    <div
+                      style={{
+                        backgroundColor: colors[props.index % colors.length],
+                        borderRadius: "24px",
+                      }}
+                    >
                       <button className="modal-close" onClick={handleFillBoxesClose}>
                         ✘
                       </button>
@@ -448,7 +485,8 @@ function FulfillBox(props) {
           </Modal>
           <Modal className="modal3" isOpen={confirmationPopUp} ariaHideApp={false}>
             <div
-              style={{ backgroundColor: colors[props.index % colors.length], borderRadius: "24px" }}>
+              style={{ backgroundColor: colors[props.index % colors.length], borderRadius: "24px" }}
+            >
               <button className="modal-close" onClick={handleConfPopUpClose}>
                 ✘
               </button>
@@ -463,7 +501,8 @@ function FulfillBox(props) {
                   className="requestmatch-resolve"
                   value="Resolve"
                   style={{ backgroundColor: "#E5E5E5" }}
-                  onClick={handleUnfulfill}>
+                  onClick={handleUnfulfill}
+                >
                   unclaim
                 </button>
                 <br />
@@ -541,7 +580,8 @@ const Account = (props) => {
         userId={props.userId}
         index={i}
         claimed={itemObj.claimed}
-        image={itemObj.name in ImageDict ? ImageDict[itemObj.name] : ImageDict["beaver"]}/>
+        image={itemObj.name in ImageDict ? ImageDict[itemObj.name] : ImageDict["beaver"]}
+      />
     ));
   } else {
     listingsList = (
@@ -561,7 +601,8 @@ const Account = (props) => {
         description={listObj.description}
         reqId={listObj._id}
         userId={props.userId}
-        image={listObj.name in ImageDict ? ImageDict[listObj.name] : ImageDict["beaver"]}/>
+        image={listObj.name in ImageDict ? ImageDict[listObj.name] : ImageDict["beaver"]}
+      />
     ));
   } else {
     claimsList2 = (
@@ -596,8 +637,8 @@ const Account = (props) => {
                   <div
                     id="innerdiv1"
                     className="innerdiv1"
-                    style={{ width: ratingPercent + "%" }}>
-                  </div>
+                    style={{ width: ratingPercent + "%" }}
+                  ></div>
                 </div>
               )}
             </div>
@@ -606,7 +647,8 @@ const Account = (props) => {
               className="edit-profile"
               value="Submit"
               onClick={() => navigate("/account/edit/")}
-              style={{ backgroundColor: "var(--green)", boxShadow: "1px 1px var(--darkgreen)" }}>
+              style={{ backgroundColor: "var(--green)", boxShadow: "1px 1px var(--darkgreen)" }}
+            >
               edit profile
             </button>
           </div>
@@ -624,7 +666,9 @@ const Account = (props) => {
               <input placeholder={user.contactMethod1} className="accountinfo-box" readOnly />
             </div>
             <div className="spacing">
-              <div className="accountinfo-label">{user.contactMethod1 ? (user.contactMethod1 + ":") : "details:"}</div>
+              <div className="accountinfo-label">
+                {user.contactMethod1 ? user.contactMethod1 + ":" : "details:"}
+              </div>
               <input placeholder={user.contactDetails1} className="accountinfo-box" readOnly />
             </div>
             <div className="spacing">
@@ -632,11 +676,15 @@ const Account = (props) => {
               <input placeholder={user.contactMethod2} className="accountinfo-box" readOnly />
             </div>
             <div className="spacing">
-              <div className="accountinfo-label">{user.contactMethod2 ? (user.contactMethod2 + ":") : "details:"}</div>
+              <div className="accountinfo-label">
+                {user.contactMethod2 ? user.contactMethod2 + ":" : "details:"}
+              </div>
               <input placeholder={user.contactDetails2} className="accountinfo-box" readOnly />
             </div>
             <div className="spacing">
-              <div className="accountinfo-label" style={{paddingBottom: "3%"}}>location:</div>
+              <div className="accountinfo-label" style={{ paddingBottom: "3%" }}>
+                location:
+              </div>
               <input placeholder={user.location} className="accountinfo-box" readOnly />
             </div>
           </div>
@@ -651,11 +699,15 @@ const Account = (props) => {
                 className="edit-profile"
                 value="Submit"
                 onClick={() => navigate("/account/editinventory/")}
-                style={{ width: "140px" }}>
+                style={{ width: "140px" }}
+              >
                 add to inventory
               </button>
             </div>
-            <div className="accountinfo-container" style={{ marginTop: "20px", paddingLeft: "0px", float: "right" }}>
+            <div
+              className="accountinfo-container"
+              style={{ marginTop: "20px", paddingLeft: "0px", float: "right" }}
+            >
               <div className="inventory-container">{listingsList}</div>
             </div>
           </div>
@@ -664,7 +716,10 @@ const Account = (props) => {
           <div className="user-box" style={{ float: "left" }}>
             <div className="user-title">claimed items</div>
           </div>
-          <div className="accountinfo-container" style={{ marginTop: "20px", paddingLeft: "0px", float: "right" }}>
+          <div
+            className="accountinfo-container"
+            style={{ marginTop: "20px", paddingLeft: "0px", float: "right" }}
+          >
             <div className="inventory-container">{claimsList2}</div>
           </div>
         </div>
