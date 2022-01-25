@@ -17,7 +17,6 @@ let colors = ["var(--purple)", "var(--green)", "var(--yellow)", "var(--blue)"];
 let i = 0;
 
 function Box(props) {
-
   const [items, setItems] = useState([]);
   const [confirmationPopUp, setConfirmationPopUp] = useState(false);
   const [PopUp, setPopUp] = useState(false);
@@ -450,7 +449,7 @@ function FulfillBox(props) {
           <b style={{ textDecoration: "underline" }}>
             {!itemCreator ? "" : "@" + itemCreator.username}
           </b>
-          <br/>
+          <br />
           {props.type}
           <br />
         </div>
