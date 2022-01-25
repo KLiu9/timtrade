@@ -43,10 +43,6 @@ function Box(props) {
       setPopUpFulfillOwn(true);
     } else {
       setPopUpFulfill(true);
-      /*const body = { reqId: props.reqId, creatorId: props.userId };
-      post("/api/updateListing", body).then((result) => {
-        console.log("result", result);
-      });*/
     }
   };
 

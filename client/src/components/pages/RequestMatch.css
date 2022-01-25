@@ -13,7 +13,7 @@
   float: left;
   position: relative;
   column-width: 250px;
-  column-gap: 0px;
+  column-gap: 15px;
   overflow-x: scroll;
   overscroll-behavior-x: contain;
   overscroll-behavior-y: auto;
