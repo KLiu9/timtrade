@@ -45,13 +45,7 @@ function Box(props) {
     } else {
       setPopUpFulfill(true);
       const body = { reqId: props.reqId, creatorId: props.userId };
-      post("/api/updateRequest", body).then((result) => {
-        //console.log("result", result);
-      });
-      /*const body = { _id: props.userId};
-    post("/api/updateUserInfo", body).then((result) => {
-      console.log("result", result);
-    });*/
+      post("/api/updateRequest", body);
     }
   };
 
@@ -77,7 +71,6 @@ function Box(props) {
             {!reqCreator ? "@..." : "@" + reqCreator.username}
           </b>
           <div>wants to {tradeInfo}</div>
-          {/* <div>{tradeInfo}</div> */}
         </div>
         <div className="fulfill-item-box-back">
           {/* back side */}
@@ -167,7 +160,7 @@ function Box(props) {
                       {
                         "thank you for fulfilling @" +
                           reqCreator.username +
-                          "'s request!" /** add more here? */
+                          "'s request!"
                       }
                     </p>
                     <br />
@@ -281,8 +274,6 @@ const Fulfill = (props) => {
       return reqs;
     }
     return reqs.filter((req) => {
-      //console.log(req);
-      //const reqLower = req.name.toLowerCase();
       return (
         req.name.toLowerCase().includes(query.toLowerCase()) ||
         req.description.toLowerCase().includes(query.toLowerCase())
@@ -293,10 +284,8 @@ const Fulfill = (props) => {
   let requestsList = null;
   const hasRequests = requests.length !== 0;
   if (hasRequests) {
-    //console.log("requests", requests);
     const timeOrder = ["hour", "day", "week", "weeks", "month"];
     requests.sort(function (a, b) {
-      //console.log("sorting");
       let time1 = timeOrder.findIndex((time) => time === a.time);
       let time2 = timeOrder.findIndex((time) => time === b.time);
       if (time1 < time2) {
@@ -307,10 +296,8 @@ const Fulfill = (props) => {
       }
       return 0;
     });
-    //console.log("after sort", requests);
     const filteredReqs = filterReqs(requests, query);
     if (filteredReqs.length !== 0) {
-      //console.log(filteredReqs);
       requestsList = filteredReqs.map((requestObj, i) => (
         <Box
           key={`Box_${requestObj._id}`}

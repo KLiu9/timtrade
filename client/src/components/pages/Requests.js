@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "@reach/router";
 import { get } from "../../utilities";
-import login from "../../../dist/images/login.png";
 
 import NavBar from "../modules/NavBar.js";
 import NavBarLogo from "../modules/NavBarLogo.js";
+
+import login from "../../../dist/images/login.png";
 import createreqimg from "../../../dist/images/createrequest2.png";
 import reqmatchimg from "../../../dist/images/requestmatch3.png";
 import reqmatchwords from "../../../dist/images/requestmatchwords.png";

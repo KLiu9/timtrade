@@ -98,20 +98,15 @@
 }
 
 .inventory-container {
-  /* display: flex; */
-  /* flex-wrap: wrap; */
   justify-content: flex-end;
-  /* gap: -10px; */
   column-width: 250px;
   column-gap: 10px;
-  /* row-gap: 20px; */
   overflow-x: scroll;
   overscroll-behavior-x: contain;
   overscroll-behavior-y: auto;
   margin-right: 0px;
   margin-top: 10px;
   height: 360px;
-  /* padding-right: 10%; */
 }
 
 /* makes containers the same size */

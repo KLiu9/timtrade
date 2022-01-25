@@ -1,15 +1,16 @@
 import React, { useState, useEffect } from "react";
 import { navigate } from "@reach/router";
 import { get, post } from "../../utilities";
+
 import Modal from "react-modal";
 import login from "../../../dist/images/login.png";
 import NavBar from "../modules/NavBar.js";
 import NavBarLogo from "../modules/NavBarLogo.js";
+import fillerimg from "../../../dist/images/createreqpage.png";
 
 import "../../utilities.css";
 import "./CreateRequest.css";
 import "./EditAccount.css";
-import fillerimg from "../../../dist/images/createreqpage.png";
 
 const initialValues = {
   item: "",
@@ -47,16 +48,6 @@ const CreateRequest = (props) => {
       setUser(userObj);
       setFetched(true);
     });
-    // setAllUserInfo(
-    //   !user ||
-    //     !user.username ||
-    //     !user.kerb ||
-    //     !user.contactMethod1 ||
-    //     !user.contactDetails1 ||
-    //     !user.contactMethod2 ||
-    //     !user.contactDetails2 ||
-    //     !user.location
-    // );
   }, []);
 
   if (!fetched) {
@@ -175,8 +166,7 @@ const CreateRequest = (props) => {
               onChange={handleItemChange}
               name="item"
               className="createrequest-box"
-              style={{ backgroundColor: "var(--purple)" }}
-            >
+              style={{ backgroundColor: "var(--purple)" }}>
               {itemOptions.map((option) => (
                 <option key={option} value={option}>
                   {option}
@@ -193,8 +183,7 @@ const CreateRequest = (props) => {
                   type="text"
                   placeholder="a succulent"
                   className="createrequest-box"
-                  maxLength="30"
-                />
+                  maxLength="30"/>
               </>
             )}
             <p className="request-label">add a brief description:</p>
@@ -204,16 +193,14 @@ const CreateRequest = (props) => {
               type="text"
               placeholder="include specifications such as number, size, and more"
               className="createrequest-box"
-              maxLength="100"
-            />
+              maxLength="100"/>
             <p className="request-label">type of request:</p>
             <select
               prompt={values.type}
               onChange={handleTypeChange}
               name="type"
               className="createrequest-box"
-              style={{ backgroundColor: "var(--blue)" }}
-            >
+              style={{ backgroundColor: "var(--blue)" }}>
               <option value="select"></option>
               <option value="buy">buy</option>
               <option value="trade">trade</option>
@@ -225,8 +212,7 @@ const CreateRequest = (props) => {
               name="time"
               className="createrequest-box"
               style={{ backgroundColor: "var(--yellow)" }}
-              onChange={handleTimeChange}
-            >
+              onChange={handleTimeChange}>
               <option value="select"></option>
               <option value="hour">within 1 hour</option>
               <option value="day">within 1 day</option>
@@ -239,8 +225,7 @@ const CreateRequest = (props) => {
               className="createrequest-submit"
               value="Submit"
               style={{ backgroundColor: "var(--oldgreen)" }}
-              onClick={handleSubmit}
-            >
+              onClick={handleSubmit}>
               submit
             </button>
             <Modal className="modal2" isOpen={PopUp} ariaHideApp={false}>

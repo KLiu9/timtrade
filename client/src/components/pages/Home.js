@@ -1,13 +1,9 @@
 import React, { useState } from "react";
 import { Link } from "@reach/router";
 import GoogleLogin, { GoogleLogout } from "react-google-login";
-import timtrade from "../../../dist/images/timtrade.png";
-//import beaverimg from "../../../dist/images/beaver icon.png";
 import Modal from "react-modal";
 
-import "../../utilities.css";
-import "./Home.css";
-import "./CreateRequest.css";
+import timtrade from "../../../dist/images/timtrade.png";
 import acc1 from "../../../dist/homeimages/accounthome.png";
 import acc2 from "../../../dist/homeimages/accounthome2.png";
 import acct from "../../../dist/homeimages/accounthometext.png";
@@ -20,6 +16,10 @@ import fult from "../../../dist/homeimages/fulfillhometext.png";
 import req1 from "../../../dist/homeimages/requesthome.png";
 import req2 from "../../../dist/homeimages/requesthome2.png";
 import reqt from "../../../dist/homeimages/requesthometext.png";
+
+import "../../utilities.css";
+import "./Home.css";
+import "./CreateRequest.css";
 
 const GOOGLE_CLIENT_ID = "113744910005-h4er20jijgm7isr3pf92sa2t062rk8l6.apps.googleusercontent.com";
 

@@ -25,10 +25,6 @@ function Box(props) {
   const handleOpen = () => setPopUp(true);
   const handleCloseFulfill = () => {
     setPopUpFulfill(false);
-    /*const body = { reqId: props.reqId, creatorId: props.userId };
-    post("/api/updateListing", body).then((result) => {
-      //console.log("result", result);
-    });*/
   };
   useEffect(() => {
     get("/api/user", { userid: props.creator }).then((userObj) => {
@@ -49,12 +45,9 @@ function Box(props) {
   const actualHandleClaim = () => {
     setPopUpFulfill(false);
     const body = { reqId: props.reqId, creatorId: props.userId };
-    post("/api/updateListing", body).then((result) => {
-      //console.log("result", result);
-    });
+    post("/api/updateListing", body);
   };
 
-  //console.log("hihi", reqCreator);
   i = (i + 1) % colors.length;
   return (
     <div
@@ -212,16 +205,12 @@ const Explore = (props) => {
 
   const [user, setUser] = useState();
   const [fetched, setFetched] = useState(false);
-  //const [listings, setListings] = useState([]);
   const [unclaimedListings, setUnclaimedListings] = useState([]);
 
   useEffect(() => {
     get("/api/user", { userid: props.userId }).then((userObj) => {
       setUser(userObj);
       setFetched(true);
-      /*get("/api/allListings", {}).then((itemObjs) => {
-        setListings(itemObjs);
-      });*/
     });
     get("/api/unclaimedListings", {}).then((itemObjs) => {
       setUnclaimedListings(itemObjs);
@@ -265,8 +254,6 @@ const Explore = (props) => {
       return items;
     }
     return items.filter((item) => {
-      //console.log(req);
-      //const reqLower = req.name.toLowerCase();
       return (
         item.name.toLowerCase().includes(query.toLowerCase()) ||
         item.description.toLowerCase().includes(query.toLowerCase())

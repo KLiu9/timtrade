@@ -33,10 +33,7 @@ function Box(props) {
   const [starRating, setStarRating] = useState(0);
 
   const handleClose = () => setPopUp(false);
-  const handleOpen = () => {
-    setPopUp(true);
-    //console.log("opened first");
-  };
+  const handleOpen = () => setPopUp(true);
   const handleUserClose = () => {
     setUserPopUp(false);
   };
@@ -68,7 +65,6 @@ function Box(props) {
 
   let fulfillerUsernames = [];
   useEffect(() => {
-    // document.title = "request matches";
     get("/api/requests", { creator: props.userId }).then((requestObjs) => {
       setRequests(requestObjs);
     });
@@ -113,14 +109,11 @@ function Box(props) {
         time: props.time,
         type: props.type,
       };
-      post("/api/deleterequest", body).then((request) => {
-        // console.log("request", request);
-      });
+      post("/api/deleterequest", body);
     }
   };
 
   const handleSubmitRating = (event) => {
-    //event.preventDefault();
     if (fulfillValues.fulfiller !== "" && fulfillValues.rating !== "") {
       event.preventDefault();
       const body = { userid: fulfillValues.fulfiller, newrating: parseInt(fulfillValues.rating) };
@@ -149,12 +142,8 @@ function Box(props) {
             time: props.time,
             type: props.type,
           };
-          post("/api/deleterequest", body).then((request) => {
-            //console.log("request", request);
-          });
+          post("/api/deleterequest", body);
         }
-        //handleRatingClose();
-        //handleUserClose();
         navigate("/requests/match");
       });
     } else {
@@ -166,16 +155,9 @@ function Box(props) {
   const handleFulfillerChange = (event) => {
     const prompt = event.target.value;
     setFulfillValues({ ...fulfillValues, fulfiller: prompt });
-    //setFulfiller(prompt);
-  };
-
-  const handleRatingChange = (event) => {
-    const prompt = event.target.value;
-    setFulfillValues({ ...fulfillValues, rating: prompt });
   };
 
   const handleStarRating = (StarRatingData) => {
-    //const prompt = event.target.value;
     setStarRating(StarRatingData);
     setFulfillValues({ ...fulfillValues, rating: StarRatingData });
     console.log("values", fulfillValues);
@@ -192,7 +174,6 @@ function Box(props) {
           margin: "5px",
         }}
         value={x.username}
-        //onClick={handleUserOpen}
         onClick={handleClick(x)}
       >
         {"@" + x.username}
@@ -394,24 +375,6 @@ function Box(props) {
                               ))}
                             </select>
                             please rate your experience with this user:
-                            {/*<select
-                              prompt={fulfillValues.rating}
-                              onChange={handleRatingChange}
-                              name="rating"
-                              className="createrequest-box"
-                              style={{
-                                backgroundColor: "var(--grey)",
-                                marginRight: "5%",
-                                marginTop: "2%",
-                              }}
-                            >
-                              <option value=""></option>
-                              <option value={5}>5</option>
-                              <option value={4}>4</option>
-                              <option value={3}>3</option>
-                              <option value={2}>2</option>
-                              <option value={1}>1</option>
-                            </select>*/}
                             <StarRating handleStarRating={handleStarRating} />
                             <button
                               type="submit"

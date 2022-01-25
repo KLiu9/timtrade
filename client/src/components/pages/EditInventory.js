@@ -15,7 +15,7 @@ const initialValues = {
   item: "",
   enterItem: "",
   description: "",
-  type: "", // add upload feature?
+  type: "",
 };
 
 const EditInventory = (props) => {
@@ -46,16 +46,6 @@ const EditInventory = (props) => {
       setUser(userObj);
       setFetched(true);
     });
-    // setAllUserInfo(
-    //   !user ||
-    //     !user.username ||
-    //     !user.kerb ||
-    //     !user.contactMethod1 ||
-    //     !user.contactDetails1 ||
-    //     !user.contactMethod2 ||
-    //     !user.contactDetails2 ||
-    //     !user.location
-    // );
   }, []);
 
   if (!fetched) {
@@ -108,7 +98,6 @@ const EditInventory = (props) => {
   };
 
   const handleSubmit = (event) => {
-    //console.log(values);
     if (
       values.item !== "" &&
       !(values.item === "other" && values.enterItem === "") &&
@@ -127,7 +116,6 @@ const EditInventory = (props) => {
       });
     } else {
       event.preventDefault();
-      //console.log("fill in all the boxes");
       handleOpen();
     }
   };

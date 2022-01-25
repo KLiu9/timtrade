@@ -18,7 +18,6 @@ let colors = ["var(--purple)", "var(--green)", "var(--yellow)", "var(--blue)"];
 let i = 0;
 
 function Box(props) {
-  //const [items, setItems] = useState([]);
   const [confirmationPopUp, setConfirmationPopUp] = useState(false);
   const [PopUp, setPopUp] = useState(false);
   const [claimer, setClaimer] = useState([]);
@@ -29,9 +28,6 @@ function Box(props) {
   };
 
   useEffect(() => {
-    /*get("/api/listings", { creator: props.userId }).then((itemObjs) => {
-      setItems(itemObjs);
-    });*/
     if (props.claimed && props.claimed.length !== 0) {
       get("/api/user", { userid: props.claimed[0] }).then((userObj) => {
         setClaimer(userObj);
@@ -49,31 +45,6 @@ function Box(props) {
 
   const handleResolve = (event) => {
     event.preventDefault();
-
-    /*let done = false;
-    let i = 0;
-    while (!done && i < items.length) {
-      if (
-        items[i].name === props.item &&
-        items[i].description === props.description &&
-        items[i].type === props.type
-      ) {
-        done = true;
-      } else {
-        i++;
-      }
-    }
-
-    if (i < items.length) {
-      items.splice(i, 1);
-      const body = {
-        creator: props.creator,
-        name: props.item,
-        description: props.description,
-        type: props.type,
-      };
-      post("/api/deleteItem", body);
-    }*/
     const body = {
       creator: props.creator,
       name: props.item,
@@ -86,13 +57,10 @@ function Box(props) {
   return (
     <div
       className="fulfill-item-box"
-      style={{
-        backgroundColor: colors[props.index % colors.length],
+      style={{ backgroundColor: colors[props.index % colors.length],
         marginRight: "40px",
         marginLeft: "40px",
-        height: "300px",
-      }}
-    >
+        height: "300px" }}>
       <div className="fulfill-item-box-inner">
         <div className="fulfill-item-box-front">
           {/* front side */}
@@ -138,18 +106,13 @@ function Box(props) {
                   className="requestmatch-resolve"
                   value="Resolve"
                   onClick={handleDelete}
-                  style={{ marginBottom: "10px" }}
-                >
+                  style={{ marginBottom: "10px" }}>
                   delete
                 </button>
               </div>
               <Modal className="modal3" isOpen={confirmationPopUp} ariaHideApp={false}>
                 <div
-                  style={{
-                    backgroundColor: colors[props.index % colors.length],
-                    borderRadius: "24px",
-                  }}
-                >
+                  style={{ backgroundColor: colors[props.index % colors.length], borderRadius: "24px" }}>
                   <button className="modal-close" onClick={handleConfPopUpClose}>
                     ✘
                   </button>
@@ -163,11 +126,8 @@ function Box(props) {
                       type="resolve"
                       className="requestmatch-resolve"
                       value="Resolve"
-                      style={{
-                        backgroundColor: "#E5E5E5",
-                      }}
-                      onClick={handleResolve}
-                    >
+                      style={{ backgroundColor: "#E5E5E5" }}
+                      onClick={handleResolve}>
                       delete
                     </button>
                     <br />
@@ -184,10 +144,8 @@ function Box(props) {
                   style={{
                     backgroundColor: "var(--white)",
                     fontWeight: "bold",
-                    marginBottom: "15px",
-                  }}
-                  onClick={handleOpen}
-                >
+                    marginBottom: "15px"}}
+                  onClick={handleOpen}>
                   {"@" + claimer.username}
                 </button>
                 <button
@@ -195,18 +153,12 @@ function Box(props) {
                   className="requestmatch-resolve"
                   value="Resolve"
                   onClick={handleDelete}
-                  style={{ marginBottom: "10px" }}
-                >
+                  style={{ marginBottom: "10px" }}>
                   delete
                 </button>
               </div>
               <Modal className="modal" isOpen={PopUp} ariaHideApp={false}>
-                <div
-                  style={{
-                    backgroundColor: colors[props.index % colors.length],
-                    borderRadius: "24px",
-                  }}
-                >
+                <div style={{ backgroundColor: colors[props.index % colors.length], borderRadius: "24px" }}>
                   <button className="modal-close" onClick={handleClose}>
                     ✘
                   </button>
@@ -252,11 +204,7 @@ function Box(props) {
               </Modal>
               <Modal className="modal3" isOpen={confirmationPopUp} ariaHideApp={false}>
                 <div
-                  style={{
-                    backgroundColor: colors[props.index % colors.length],
-                    borderRadius: "24px",
-                  }}
-                >
+                  style={{ backgroundColor: colors[props.index % colors.length], borderRadius: "24px" }}>
                   <button className="modal-close" onClick={handleConfPopUpClose}>
                     ✘
                   </button>
@@ -270,11 +218,8 @@ function Box(props) {
                       type="resolve"
                       className="requestmatch-resolve"
                       value="Resolve"
-                      style={{
-                        backgroundColor: "#E5E5E5",
-                      }}
-                      onClick={handleResolve}
-                    >
+                      style={{ backgroundColor: "#E5E5E5" }}
+                      onClick={handleResolve}>
                       delete
                     </button>
                     <br />
@@ -291,7 +236,7 @@ function Box(props) {
 }
 
 function FulfillBox(props) {
-  //const [items, setItems] = useState([]);
+
   const [itemCreator, setItemCreator] = useState();
   const [PopUp, setPopUp] = useState(false);
   const [confirmationPopUp, setConfirmationPopUp] = useState(false);
@@ -321,9 +266,6 @@ function FulfillBox(props) {
     get("/api/user", { userid: props.creator }).then((userObj) => {
       setItemCreator(userObj);
     });
-    /*get("/api/listings", { creator: props.creator }).then((itemObjs) => {
-      setItems(itemObjs);
-    });*/
   }, []);
 
   const handleUnfulfill = (event) => {
@@ -336,46 +278,16 @@ function FulfillBox(props) {
     setConfirmationPopUp(true);
   };
 
-  /*const handleRatingChange = (event) => {
-    const prompt = event.target.value;
-    setRating(prompt);
-  };*/
-
   const handleStarRating = (StarRatingData) => {
     setRating(StarRatingData);
   };
 
   const handleSubmitRating = (event) => {
-    //event.preventDefault();
     if (rating !== "") {
       event.preventDefault();
       const body = { userid: itemCreator._id, newrating: parseInt(rating) };
       post("/api/updateRating", body).then((result) => {
         setRating("");
-        /*let done = false;
-        let i = 0;
-        while (!done && i < items.length) {
-          if (
-            items[i].name === props.item &&
-            items[i].description === props.description &&
-            items[i].type === props.type
-          ) {
-            done = true;
-          } else {
-            i++;
-          }
-        }
-
-        if (i < items.length) {
-          items.splice(i, 1);
-          const body = {
-            creator: props.creator,
-            name: props.item,
-            description: props.description,
-            type: props.type,
-          };
-          post("/api/deleteItem", body);
-        }*/
         const body = {
           creator: props.creator,
           name: props.item,
@@ -383,8 +295,6 @@ function FulfillBox(props) {
           type: props.type,
         };
         post("/api/deleteItem", body);
-        //handleRatingClose();
-        //handleUserClose();
         navigate("/account");
       });
     } else {
@@ -402,8 +312,7 @@ function FulfillBox(props) {
         marginRight: "40px",
         marginLeft: "40px",
         height: "300px",
-      }}
-    >
+      }}>
       <div className="fulfill-item-box-inner">
         <div className="fulfill-item-box-front">
           {/* front side */}
@@ -433,8 +342,7 @@ function FulfillBox(props) {
                 width: "auto",
                 marginBottom: "10px",
               }}
-              onClick={handleOpen}
-            >
+              onClick={handleOpen}>
               {!itemCreator ? "" : "@" + itemCreator.username}
             </button>
             <br />
@@ -443,8 +351,7 @@ function FulfillBox(props) {
               className="requestmatch-resolve"
               value="Resolve"
               onClick={handleRatingOpen}
-              style={{ marginBottom: "10px" }}
-            >
+              style={{ marginBottom: "10px" }}>
               resolve
             </button>
             <button
@@ -452,15 +359,12 @@ function FulfillBox(props) {
               className="requestmatch-resolve"
               value="Resolve"
               onClick={handleDelete}
-              style={{ marginBottom: "10px" }}
-            >
+              style={{ marginBottom: "10px" }}>
               unclaim
             </button>
           </div>
           <Modal className="modal" isOpen={PopUp} ariaHideApp={false}>
-            <div
-              style={{ backgroundColor: colors[props.index % colors.length], borderRadius: "24px" }}
-            >
+            <div style={{ backgroundColor: colors[props.index % colors.length], borderRadius: "24px" }}>
               <button className="modal-close" onClick={handleClose}>
                 ✘
               </button>
@@ -505,12 +409,7 @@ function FulfillBox(props) {
             </div>
           </Modal>
           <Modal className="modal" isOpen={ratingPopUp} ariaHideApp={false}>
-            <div
-              style={{
-                backgroundColor: colors[props.index % colors.length],
-                borderRadius: "24px",
-              }}
-            >
+            <div style={{ backgroundColor: colors[props.index % colors.length], borderRadius: "24px" }}>
               <button className="modal-close" onClick={handleRatingClose}>
                 ✘
               </button>
@@ -523,22 +422,14 @@ function FulfillBox(props) {
                     type="submit"
                     className="createrequest-submit"
                     value="Submit"
-                    style={{
-                      backgroundColor: "var(--oldgreen)",
+                    style={{ backgroundColor: "var(--oldgreen)",
                       marginRight: "5%",
-                      marginBottom: "3%",
-                    }}
-                    onClick={handleSubmitRating}
-                  >
+                      marginBottom: "3%" }}
+                    onClick={handleSubmitRating}>
                     submit feedback
                   </button>
                   <Modal className="modal" isOpen={fillBoxesPopUp} ariaHideApp={false}>
-                    <div
-                      style={{
-                        backgroundColor: colors[props.index % colors.length],
-                        borderRadius: "24px",
-                      }}
-                    >
+                    <div style={{ backgroundColor: colors[props.index % colors.length], borderRadius: "24px" }}>
                       <button className="modal-close" onClick={handleFillBoxesClose}>
                         ✘
                       </button>
@@ -557,11 +448,7 @@ function FulfillBox(props) {
           </Modal>
           <Modal className="modal3" isOpen={confirmationPopUp} ariaHideApp={false}>
             <div
-              style={{
-                backgroundColor: colors[props.index % colors.length],
-                borderRadius: "24px",
-              }}
-            >
+              style={{ backgroundColor: colors[props.index % colors.length], borderRadius: "24px" }}>
               <button className="modal-close" onClick={handleConfPopUpClose}>
                 ✘
               </button>
@@ -575,11 +462,8 @@ function FulfillBox(props) {
                   type="resolve"
                   className="requestmatch-resolve"
                   value="Resolve"
-                  style={{
-                    backgroundColor: "#E5E5E5",
-                  }}
-                  onClick={handleUnfulfill}
-                >
+                  style={{ backgroundColor: "#E5E5E5" }}
+                  onClick={handleUnfulfill}>
                   unclaim
                 </button>
                 <br />
@@ -610,7 +494,6 @@ const Account = (props) => {
 
   const [user, setUser] = useState();
   const [listings, setListings] = useState([]);
-  //const [allListings, setAllListings] = useState([]);
   const [claimedListings, setClaimedListings] = useState([]);
 
   useEffect(() => {
@@ -620,9 +503,6 @@ const Account = (props) => {
         setListings(itemObjs);
       });
     });
-    /*get("/api/allListings", {}).then((listObjs) => {
-      setAllListings(listObjs);
-    });*/
     get("/api/listingsByClaimer", { claimer: props.userId }).then((itemObjs) => {
       setClaimedListings(itemObjs);
     });
@@ -661,8 +541,7 @@ const Account = (props) => {
         userId={props.userId}
         index={i}
         claimed={itemObj.claimed}
-        image={itemObj.name in ImageDict ? ImageDict[itemObj.name] : ImageDict["beaver"]}
-      />
+        image={itemObj.name in ImageDict ? ImageDict[itemObj.name] : ImageDict["beaver"]}/>
     ));
   } else {
     listingsList = (
@@ -670,15 +549,7 @@ const Account = (props) => {
     );
   }
 
-  //let claimsList = [];
   let claimsList2 = [];
-  /*if (allListings.length !== 0) {
-    for (let ind = 0; ind < allListings.length; ind++) {
-      if (allListings[ind].claimed.includes(props.userId)) {
-        claimsList.push(allListings[ind]);
-      }
-    }
-  }*/
   if (claimedListings.length !== 0) {
     claimsList2 = claimedListings.map((listObj, i) => (
       <FulfillBox
@@ -690,8 +561,7 @@ const Account = (props) => {
         description={listObj.description}
         reqId={listObj._id}
         userId={props.userId}
-        image={listObj.name in ImageDict ? ImageDict[listObj.name] : ImageDict["beaver"]}
-      />
+        image={listObj.name in ImageDict ? ImageDict[listObj.name] : ImageDict["beaver"]}/>
     ));
   } else {
     claimsList2 = (
@@ -726,8 +596,8 @@ const Account = (props) => {
                   <div
                     id="innerdiv1"
                     className="innerdiv1"
-                    style={{ width: ratingPercent + "%" }}
-                  ></div>
+                    style={{ width: ratingPercent + "%" }}>
+                  </div>
                 </div>
               )}
             </div>
@@ -736,8 +606,7 @@ const Account = (props) => {
               className="edit-profile"
               value="Submit"
               onClick={() => navigate("/account/edit/")}
-              style={{ backgroundColor: "var(--green)", boxShadow: "1px 1px var(--darkgreen)" }}
-            >
+              style={{ backgroundColor: "var(--green)", boxShadow: "1px 1px var(--darkgreen)" }}>
               edit profile
             </button>
           </div>
@@ -756,11 +625,7 @@ const Account = (props) => {
             </div>
             <div className="spacing">
               <div className="accountinfo-label">{user.contactMethod1 ? (user.contactMethod1 + ":") : "details:"}</div>
-              <input
-                placeholder={user.contactDetails1}
-                className="accountinfo-box"
-                readOnly
-              />
+              <input placeholder={user.contactDetails1} className="accountinfo-box" readOnly />
             </div>
             <div className="spacing">
               <div className="accountinfo-label">alternative contact:</div>
@@ -768,11 +633,7 @@ const Account = (props) => {
             </div>
             <div className="spacing">
               <div className="accountinfo-label">{user.contactMethod2 ? (user.contactMethod2 + ":") : "details:"}</div>
-              <input
-                placeholder={user.contactDetails2}
-                className="accountinfo-box"
-                readOnly
-              />
+              <input placeholder={user.contactDetails2} className="accountinfo-box" readOnly />
             </div>
             <div className="spacing">
               <div className="accountinfo-label" style={{paddingBottom: "3%"}}>location:</div>
@@ -789,8 +650,7 @@ const Account = (props) => {
               className="edit-profile"
               value="Submit"
               onClick={() => navigate("/account/editinventory/")}
-              style={{ width: "140px" }}
-            >
+              style={{ width: "140px" }}>
               add to inventory
             </button>
           </div>
