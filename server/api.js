@@ -59,6 +59,12 @@ router.get("/listings", (req, res) => {
   });
 });
 
+router.get("/listingsByClaimer", (req, res) => {
+  Item.find({ claimed: [req.query.claimer] }).then((items) => {
+    res.send(items);
+  });
+});
+
 router.get("/allListings", (req, res) => {
   Item.find({}).then((items) => {
     res.send(items);

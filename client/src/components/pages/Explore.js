@@ -25,10 +25,10 @@ function Box(props) {
   const handleOpen = () => setPopUp(true);
   const handleCloseFulfill = () => {
     setPopUpFulfill(false);
-    const body = { reqId: props.reqId, creatorId: props.userId };
+    /*const body = { reqId: props.reqId, creatorId: props.userId };
     post("/api/updateListing", body).then((result) => {
       //console.log("result", result);
-    });
+    });*/
   };
   useEffect(() => {
     get("/api/user", { userid: props.creator }).then((userObj) => {
@@ -48,6 +48,14 @@ function Box(props) {
         console.log("result", result);
       });*/
     }
+  };
+
+  const actualHandleClaim = () => {
+    setPopUpFulfill(false);
+    const body = { reqId: props.reqId, creatorId: props.userId };
+    post("/api/updateListing", body).then((result) => {
+      //console.log("result", result);
+    });
   };
 
   //console.log("hihi", reqCreator);
@@ -153,15 +161,17 @@ function Box(props) {
               <div className="modal-content">
                 {reqCreator && (
                   <div>
-                    <p className="modal-title">claimed</p>
-                    <p>
-                      {
-                        "thank you for claiming @" +
-                          reqCreator.username +
-                          "'s listing!" /** add more here? */
-                      }
-                    </p>
+                    <p>{"claim @" + reqCreator.username + "'s listing?"}</p>
                     <br />
+                    <button
+                      type="resolve"
+                      className="requestmatch-resolve"
+                      value="Resolve"
+                      onClick={actualHandleClaim}
+                      style={{ marginBottom: "10px" }}
+                    >
+                      claim
+                    </button>
                   </div>
                 )}
               </div>
@@ -206,16 +216,16 @@ const Explore = (props) => {
 
   const [user, setUser] = useState();
   const [fetched, setFetched] = useState(false);
-  const [listings, setListings] = useState([]);
+  //const [listings, setListings] = useState([]);
   const [unclaimedListings, setUnclaimedListings] = useState([]);
 
   useEffect(() => {
     get("/api/user", { userid: props.userId }).then((userObj) => {
       setUser(userObj);
       setFetched(true);
-      get("/api/allListings", {}).then((itemObjs) => {
+      /*get("/api/allListings", {}).then((itemObjs) => {
         setListings(itemObjs);
-      });
+      });*/
     });
     get("/api/unclaimedListings", {}).then((itemObjs) => {
       setUnclaimedListings(itemObjs);

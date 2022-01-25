@@ -18,38 +18,24 @@ let colors = ["var(--purple)", "var(--green)", "var(--yellow)", "var(--blue)"];
 let i = 0;
 
 function Box(props) {
-  const [items, setItems] = useState([]);
+  //const [items, setItems] = useState([]);
   const [confirmationPopUp, setConfirmationPopUp] = useState(false);
   const [PopUp, setPopUp] = useState(false);
   const [claimer, setClaimer] = useState([]);
-  const [userPopUp, setUserPopUp] = useState(false);
-  const [userClicked, setUserClicked] = useState();
 
   const handleClose = () => setPopUp(false);
   const handleOpen = () => {
     setPopUp(true);
   };
-  const handleClick = (obj) => () => {
-    setUserClicked(obj);
-    setUserPopUp(true);
-  };
-  const handleUserClose = () => {
-    setUserPopUp(false);
-  };
 
   useEffect(() => {
-    get("/api/listings", { creator: props.userId }).then((itemObjs) => {
+    /*get("/api/listings", { creator: props.userId }).then((itemObjs) => {
       setItems(itemObjs);
-    });
+    });*/
     if (props.claimed && props.claimed.length !== 0) {
       get("/api/user", { userid: props.claimed[0] }).then((userObj) => {
         setClaimer(userObj);
       });
-      /*for (let ind = 0; ind < props.claimed.length; ind++) {
-        get("/api/user", { userid: props.claimed[ind] }).then((userObj) => {
-          setClaimers((oldArray) => [...oldArray, userObj]);
-        });
-      }*/
     }
   }, []);
 
@@ -64,7 +50,7 @@ function Box(props) {
   const handleResolve = (event) => {
     event.preventDefault();
 
-    let done = false;
+    /*let done = false;
     let i = 0;
     while (!done && i < items.length) {
       if (
@@ -87,50 +73,15 @@ function Box(props) {
         type: props.type,
       };
       post("/api/deleteItem", body);
-    }
+    }*/
+    const body = {
+      creator: props.creator,
+      name: props.item,
+      description: props.description,
+      type: props.type,
+    };
+    post("/api/deleteItem", body);
   };
-
-  /*let claimerUsernames = [];
-  claimerUsernames = claimer.map((x) => (
-    <>
-      <button
-        className="requestmatch-resolve"
-        style={{
-          backgroundColor: "var(--white)",
-          fontWeight: "bold",
-          width: "auto",
-          margin: "5px",
-        }}
-        value={x.username}
-        //onClick={handleUserOpen}
-        onClick={handleClick(x)}
-      >
-        {"@" + x.username}
-      </button>
-    </>
-  ));*/
-
-  let claimerUsernames;
-  if (props.claimed.length !== 0) {
-    claimerUsernames = (
-      <>
-        <button
-          className="requestmatch-resolve"
-          style={{
-            backgroundColor: "var(--white)",
-            fontWeight: "bold",
-            width: "auto",
-            margin: "5px",
-          }}
-          value={claimer.username}
-          //onClick={handleUserOpen}
-          onClick={handleClick(claimer)}
-        >
-          {"@" + claimer.username}
-        </button>
-      </>
-    );
-  }
 
   return (
     <div
@@ -340,7 +291,7 @@ function Box(props) {
 }
 
 function FulfillBox(props) {
-  const [items, setItems] = useState([]);
+  //const [items, setItems] = useState([]);
   const [itemCreator, setItemCreator] = useState();
   const [PopUp, setPopUp] = useState(false);
   const [confirmationPopUp, setConfirmationPopUp] = useState(false);
@@ -370,9 +321,9 @@ function FulfillBox(props) {
     get("/api/user", { userid: props.creator }).then((userObj) => {
       setItemCreator(userObj);
     });
-    get("/api/listings", { creator: props.creator }).then((itemObjs) => {
+    /*get("/api/listings", { creator: props.creator }).then((itemObjs) => {
       setItems(itemObjs);
-    });
+    });*/
   }, []);
 
   const handleUnfulfill = (event) => {
@@ -385,10 +336,10 @@ function FulfillBox(props) {
     setConfirmationPopUp(true);
   };
 
-  const handleRatingChange = (event) => {
+  /*const handleRatingChange = (event) => {
     const prompt = event.target.value;
     setRating(prompt);
-  };
+  };*/
 
   const handleStarRating = (StarRatingData) => {
     setRating(StarRatingData);
@@ -401,7 +352,7 @@ function FulfillBox(props) {
       const body = { userid: itemCreator._id, newrating: parseInt(rating) };
       post("/api/updateRating", body).then((result) => {
         setRating("");
-        let done = false;
+        /*let done = false;
         let i = 0;
         while (!done && i < items.length) {
           if (
@@ -424,7 +375,14 @@ function FulfillBox(props) {
             type: props.type,
           };
           post("/api/deleteItem", body);
-        }
+        }*/
+        const body = {
+          creator: props.creator,
+          name: props.item,
+          description: props.description,
+          type: props.type,
+        };
+        post("/api/deleteItem", body);
         //handleRatingClose();
         //handleUserClose();
         navigate("/account");
@@ -652,7 +610,8 @@ const Account = (props) => {
 
   const [user, setUser] = useState();
   const [listings, setListings] = useState([]);
-  const [allListings, setAllListings] = useState([]);
+  //const [allListings, setAllListings] = useState([]);
+  const [claimedListings, setClaimedListings] = useState([]);
 
   useEffect(() => {
     get("/api/user", { userid: props.userId }).then((userObj) => {
@@ -661,8 +620,12 @@ const Account = (props) => {
         setListings(itemObjs);
       });
     });
-    get("/api/allListings", {}).then((listObjs) => {
+    /*get("/api/allListings", {}).then((listObjs) => {
       setAllListings(listObjs);
+    });*/
+    get("/api/listingsByClaimer", { claimer: props.userId }).then((itemObjs) => {
+      setClaimedListings(itemObjs);
+      //console.log(testListings);
     });
   }, [listings]);
 
@@ -708,17 +671,17 @@ const Account = (props) => {
     );
   }
 
-  let claimsList = [];
+  //let claimsList = [];
   let claimsList2 = [];
-  if (allListings.length !== 0) {
+  /*if (allListings.length !== 0) {
     for (let ind = 0; ind < allListings.length; ind++) {
       if (allListings[ind].claimed.includes(props.userId)) {
         claimsList.push(allListings[ind]);
       }
     }
-  }
-  if (claimsList.length !== 0) {
-    claimsList2 = claimsList.map((listObj, i) => (
+  }*/
+  if (claimedListings.length !== 0) {
+    claimsList2 = claimedListings.map((listObj, i) => (
       <FulfillBox
         key={`Box_${listObj._id}`}
         item={listObj.name}
@@ -753,18 +716,10 @@ const Account = (props) => {
         <div>
           <div className="user-box">
             <div className="user-title">
-              {!user.username || user.username === ""
-                ? "set your username!" /** change this lol */
-                : "@" + user.username}
+              {!user.username || user.username === "" ? "set your username!" : "@" + user.username}
             </div>
             <div className="email-title">{user.email}</div>
             <div className="email-title" style={{ textDecoration: "none" }}>
-              {" "}
-              {/*user.ratings.length === 0
-                ? "no ratings yet!"
-                : (user.ratings.reduce((a, b) => a + b, 0) / user.ratings.length)
-                    .toFixed(1)
-              .toString() + "/5.0"*/}{" "}
               {user.ratings.length === 0 ? (
                 "no ratings yet!"
               ) : (
@@ -825,7 +780,6 @@ const Account = (props) => {
             </div>
           </div>
         </div>
-
         {/* INVENTORY SECTION */}
         <div style={{ paddingTop: "25%" }}>
           <div className="user-box">
