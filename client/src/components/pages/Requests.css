@@ -1,5 +1,4 @@
 .requests-container {
-  margin-left: var(--l);
   display: flex;
   text-align: center;
   justify-content: center;
@@ -29,14 +28,24 @@
   float: left;
   text-align: center;
   padding-top: 10%;
+  opacity: 0.8;
 }
 
 .request-match {
   position: relative;
   float: right;
   text-align: center;
-  /* padding-right: 7%; */
+  /* padding-right: 4%; */
   padding-top: 10%;
+  opacity: 0.8;
+}
+
+.create-request:hover {
+  opacity: 1;
+}
+
+.request-match:hover {
+  opacity: 1;
 }
 
 .req-img-size {

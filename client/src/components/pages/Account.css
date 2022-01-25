@@ -1,6 +1,5 @@
 .accountinfo-container {
   padding-top: var(--m);
-  padding-bottom: var(--l);
   padding-left: var(--m);
   background-color: var(--bg);
   line-height: 22px;
@@ -111,7 +110,7 @@
   overscroll-behavior-y: auto;
   margin-right: 0px;
   margin-top: 10px;
-  height: 350px;
+  height: 360px;
   padding-right: 10%;
 }
 
@@ -121,6 +120,23 @@
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
+}
+
+.inventory-container::-webkit-scrollbar {
+  -webkit-appearance: none;
+}
+
+.inventory-container::-webkit-scrollbar:horizontal {
+  height: 11px;
+}
+
+.inventory-container::-webkit-scrollbar:vertical {
+  width: 11px;
+}
+
+.inventory-container::-webkit-scrollbar-thumb {
+  border-radius: 8px;
+  background-color: #c4c4c4;
 }
 
 .containerdiv {
@@ -142,7 +158,6 @@
   border-top: 8px solid var(--purple);
   width: 40px;
   height: 40px;
-  /* -webkit-animation: spin 2s linear infinite; */
   animation: spin 1s linear infinite;
   margin-left: 48%;
   margin-top: 7%;

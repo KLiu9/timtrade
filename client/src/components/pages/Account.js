@@ -696,7 +696,7 @@ const Account = (props) => {
     ));
   } else {
     claimsList2 = (
-      <div style={{ paddingLeft: "10px", fontStyle: "italic" }}>
+      <div style={{ paddingLeft: "7%", fontStyle: "italic" }}>
         <br />
         you have not claimed any listings!
       </div>
@@ -775,7 +775,7 @@ const Account = (props) => {
               ></input>
             </div>
             <div className="spacing">
-              <div className="accountinfo-label">location:</div>
+              <div className="accountinfo-label" style={{paddingBottom: "3%"}}>location:</div>
               <input placeholder={user.location} className="accountinfo-box" readOnly></input>
             </div>
           </div>

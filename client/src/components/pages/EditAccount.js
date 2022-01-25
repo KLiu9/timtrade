@@ -154,7 +154,7 @@ const EditAccount = (props) => {
                   type="text"
                   className="editprofile-box"
                   maxLength="20"
-                ></input>
+                />
               </div>
 
               <div className="spacing">
@@ -387,7 +387,7 @@ const EditAccount = (props) => {
                   className="editprofile-box"
                 ></input>
               </div>
-              <div className="spacing">
+              <div className="spacing" style={{ paddingBottom: "3%" }}>
                 <button
                   type="submit"
                   className="edit-profile"

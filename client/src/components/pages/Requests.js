@@ -72,7 +72,7 @@ const Requests = (props) => {
       <div className="requests-container" style={{ marginTop: "-3%" }}>
         <div className="create-request">
           <Link to="/requests/create/" className="requests-item">
-            <img className="req-img-size" src={createreqimg} />
+            <img className="req-img-size" src={createreqimg}/>
           </Link>
           <Link to="/requests/create/" className="requests-item">
             <img className="req-words-size flex-item" src={createreqwords} />
@@ -80,7 +80,7 @@ const Requests = (props) => {
         </div>
         <div className="request-match">
           <Link to="/requests/match/" className="requests-item">
-            <img className="req-img-size2" src={reqmatchimg} />
+            <img className="req-img-size2" src={reqmatchimg}/>
           </Link>
           <Link to="/requests/match/" className="requests-item">
             <img className="req-words-size2 flex-item" src={reqmatchwords} />
