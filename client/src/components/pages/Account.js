@@ -643,26 +643,28 @@ const Account = (props) => {
         </div>
         {/* INVENTORY SECTION */}
         <div className="myinventory">
-          <div className="user-box">
-            <div className="user-title">my inventory</div>
-            <button
-              type="submit"
-              className="edit-profile"
-              value="Submit"
-              onClick={() => navigate("/account/editinventory/")}
-              style={{ width: "140px" }}>
-              add to inventory
-            </button>
-          </div>
-          <div className="accountinfo-container" style={{ marginTop: "20px", paddingLeft: "0px" }}>
-            <div className="inventory-container">{listingsList}</div>
+          <div>
+            <div className="user-box" style={{ float: "left" }}>
+              <div className="user-title">my inventory</div>
+              <button
+                type="submit"
+                className="edit-profile"
+                value="Submit"
+                onClick={() => navigate("/account/editinventory/")}
+                style={{ width: "140px" }}>
+                add to inventory
+              </button>
+            </div>
+            <div className="accountinfo-container" style={{ marginTop: "20px", paddingLeft: "0px", float: "right" }}>
+              <div className="inventory-container">{listingsList}</div>
+            </div>
           </div>
         </div>
         <div className="claimeditems">
-          <div className="user-box">
+          <div className="user-box" style={{ float: "left" }}>
             <div className="user-title">claimed items</div>
           </div>
-          <div className="accountinfo-container" style={{ marginTop: "20px", paddingLeft: "0px" }}>
+          <div className="accountinfo-container" style={{ marginTop: "20px", paddingLeft: "0px", float: "right" }}>
             <div className="inventory-container">{claimsList2}</div>
           </div>
         </div>
