@@ -72,7 +72,7 @@ function Box(props) {
           <b style={{ textDecoration: "underline" }}>
             {!reqCreator ? "@..." : "@" + reqCreator.username}
           </b>
-          <div>wants to {tradeInfo}</div>
+          <div style={{ height: "50px" }}>wants to {tradeInfo}</div>
         </div>
         <div className="fulfill-item-box-back">
           {/* back side */}

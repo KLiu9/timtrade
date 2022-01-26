@@ -163,7 +163,6 @@ const CreateRequest = (props) => {
             create a<br />
             request
           </p>
-          {/* help w formatting image */}
           <img className="fillerimg-size" src={fillerimg} style={{ marginTop: "-4%" }} />
         </div>
         <div className="createrequest-container">

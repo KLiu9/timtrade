@@ -1,5 +1,5 @@
 import battery from "../../../dist/itemimages/battery.png";
-import tape from "../../../dist/itemimages/tape.png";
+import tape from "../../../dist/itemimages/tape2.png";
 import mug from "../../../dist/itemimages/mug.png";
 import chair from "../../../dist/itemimages/chair2.png";
 import fridge from "../../../dist/itemimages/fridge.png";

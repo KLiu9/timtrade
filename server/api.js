@@ -116,25 +116,17 @@ router.post("/request", (req, res) => {
 });
 
 router.post("/deleterequest", (req, res) => {
-  /*Request.findOne({ name: req.body.name }).then((result) => {
-    console.log(result);
-    result.name = "NOT AN ITEM";
-    result.save().then((request) => res.send(request));
-  });*/
   Request.deleteOne({
     creator: req.body.creator,
     name: req.body.name,
     description: req.body.description,
     time: req.body.time,
     type: req.body.type,
-  }).then((result) => {
-    // console.log("deleted request");
   });
 });
 
 router.post("/updateUserInfo", (req, res) => {
   User.findById(req.body.content._id).then((result) => {
-    //console.log(result);
     result.name = req.body.content.name;
     result.kerb = req.body.content.kerb;
     result.username = req.body.content.username;
@@ -150,9 +142,7 @@ router.post("/updateUserInfo", (req, res) => {
 
 router.post("/updateRating", (req, res) => {
   User.findById(req.body.userid).then((result) => {
-    // console.log("before", result);
     result.ratings.push(req.body.newrating);
-    // console.log("after", result);
     result.save().then((newUserInfo) => res.send(newUserInfo));
   });
 });
@@ -165,7 +155,6 @@ router.post("/listItem", (req, res) => {
     type: req.body.content.type,
   });
 
-  // console.log("NEW LISTING", newItem);
   newItem.save().then((listing) => res.send(listing));
 });
 
@@ -175,55 +164,45 @@ router.post("/deleteItem", (req, res) => {
     name: req.body.name,
     description: req.body.description,
     type: req.body.type,
-  }).then((result) => {
-    // console.log("deleted listing");
   });
 });
 
 router.post("/updateRequest", (req, res) => {
   Request.findById(req.body.reqId).then((result) => {
-    // console.log("before:", result);
     if (!result.fulfilled.includes(req.body.creatorId)) {
       result.fulfilled.push(req.body.creatorId);
     }
-    // console.log("after:", result);
     result.save().then((updatedReq) => res.send(updatedReq));
   });
 });
 
 router.post("/updateListing", (req, res) => {
   Item.findById(req.body.reqId).then((result) => {
-    // console.log("before:", result);
     if (!result.claimed.includes(req.body.creatorId)) {
       result.claimed.push(req.body.creatorId);
     }
-    // console.log("after:", result);
     result.save().then((updatedReq) => res.send(updatedReq));
   });
 });
 
 router.post("/unfulfill", (req, res) => {
   Request.findById(req.body.reqId).then((result) => {
-    // console.log("before:", result);
     for (let i = 0; i < result.fulfilled.length; i++) {
       if (result.fulfilled[i] === req.body.fulfillerId) {
         result.fulfilled.splice(i, 1);
       }
     }
-    // console.log("after:", result);
     result.save().then((updatedReq) => res.send(updatedReq));
   });
 });
 
 router.post("/unclaim", (req, res) => {
   Item.findById(req.body.reqId).then((result) => {
-    //console.log("before:", result);
     for (let i = 0; i < result.claimed.length; i++) {
       if (result.claimed[i] === req.body.fulfillerId) {
         result.claimed.splice(i, 1);
       }
     }
-    // console.log("after:", result);
     result.save().then((updatedReq) => res.send(updatedReq));
   });
 });
