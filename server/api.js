@@ -122,7 +122,7 @@ router.post("/deleterequest", (req, res) => {
     description: req.body.description,
     time: req.body.time,
     type: req.body.type,
-  });
+  }).then((result) => {});
 });
 
 router.post("/updateUserInfo", (req, res) => {
@@ -164,7 +164,7 @@ router.post("/deleteItem", (req, res) => {
     name: req.body.name,
     description: req.body.description,
     type: req.body.type,
-  });
+  }).then((result) => {});
 });
 
 router.post("/updateRequest", (req, res) => {
