@@ -10,4 +10,4 @@ access timtrade at http://timtrade.herokuapp.com.
 
 ## credits
 
-created by Katie Liu, Anna Zhang, and Emily Zhang for web.lab 2021!
+created by Katie Liu, Anna Zhang, and Emily Zhang for web.lab 2022!
