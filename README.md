@@ -12,7 +12,7 @@ access timtrade at http://timtrade.herokuapp.com.
 
 created by Katie Liu, Anna Zhang, and Emily Zhang for web.lab 2022!
 
-sources:
+external sources:
 * https://www.emgoto.com/react-search-bar/
 * https://dev.to/michaelburrows/create-a-custom-react-star-rating-component-5o6
 * https://redhooklibrary.org/five-stars/
