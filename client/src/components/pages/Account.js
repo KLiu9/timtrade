@@ -616,7 +616,7 @@ const Account = (props) => {
     claimsList2 = (
       <div style={{ paddingLeft: "7%", fontStyle: "italic" }}>
         <br />
-        you have not claimed any listings!
+        no claimed listings!
       </div>
     );
   }
