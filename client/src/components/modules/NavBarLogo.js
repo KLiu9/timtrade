@@ -9,7 +9,7 @@ const NavBarLogo = () => {
   return (
     <nav className="NavBar-container">
       <div className="NavBar-linkContainer NavBar-align">
-        <Link to="/" className="NavBar-link" style={{justifyContent: "flex-start", paddingLeft: "44%"}}>
+        <Link to="/" className="NavBar-link" style={{justifyContent: "flex-start", marginLeft: "43vw"}}>
           <span>
             <img className="homeimg-size" src={homimg} />
           </span>
