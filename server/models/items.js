@@ -5,7 +5,6 @@ const itemSchema = new mongoose.Schema({
   name: String,
   description: String,
   type: String,
-  // upload feature
   claimed: Array,
 });
 

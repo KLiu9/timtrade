@@ -14,5 +14,4 @@ const UserSchema = new mongoose.Schema({
   ratings: Array,
 });
 
-// compile model from schema
 module.exports = mongoose.model("user", UserSchema);
