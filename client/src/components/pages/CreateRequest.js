@@ -8,7 +8,7 @@ import NavBar from "../modules/NavBar.js";
 import NavBarLogo from "../modules/NavBarLogo.js";
 import fillerimg from "../../../dist/images/createreqpage.png";
 import beaverwash from "../../../dist/images/beaverwash2.png";
-import washer from '../../../dist/images/washingmachine.png';
+import washer from "../../../dist/images/washingmachine.png";
 
 import "../../utilities.css";
 import "./CreateRequest.css";
@@ -174,7 +174,8 @@ const CreateRequest = (props) => {
               onChange={handleItemChange}
               name="item"
               className="createrequest-box"
-              style={{ backgroundColor: "var(--purple)" }}>
+              style={{ backgroundColor: "var(--purple)" }}
+            >
               {itemOptions.map((option) => (
                 <option key={option} value={option}>
                   {option}
@@ -191,7 +192,8 @@ const CreateRequest = (props) => {
                   type="text"
                   placeholder="a succulent"
                   className="createrequest-box"
-                  maxLength="30"/>
+                  maxLength="30"
+                />
               </>
             )}
             <p className="request-label">add a brief description:</p>
@@ -199,16 +201,18 @@ const CreateRequest = (props) => {
               prompt={values.description}
               onChange={handleDescriptionChange}
               type="text"
-              placeholder="include specifications such as number, size, and more"
+              placeholder="include specifications such as expected price (if applicable), number, size, and more"
               className="createrequest-box"
-              maxLength="100"/>
+              maxLength="100"
+            />
             <p className="request-label">type of request:</p>
             <select
               prompt={values.type}
               onChange={handleTypeChange}
               name="type"
               className="createrequest-box"
-              style={{ backgroundColor: "var(--blue)" }}>
+              style={{ backgroundColor: "var(--blue)" }}
+            >
               <option value="select"></option>
               <option value="buy">buy</option>
               <option value="trade">trade</option>
@@ -220,7 +224,8 @@ const CreateRequest = (props) => {
               name="time"
               className="createrequest-box"
               style={{ backgroundColor: "var(--yellow)" }}
-              onChange={handleTimeChange}>
+              onChange={handleTimeChange}
+            >
               <option value="select"></option>
               <option value="hour">within 1 hour</option>
               <option value="day">within 1 day</option>
@@ -233,7 +238,8 @@ const CreateRequest = (props) => {
               className="createrequest-submit"
               value="Submit"
               style={{ backgroundColor: "var(--oldgreen)" }}
-              onClick={handleSubmit}>
+              onClick={handleSubmit}
+            >
               submit
             </button>
             <Modal className="modal2" isOpen={PopUp} ariaHideApp={false}>

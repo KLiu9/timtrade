@@ -8,7 +8,7 @@ import SearchBar from "../modules/SearchBar.js";
 import ImageDict from "../modules/ImageDict.js";
 import login from "../../../dist/images/login.png";
 import beaverwash from "../../../dist/images/beaverwash2.png";
-import washer from '../../../dist/images/washingmachine.png';
+import washer from "../../../dist/images/washingmachine.png";
 
 import "../../utilities.css";
 import "./Fulfill.css";
@@ -267,7 +267,6 @@ const Fulfill = (props) => {
       </>
     );
   }
-
   const { search } = window.location;
   const query = new URLSearchParams(search).get("s");
 
