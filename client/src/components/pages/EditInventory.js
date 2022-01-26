@@ -6,6 +6,7 @@ import login from "../../../dist/images/login.png";
 
 import NavBar from "../modules/NavBar.js";
 import NavBarLogo from "../modules/NavBarLogo.js";
+import fillerimg from "../../../dist/images/addinventorypage.png";
 import beaverwash from "../../../dist/images/beaverwash2.png";
 import washer from '../../../dist/images/washingmachine.png';
 
@@ -150,11 +151,14 @@ const EditInventory = (props) => {
     <div>
       <NavBar />
       <div style={{ padding: "0px 50px" }}>
-        <p className="page-title">
-          add to
-          <br />
-          inventory
-        </p>
+        <div className="page-title">
+          <p style={{ paddingRight: "20%" }}>
+            add to
+            <br />
+            inventory
+          </p>
+          <img src={fillerimg} style={{ marginTop: "-4%", paddingRight: "20%" }} />
+        </div>
         <div className="createrequest-container">
           <p className="request-label">select an item below:</p>
           <form>
