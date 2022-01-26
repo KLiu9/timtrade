@@ -8,7 +8,8 @@ import NavBar from "../modules/NavBar.js";
 import NavBarLogo from "../modules/NavBarLogo.js";
 import fillerimg from "../../../dist/images/addinventorypage.png";
 import beaverwash from "../../../dist/images/beaverwash2.png";
-import washer from '../../../dist/images/washingmachine.png';
+import washer from "../../../dist/images/washingmachine.png";
+import accountinfo from "../../../dist/images/enteraccountinfo.png";
 
 import "../../utilities.css";
 import "./CreateRequest.css";
@@ -80,7 +81,10 @@ const EditInventory = (props) => {
       <>
         <NavBarLogo />
         <div className="requests-container requests-item">
-          enter all account info before listing items!
+          <div className="flex-item" style={{ display: "block", textAlign: "center" }}>
+            <img className="accountinfoimg-size" src={accountinfo} />
+            enter all account info before listing items!
+          </div>
         </div>
       </>
     );

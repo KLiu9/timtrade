@@ -9,6 +9,7 @@ import NavBarLogo from "../modules/NavBarLogo.js";
 import fillerimg from "../../../dist/images/createreqpage.png";
 import beaverwash from "../../../dist/images/beaverwash2.png";
 import washer from "../../../dist/images/washingmachine.png";
+import accountinfo from "../../../dist/images/enteraccountinfo.png";
 
 import "../../utilities.css";
 import "./CreateRequest.css";
@@ -81,7 +82,10 @@ const CreateRequest = (props) => {
       <>
         <NavBarLogo />
         <div className="requests-container requests-item">
-          enter all account info before creating requests!
+          <div className="flex-item" style={{ display: "block", textAlign: "center" }}>
+            <img className="accountinfoimg-size" src={accountinfo} />
+            enter all account info before creating requests!
+          </div>
         </div>
       </>
     );

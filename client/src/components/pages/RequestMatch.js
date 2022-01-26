@@ -9,7 +9,8 @@ import NavBar from "../modules/NavBar.js";
 import NavBarLogo from "../modules/NavBarLogo.js";
 import { ImageDict, RandomImageDict } from "../modules/ImageDict.js";
 import beaverwash from "../../../dist/images/beaverwash2.png";
-import washer from '../../../dist/images/washingmachine.png';
+import washer from "../../../dist/images/washingmachine.png";
+import accountinfo from "../../../dist/images/enteraccountinfo.png";
 
 import "../../utilities.css";
 import "./RequestMatch.css";
@@ -654,7 +655,10 @@ const RequestMatch = (props) => {
       <>
         <NavBarLogo />
         <div className="requests-container requests-item">
-          enter all account info before viewing matches!
+          <div className="flex-item" style={{ display: "block", textAlign: "center" }}>
+            <img className="accountinfoimg-size" src={accountinfo} />
+            enter all account info before viewing matches!
+          </div>
         </div>
       </>
     );
@@ -685,7 +689,9 @@ const RequestMatch = (props) => {
         userId={props.userId}
         index={i}
         fulfilled={requestObj.fulfilled}
-        image={requestObj.name in ImageDict ? ImageDict[requestObj.name] : RandomImageDict[(i % 5) + 1]}
+        image={
+          requestObj.name in ImageDict ? ImageDict[requestObj.name] : RandomImageDict[(i % 5) + 1]
+        }
       />
     ));
   } else {
@@ -717,7 +723,9 @@ const RequestMatch = (props) => {
         description={requestObj.description}
         reqId={requestObj._id}
         userId={props.userId}
-        image={requestObj.name in ImageDict ? ImageDict[requestObj.name] : RandomImageDict[(i % 5) + 1]}
+        image={
+          requestObj.name in ImageDict ? ImageDict[requestObj.name] : RandomImageDict[(i % 5) + 1]
+        }
       />
     ));
   } else {

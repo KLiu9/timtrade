@@ -8,7 +8,8 @@ import NavBarLogo from "../modules/NavBarLogo.js";
 import SearchBar from "../modules/SearchBar.js";
 import { ImageDict, RandomImageDict } from "../modules/ImageDict.js";
 import beaverwash from "../../../dist/images/beaverwash2.png";
-import washer from '../../../dist/images/washingmachine.png';
+import washer from "../../../dist/images/washingmachine.png";
+import accountinfo from "../../../dist/images/enteraccountinfo.png";
 
 import "../../utilities.css";
 import "./Fulfill.css";
@@ -247,7 +248,10 @@ const Explore = (props) => {
       <>
         <NavBarLogo />
         <div className="requests-container requests-item">
-          enter all account info before exploring items!
+          <div className="flex-item" style={{ display: "block", textAlign: "center" }}>
+            <img className="accountinfoimg-size" src={accountinfo} />
+            enter all account info before exploring items!
+          </div>
         </div>
       </>
     );

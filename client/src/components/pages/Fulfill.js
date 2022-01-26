@@ -9,6 +9,7 @@ import { ImageDict, RandomImageDict } from "../modules/ImageDict.js";
 import login from "../../../dist/images/login.png";
 import beaverwash from "../../../dist/images/beaverwash2.png";
 import washer from "../../../dist/images/washingmachine.png";
+import accountinfo from "../../../dist/images/enteraccountinfo.png";
 
 import "../../utilities.css";
 import "./Fulfill.css";
@@ -262,7 +263,10 @@ const Fulfill = (props) => {
       <>
         <NavBarLogo />
         <div className="requests-container requests-item">
-          enter all account info before fulfilling requests!
+          <div className="flex-item" style={{ display: "block", textAlign: "center" }}>
+            <img className="accountinfoimg-size" src={accountinfo} />
+            enter all account info before fulfilling requests!
+          </div>
         </div>
       </>
     );
@@ -310,7 +314,9 @@ const Fulfill = (props) => {
           index={i}
           reqId={requestObj._id}
           userId={props.userId}
-          image={requestObj.name in ImageDict ? ImageDict[requestObj.name] : RandomImageDict[(i % 5) + 1]}
+          image={
+            requestObj.name in ImageDict ? ImageDict[requestObj.name] : RandomImageDict[(i % 5) + 1]
+          }
         />
       ));
     } else {

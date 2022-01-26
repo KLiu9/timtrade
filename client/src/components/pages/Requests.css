@@ -66,3 +66,10 @@
 .req-words-size2 {
   width: 83%;
 }
+
+.accountinfoimg-size {
+  width: 40%;
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+}

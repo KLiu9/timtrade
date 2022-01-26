@@ -9,7 +9,7 @@ import NavBarLogo from "../modules/NavBarLogo.js";
 import { ImageDict, RandomImageDict } from "../modules/ImageDict.js";
 import login from "../../../dist/images/login.png";
 import beaverwash from "../../../dist/images/beaverwash2.png";
-import washer from '../../../dist/images/washingmachine.png';
+import washer from "../../../dist/images/washingmachine.png";
 
 import "../../utilities.css";
 import "./CreateRequest.css";

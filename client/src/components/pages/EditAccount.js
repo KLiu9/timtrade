@@ -7,7 +7,7 @@ import login from "../../../dist/images/login.png";
 import NavBar from "../modules/NavBar.js";
 import NavBarLogo from "../modules/NavBarLogo.js";
 import beaverwash from "../../../dist/images/beaverwash2.png";
-import washer from '../../../dist/images/washingmachine.png';
+import washer from "../../../dist/images/washingmachine.png";
 
 import "../../utilities.css";
 import "./Account.css";
