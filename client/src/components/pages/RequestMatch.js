@@ -7,7 +7,7 @@ import login from "../../../dist/images/login.png";
 
 import NavBar from "../modules/NavBar.js";
 import NavBarLogo from "../modules/NavBarLogo.js";
-import ImageDict from "../modules/ImageDict.js";
+import { ImageDict, RandomImageDict } from "../modules/ImageDict.js";
 import beaverwash from "../../../dist/images/beaverwash2.png";
 import washer from '../../../dist/images/washingmachine.png';
 
@@ -685,7 +685,7 @@ const RequestMatch = (props) => {
         userId={props.userId}
         index={i}
         fulfilled={requestObj.fulfilled}
-        image={requestObj.name in ImageDict ? ImageDict[requestObj.name] : ImageDict["beaver"]}
+        image={requestObj.name in ImageDict ? ImageDict[requestObj.name] : RandomImageDict[(i % 5) + 1]}
       />
     ));
   } else {
@@ -717,7 +717,7 @@ const RequestMatch = (props) => {
         description={requestObj.description}
         reqId={requestObj._id}
         userId={props.userId}
-        image={requestObj.name in ImageDict ? ImageDict[requestObj.name] : ImageDict["beaver"]}
+        image={requestObj.name in ImageDict ? ImageDict[requestObj.name] : RandomImageDict[(i % 5) + 1]}
       />
     ));
   } else {

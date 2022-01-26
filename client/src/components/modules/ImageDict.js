@@ -10,9 +10,16 @@ import detergent from "../../../dist/itemimages/detergent.png";
 import soap from "../../../dist/itemimages/soap.png";
 import bath from "../../../dist/itemimages/bath.png"
 // import toothpaste from "../../../dist/itemimages/toothpaste.png";
-import beaver from "../../../dist/itemimages/favicon2.png";
 
-const imageDict = {"batteries": battery, "tape": tape, "mug": mug, "chair": chair, "fridge": fridge, "hair ties": hairties, 
-"rice cooker": ricecooker, "laundry detergent": detergent, "shampoo": bath, "soap": soap, "beaver": beaver};
+import beaver1 from "../../../dist/itemimages/beaver1.png";
+import beaver2 from "../../../dist/itemimages/beaver2.png";
+import beaver3 from "../../../dist/itemimages/beaver3.png";
+import beaver4 from "../../../dist/itemimages/beaver4.png";
+import beaver5 from "../../../dist/itemimages/beaver5.png";
 
-export default imageDict;
+const ImageDict = {"batteries": battery, "tape": tape, "mug": mug, "chair": chair, "fridge": fridge, "hair ties": hairties, 
+"rice cooker": ricecooker, "laundry detergent": detergent, "shampoo": bath, "soap": soap};
+
+const RandomImageDict = {1: beaver1, 2: beaver4, 3: beaver3, 4: beaver4, 5: beaver5};
+
+export { ImageDict, RandomImageDict };

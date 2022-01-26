@@ -6,7 +6,7 @@ import { get, post } from "../../utilities";
 import StarRating from "../modules/StarRating.js";
 import NavBar from "../modules/NavBar.js";
 import NavBarLogo from "../modules/NavBarLogo.js";
-import ImageDict from "../modules/ImageDict.js";
+import { ImageDict, RandomImageDict } from "../modules/ImageDict.js";
 import login from "../../../dist/images/login.png";
 import beaverwash from "../../../dist/images/beaverwash2.png";
 import washer from '../../../dist/images/washingmachine.png';
@@ -588,7 +588,7 @@ const Account = (props) => {
         userId={props.userId}
         index={i}
         claimed={itemObj.claimed}
-        image={itemObj.name in ImageDict ? ImageDict[itemObj.name] : ImageDict["beaver"]}
+        image={itemObj.name in ImageDict ? ImageDict[itemObj.name] : RandomImageDict[(i % 5) + 1]}
       />
     ));
   } else {
@@ -609,7 +609,7 @@ const Account = (props) => {
         description={listObj.description}
         reqId={listObj._id}
         userId={props.userId}
-        image={listObj.name in ImageDict ? ImageDict[listObj.name] : ImageDict["beaver"]}
+        image={listObj.name in ImageDict ? ImageDict[listObj.name] : RandomImageDict[(i % 5) + 1]}
       />
     ));
   } else {

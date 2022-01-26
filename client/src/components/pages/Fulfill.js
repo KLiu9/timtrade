@@ -5,7 +5,7 @@ import Modal from "react-modal";
 import NavBar from "../modules/NavBar.js";
 import NavBarLogo from "../modules/NavBarLogo.js";
 import SearchBar from "../modules/SearchBar.js";
-import ImageDict from "../modules/ImageDict.js";
+import { ImageDict, RandomImageDict } from "../modules/ImageDict.js";
 import login from "../../../dist/images/login.png";
 import beaverwash from "../../../dist/images/beaverwash2.png";
 import washer from '../../../dist/images/washingmachine.png';
@@ -317,7 +317,7 @@ const Fulfill = (props) => {
           index={i}
           reqId={requestObj._id}
           userId={props.userId}
-          image={requestObj.name in ImageDict ? ImageDict[requestObj.name] : ImageDict["beaver"]}
+          image={requestObj.name in ImageDict ? ImageDict[requestObj.name] : RandomImageDict[(i % 5) + 1]}
         />
       ));
     } else {

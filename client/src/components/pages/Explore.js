@@ -1,13 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { get, post } from "../../utilities";
 import Modal from "react-modal";
-import { navigate } from "@reach/router";
 import login from "../../../dist/images/login.png";
 
 import NavBar from "../modules/NavBar.js";
 import NavBarLogo from "../modules/NavBarLogo.js";
 import SearchBar from "../modules/SearchBar.js";
-import ImageDict from "../modules/ImageDict.js";
+import { ImageDict, RandomImageDict } from "../modules/ImageDict.js";
 import beaverwash from "../../../dist/images/beaverwash2.png";
 import washer from '../../../dist/images/washingmachine.png';
 
@@ -296,7 +295,7 @@ const Explore = (props) => {
           index={i}
           reqId={itemObj._id}
           userId={props.userId}
-          image={itemObj.name in ImageDict ? ImageDict[itemObj.name] : ImageDict["beaver"]}
+          image={itemObj.name in ImageDict ? ImageDict[itemObj.name] : RandomImageDict[(i % 5) + 1]}
         />
       ));
     } else {

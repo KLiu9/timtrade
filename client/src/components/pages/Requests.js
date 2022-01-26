@@ -7,7 +7,7 @@ import NavBarLogo from "../modules/NavBarLogo.js";
 
 import login from "../../../dist/images/login.png";
 import createreqimg from "../../../dist/images/createrequest2.png";
-import reqmatchimg from "../../../dist/images/requestmatch3.png";
+import reqmatchimg from "../../../dist/images/requestmatch4.png";
 import reqmatchwords from "../../../dist/images/requestmatchwords.png";
 import createreqwords from "../../../dist/images/createrequestwords.png";
 import beaverwash from "../../../dist/images/beaverwash2.png";
@@ -87,7 +87,7 @@ const Requests = (props) => {
             <img className="req-words-size flex-item" src={createreqwords} />
           </Link>
         </div>
-        <div className="request-match">
+        <div className="request-match" style={{ marginRight: "3%" }}>
           <Link to="/requests/match/" className="requests-item">
             <img className="req-img-size2" src={reqmatchimg}/>
           </Link>
