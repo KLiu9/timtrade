@@ -93,7 +93,7 @@ const Requests = (props) => {
         </div>
         <div className="request-match" style={{ marginRight: "3%" }}>
           <Link to="/requests/match/" className="requests-item">
-            <img className="req-img-size2" src={reqmatchimg} />
+            <img className="req-img-size2" src={reqmatchimg} style={{ paddingRight: "15%" }}/>
           </Link>
           <Link to="/requests/match/" className="requests-item">
             <img className="req-words-size2 flex-item" src={reqmatchwords} />
