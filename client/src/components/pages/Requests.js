@@ -10,6 +10,8 @@ import createreqimg from "../../../dist/images/createrequest2.png";
 import reqmatchimg from "../../../dist/images/requestmatch3.png";
 import reqmatchwords from "../../../dist/images/requestmatchwords.png";
 import createreqwords from "../../../dist/images/createrequestwords.png";
+import beaverwash from "../../../dist/images/beaverwash2.png";
+import washer from '../../../dist/images/washingmachine.png';
 
 import "../../utilities.css";
 import "./Requests.css";
@@ -42,7 +44,13 @@ const Requests = (props) => {
     return (
       <>
         <NavBarLogo />
-        <div className="loader"></div>
+        <div className="loading">
+          <div>
+            <img className="washingbeaver" src={beaverwash} />
+            <img className="washer" src={washer} />
+            <center style={{ paddingTop: "5%", paddingLeft: "1%" }}>loading...</center>
+          </div>
+        </div>
       </>
     );
   }

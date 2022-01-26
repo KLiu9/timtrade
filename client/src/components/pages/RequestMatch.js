@@ -8,6 +8,8 @@ import login from "../../../dist/images/login.png";
 import NavBar from "../modules/NavBar.js";
 import NavBarLogo from "../modules/NavBarLogo.js";
 import ImageDict from "../modules/ImageDict.js";
+import beaverwash from "../../../dist/images/beaverwash2.png";
+import washer from '../../../dist/images/washingmachine.png';
 
 import "../../utilities.css";
 import "./RequestMatch.css";
@@ -627,7 +629,13 @@ const RequestMatch = (props) => {
     return (
       <>
         <NavBarLogo />
-        <div className="loader"></div>
+        <div className="loading">
+          <div>
+            <img className="washingbeaver" src={beaverwash} />
+            <img className="washer" src={washer} />
+            <center style={{ paddingTop: "5%", paddingLeft: "1%" }}>loading...</center>
+          </div>
+        </div>
       </>
     );
   }
