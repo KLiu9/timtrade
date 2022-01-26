@@ -8,10 +8,10 @@ import NavBarLogo from "../modules/NavBarLogo.js";
 import login from "../../../dist/images/login.png";
 import createreqimg from "../../../dist/images/createrequest2.png";
 import reqmatchimg from "../../../dist/images/requestmatch4.png";
-import reqmatchwords from "../../../dist/images/requestmatchwords.png";
-import createreqwords from "../../../dist/images/createrequestwords.png";
+import reqmatchwords from "../../../dist/images/requestmatchwords2.png";
+import createreqwords from "../../../dist/images/createrequestwords2.png";
 import beaverwash from "../../../dist/images/beaverwash2.png";
-import washer from '../../../dist/images/washingmachine.png';
+import washer from "../../../dist/images/washingmachine.png";
 
 import "../../utilities.css";
 import "./Requests.css";
@@ -81,7 +81,7 @@ const Requests = (props) => {
       <div className="requests-container" style={{ marginTop: "-3%" }}>
         <div className="create-request">
           <Link to="/requests/create/" className="requests-item">
-            <img className="req-img-size" src={createreqimg}/>
+            <img className="req-img-size" src={createreqimg} />
           </Link>
           <Link to="/requests/create/" className="requests-item">
             <img className="req-words-size flex-item" src={createreqwords} />
@@ -89,7 +89,7 @@ const Requests = (props) => {
         </div>
         <div className="request-match" style={{ marginRight: "3%" }}>
           <Link to="/requests/match/" className="requests-item">
-            <img className="req-img-size2" src={reqmatchimg}/>
+            <img className="req-img-size2" src={reqmatchimg} />
           </Link>
           <Link to="/requests/match/" className="requests-item">
             <img className="req-words-size2 flex-item" src={reqmatchwords} />

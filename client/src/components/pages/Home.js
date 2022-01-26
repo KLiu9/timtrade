@@ -9,7 +9,7 @@ import acc2 from "../../../dist/homeimages/accounthome2.png";
 import acct from "../../../dist/homeimages/accounthometext.png";
 import exp1 from "../../../dist/homeimages/explorehome.png";
 import exp2 from "../../../dist/homeimages/explorehome2.png";
-import expt from "../../../dist/homeimages/explorehometext.png";
+import expt from "../../../dist/homeimages/explorehometext2.png";
 import ful1 from "../../../dist/homeimages/fulfillhome.png";
 import ful2 from "../../../dist/homeimages/fulfillhome2.png";
 import fult from "../../../dist/homeimages/fulfillhometext.png";
@@ -34,69 +34,111 @@ const Home = (props) => {
   const handleOpen = () => setPopUp(true);
 
   return (
-    <div style={{display: "flex", justifyContent: "center"}}>
-      <div style={{height: "100vh", width: "40vw"}}> 
-        <Link to="/account/" className="NavBar-link" onMouseEnter={()=>{setAccIcon(true)}} onMouseLeave={()=>{setAccIcon(false)}}>
+    <div style={{ display: "flex", justifyContent: "center" }}>
+      <div style={{ height: "100vh", width: "40vw" }}>
+        <Link
+          to="/account/"
+          className="NavBar-link"
+          onMouseEnter={() => {
+            setAccIcon(true);
+          }}
+          onMouseLeave={() => {
+            setAccIcon(false);
+          }}
+        >
           <div className="image-container">
             <img className="icon-size" src={accIcon ? acc2 : acc1} />
-            <img className="icon-size" src={acct} style={{marginTop: "-2vh"}}/>
+            <img className="icon-size" src={acct} style={{ marginTop: "-2vh" }} />
           </div>
         </Link>
-        <Link to="/explore/" className="NavBar-link" onMouseEnter={()=>{setExpIcon(true)}} onMouseLeave={()=>{setExpIcon(false)}}>
+        <Link
+          to="/explore/"
+          className="NavBar-link"
+          onMouseEnter={() => {
+            setExpIcon(true);
+          }}
+          onMouseLeave={() => {
+            setExpIcon(false);
+          }}
+        >
           <div className="image-container">
-            <img className="icon-size" src={expIcon ? exp2 : exp1} style={{marginTop: (expIcon ? '0.3vh' : '0'), marginBottom: (expIcon ? '-0.3vh' : '0')}}/>
+            <img
+              className="icon-size"
+              src={expIcon ? exp2 : exp1}
+              style={{ marginTop: expIcon ? "0.3vh" : "0", marginBottom: expIcon ? "-0.3vh" : "0" }}
+            />
             <img className="icon-size" src={expt} />
           </div>
         </Link>
       </div>
-      <div className = "flex-container"><div>
-        <img className="home-img-size" src={timtrade} />
-        <div style={{display:'flex', justifyContent:'center'}}>
-          {props.userId ? (
-            <GoogleLogout
-              clientId={GOOGLE_CLIENT_ID}
-              buttonText="logout"
-              onLogoutSuccess={props.handleLogout}
-              onFailure={(err) => console.log(err)}
-              render={(item) => (
-                <button onClick={item.onClick} className="login-button">
-                  logout
-                </button>
-              )}
-            />
-          ) : (
-            <GoogleLogin
-              clientId={GOOGLE_CLIENT_ID}
-              buttonText="login"
-              onSuccess={props.handleLogin}
-              onFailure={(err) => console.log(err)}
-              render={(item) => (
-                <button onClick={item.onClick} className="login-button">
-                  login
-                </button>
-              )}
-            />
-          )}
-          <button
-            className="about-button"
-            style={{ backgroundColor: "var(--blue)" }}
-            onClick={handleOpen}
-          >
-            about
-          </button>
+      <div className="flex-container">
+        <div>
+          <img className="home-img-size" src={timtrade} />
+          <div style={{ display: "flex", justifyContent: "center" }}>
+            {props.userId ? (
+              <GoogleLogout
+                clientId={GOOGLE_CLIENT_ID}
+                buttonText="logout"
+                onLogoutSuccess={props.handleLogout}
+                onFailure={(err) => console.log(err)}
+                render={(item) => (
+                  <button onClick={item.onClick} className="login-button">
+                    logout
+                  </button>
+                )}
+              />
+            ) : (
+              <GoogleLogin
+                clientId={GOOGLE_CLIENT_ID}
+                buttonText="login"
+                onSuccess={props.handleLogin}
+                onFailure={(err) => console.log(err)}
+                render={(item) => (
+                  <button onClick={item.onClick} className="login-button">
+                    login
+                  </button>
+                )}
+              />
+            )}
+            <button
+              className="about-button"
+              style={{ backgroundColor: "var(--blue)" }}
+              onClick={handleOpen}
+            >
+              about
+            </button>
+          </div>
         </div>
-      </div></div>
-      <div style={{height: "100vh", width: "40vw"}}>
-        <Link to="/requests/" className="NavBar-link" onMouseEnter={()=>{setReqIcon(true)}} onMouseLeave={()=>{setReqIcon(false)}}>
+      </div>
+      <div style={{ height: "100vh", width: "40vw" }}>
+        <Link
+          to="/requests/"
+          className="NavBar-link"
+          onMouseEnter={() => {
+            setReqIcon(true);
+          }}
+          onMouseLeave={() => {
+            setReqIcon(false);
+          }}
+        >
           <div className="image-container">
             <img className="icon-size" src={reqIcon ? req2 : req1} />
             <img className="icon-size" src={reqt} />
           </div>
         </Link>
-        <Link to="/fulfill/" className="NavBar-link" onMouseEnter={()=>{setFulIcon(true)}} onMouseLeave={()=>{setFulIcon(false)}}>
+        <Link
+          to="/fulfill/"
+          className="NavBar-link"
+          onMouseEnter={() => {
+            setFulIcon(true);
+          }}
+          onMouseLeave={() => {
+            setFulIcon(false);
+          }}
+        >
           <div className="image-container">
             <img className="icon-size" src={fulIcon ? ful2 : ful1} />
-            <img className="icon-size" src={fult} style={{marginTop: "-2vh"}}/>
+            <img className="icon-size" src={fult} style={{ marginTop: "-2vh" }} />
           </div>
         </Link>
       </div>
