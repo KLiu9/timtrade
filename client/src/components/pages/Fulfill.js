@@ -158,13 +158,7 @@ function Box(props) {
                 {reqCreator && (
                   <div>
                     <p className="modal-title">fulfilled</p>
-                    <p>
-                      {
-                        "thank you for fulfilling @" +
-                          reqCreator.username +
-                          "'s request!"
-                      }
-                    </p>
+                    <p>{"thank you for fulfilling @" + reqCreator.username + "'s request!"}</p>
                     <br />
                   </div>
                 )}
