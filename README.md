@@ -6,7 +6,7 @@ timtrade is a virtual marketplace connecting MIT students with other students wh
 
 ## website
 
-access timtrade at http://timtrade.herokuapp.com.
+access timtrade at https://timtrade.herokuapp.com/.
 
 ## credits
 
